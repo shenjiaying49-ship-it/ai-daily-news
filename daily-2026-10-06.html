@@ -54,6 +54,15 @@
   footer{color:var(--muted);font-size:12.5px;text-align:center;margin-top:8px}
   .muted{color:var(--muted)}
   code{font-size:12px;background:#f3f4f6;border-radius:4px;padding:1px 5px}
+  .quizsec{background:#fff7ed;border:1px solid #fdba74}
+  .quizsec h2.sec{border-bottom-color:#fdba74}
+  .quizsec h2.sec b{color:#c2410c}
+  .qlevel{display:inline-block;font-size:13px;font-weight:700;background:#ffedd5;color:#c2410c;border-radius:8px;padding:4px 12px}
+  .qlist{background:#fff;border:1px solid #fdba74;border-radius:10px;padding:12px 18px;margin-top:10px}
+  .qlist ol{margin:6px 0 0;padding-left:20px}
+  .qlist li{margin:8px 0;font-size:14px}
+  .qhint{font-size:12px;color:var(--muted)}
+  .howto{margin-top:12px;font-size:13.5px;color:#9a3412}
   @media (max-width:700px){section,header.masthead{padding:20px 16px}.paper-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -286,6 +295,20 @@
       </ol>
     </div>
     <p class="hw">你的作业：用自己的话写 200-300 字解释，保存为 <code>knowledge/feynman-notes/2026-10-06-我的解释.md</code>（前两期 RSI、前向 / 反向 KL 的作业也还开着，一起交），下周一的费曼课逐一点评。</p>
+  </section>
+
+  <section class="quizsec">
+    <h2 class="sec">SECTION 08 · <b>今日测验（L1 · 识别级）</b></h2>
+    <p><span class="qlevel">今日难度 L1</span> <span class="muted">测验系统第一天，从最低档开始。全部答对明天升 L2。</span></p>
+    <div class="qlist"><b>题目（当日通识 + 旧概念复习）</b>
+      <ol>
+        <li>Transformer 抛弃了前代模型的哪两类组件？ <span class="qhint">提示：通识精读第 1 节</span></li>
+        <li>自注意力里的 Q、K、V 分别代表什么？ <span class="qhint">提示：第 2 节</span></li>
+        <li>自注意力解决了 RNN 的哪两大痛点？ <span class="qhint">提示：第 2 节</span></li>
+        <li>（复习）递归自改进（RSI）与普通的模型蒸馏升级，差在哪一环？ <span class="qhint">提示：NO.001 费曼时刻</span></li>
+      </ol>
+    </div>
+    <p class="howto">作答方式：把答案写到 <code>knowledge/quiz-answers/2026-10-06.md</code>（不会就写「不会」，也算作答），明早 8:10 的任务会批改并按结果调整明天测验的难度。</p>
   </section>
 
   <div class="note">论文 PDF 获取说明：本期 8 份 arXiv PDF 已入库 <code>site/papers/</code>。校园网状态：当前出口为代理节点（非校园网），IEEE / ACM / Springer / Nature 等付费库暂无法自动入库——用 EasyConnect / aTrust 登录学校 VPN 后，下一期起自动抓取。系统不会替你保存或输入密码。</div>
