@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Daily News · 2026-10-05 · 研究版 NO.002</title>
+<style>
+  :root{--ink:#111827;--muted:#6b7280;--accent:#1d4ed8;--line:#e5e7eb;--chip:#eef2ff;--chip-ink:#3730a3;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#f5f6f8;color:var(--ink);font:15px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;}
+  .wrap{max-width:960px;margin:0 auto;padding:36px 18px 60px}
+  header.masthead{background:#fff;border:1px solid var(--line);border-radius:16px;padding:30px 32px 24px;margin-bottom:20px}
+  .brand{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+  .brand b{color:var(--accent)}
+  h1.date{font-size:24px;margin:14px 0 6px;letter-spacing:.02em}
+  .lede{font-size:16px;line-height:1.85;margin:12px 0 0;padding-left:14px;border-left:4px solid var(--accent);color:#1f2937}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:20px}
+  .stat{background:#f9fafb;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .stat .num{font-size:20px;font-weight:700}
+  .stat .lbl{font-size:12px;color:var(--muted);margin-top:2px}
+  section{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 30px;margin-bottom:20px}
+  h2.sec{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+  h2.sec b{color:var(--accent)}
+  .layer{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--chip-ink);margin:16px 0 10px}
+  .paper-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:12px}
+  .paper{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#f9fafb}
+  .paper h4{margin:0 0 6px;font-size:14.5px;line-height:1.5}
+  .paper h4 a{color:var(--ink)}
+  .paper h4 a:hover{color:var(--accent)}
+  .pmeta{font-size:12px;color:var(--muted);margin-bottom:6px}
+  .pdesc{font-size:13.5px;line-height:1.65}
+  .pwhy{font-size:13px;margin-top:6px;color:#1f2937}
+  .plinks{margin-top:8px;font-size:12px;display:flex;flex-wrap:wrap;gap:4px 12px}
+  .plinks a{color:var(--accent);font-weight:600}
+  .chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;padding:2px 7px;border-radius:6px;background:var(--chip);color:var(--chip-ink);text-transform:uppercase;margin-right:6px;vertical-align:1px}
+  ul.news{list-style:none;margin:0;padding:0;font-size:14px}
+  ul.news li{padding:8px 0;border-bottom:1px dashed var(--line)}
+  ul.news li:last-child{border-bottom:0}
+  .d{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--muted);margin-right:8px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .verdict{margin-top:16px;padding:12px 16px;background:#eff6ff;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;font-weight:700}
+  .risk{margin-top:12px;padding:10px 16px;background:#fef2f2;border-left:4px solid #dc2626;border-radius:0 10px 10px 0;font-size:14px}
+  .block{margin:14px 0}
+  .block h4{margin:0 0 4px;font-size:14.5px}
+  details{margin:12px 0;border:1px solid var(--line);border-radius:10px;padding:0 16px;background:#fafafa}
+  summary{cursor:pointer;font-weight:600;color:var(--accent);padding:10px 0;font-size:14px}
+  details[open] summary{border-bottom:1px dashed var(--line)}
+  .feynman{background:#eef2ff;border:1px solid #c7d2fe}
+  .feynman h2.sec{border-bottom-color:#c7d2fe}
+  .quiz{background:#fff;border:1px solid #c7d2fe;border-radius:10px;padding:10px 16px;margin-top:8px}
+  .hw{margin-top:12px;font-size:13.5px;color:#3730a3}
+  .note{margin-top:4px;margin-bottom:20px;font-size:12.5px;color:var(--muted);background:#fff;border:1px dashed var(--line);border-radius:10px;padding:8px 14px}
+  footer{color:var(--muted);font-size:12.5px;text-align:center;margin-top:8px}
+  .muted{color:var(--muted)}
+  code{font-size:12px;background:#f3f4f6;border-radius:4px;padding:1px 5px}
+  @media (max-width:700px){section,header.masthead{padding:20px 16px}.paper-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="brand"><b>AI DAILY NEWS · 研究版</b><span>NO.002 · 每天早上 8:10 自动更新</span></div>
+    <h1 class="date">2026-10-05 星期一</h1>
+    <p class="lede">本期 24 条论文与发布覆盖 6 个方向。<b>两条暗线正在合流：自动化 AI 研发从「进化 prompt」进阶到「进化工作流 + 数据 + 经验树」；Agent 系统开始用显式结构（信念状态、经验树、证据图、源模型）对抗失忆与空转</b>。世界模型那边，显式 4D 几何与全景观察者把「可控性、持久性」顶到了能力数字前面。</p>
+    <div class="stats">
+      <div class="stat"><div class="num">24 篇</div><div class="lbl">论文 / 发布</div></div>
+      <div class="stat"><div class="num">6 个</div><div class="lbl">覆盖方向</div></div>
+      <div class="stat"><div class="num">8 份</div><div class="lbl">本地 PDF</div></div>
+      <div class="stat"><div class="num">10 个</div><div class="lbl">开源发布 / 权重</div></div>
+    </div>
+  </header>
+
+  <section>
+    <h2 class="sec">SECTION 01 · <b>前沿论文速递</b></h2>
+
+    <div class="layer">A · 理论与架构</div>
+    <div class="paper-grid">
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2610.02185">Decoding Looped Transformers Better for (Almost) Free</a></h4>
+        <div class="pmeta">Apple · 10-01 · arXiv:2610.02185</div>
+        <div class="pdesc">LoopCD：无需训练的对比解码，把循环 Transformer 早期递归轮次的「弱预测」当免费负信号。Ouro-2.6B-Thinking 的 AIME24 pass@1 61.88%→73.33%，递归轮次砍半性能持平，前向 FLOPs 省 22.5%~48.2%。</div>
+        <div class="pwhy"><b>为什么值得读</b>：「早期迭代即天然草稿模型」，递归深度自适应的新杠杆。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2610.02185">arXiv ↗</a><a href="papers/2610.02185.pdf">本地 PDF ↓</a></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2609.20269">Placement Is Free, Composition Is Not（Aether-7B-5Attn）</a></h4>
+        <div class="pmeta">韩国团队（未署机构）· 09 首发 / v3 10-01 · arXiv:2609.20269</div>
+        <div class="pdesc">49 层用 7×7 拉丁方排布 7 种序列混合机制（attention/SSM 等）：异构机制均匀分布本身带来收益，排列方式无关紧要；齐次堆叠在大规模下损失 +2.63%。</div>
+        <div class="pwhy"><b>为什么值得读</b>：attention+SSM 混搭架构的首个系统性消融结论。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2609.20269">arXiv ↗</a><span class="muted">权重待开源（待验证）</span></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2610.02193">Hierarchical Continuous Diffusion Language Models（HC-DLM）</a></h4>
+        <div class="pmeta">UIUC · Schwing 组 · 10-01 · arXiv:2610.02193</div>
+        <div class="pdesc">离散 token 生成与连续隐变量轨迹耦合进同一去噪过程，变分界推导训练目标；Sudoku / Countdown / LM1B 超同尺寸离散与连续扩散基线。</div>
+        <div class="pwhy"><b>为什么值得读</b>：扩散语言模型「隐状态当记忆」的新路线。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2610.02193">arXiv ↗</a><span class="muted">未开源（项目页 hc-dlm.github.io）</span></div>
+      </div>
+    </div>
+
+    <div class="layer">B · 训练与 Scaling</div>
+    <div class="paper-grid">
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2609.35259">On-Policy or Off-Policy? A Systematic Study of Distillation Dynamics</a></h4>
+        <div class="pmeta">剑桥大学 · van der Schaar 组 · 09-28 · arXiv:2609.35259</div>
+        <div class="pdesc">解耦强到弱蒸馏三变量：rollout 策略并非主导，token 级 KL 方向决定性能与覆盖，学习率决定遗忘；前向 KL 对数据来源稳健，反向 KL 仅在学生自采样时好用。</div>
+        <div class="pwhy"><b>为什么值得读</b>：蒸馏调参避坑的「对照实验教科书」。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2609.35259">arXiv ↗</a><a href="papers/2609.35259.pdf">本地 PDF ↓</a></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2610.01509">Sharpening Tax in Post-Training</a></h4>
+        <div class="pmeta">Meta · 10-01 · arXiv:2610.01509</div>
+        <div class="pdesc">后训练会收窄 pass@K 可扩展性：14 对基座/后训练模型 × 3 个 agent 基准上，轻量推理 harness 的基座 pass@K 常反超后训练版；提出「锐化税」指标与按 prompt 自适应温度的 PTGS 采样器。</div>
+        <div class="pwhy"><b>为什么值得读</b>：挑战「RL 后训练只增强不伤害」的行业默认假设。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2610.01509">arXiv ↗</a><a href="papers/2610.01509.pdf">本地 PDF ↓</a></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2609.36820">CorrGRPO: Correlation-Normalized GRPO for Multi-Reward Learning</a></h4>
+        <div class="pmeta">HKUST · KnowComp · 09-29 · arXiv:2609.36820</div>
+        <div class="pdesc">多奖励 GRPO 里量级大 / 高相关的奖励会淹没归一化后的其他信号，改用 Pearson 相关系数重加权优势估计；0.5B~8B 模型在代码生成、工具调用、agent 安全三域全面提升。</div>
+        <div class="pwhy"><b>为什么值得读</b>：RLVR 多奖励设计的最小改动、即插即用修正。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2609.36820">arXiv ↗</a><a href="https://github.com/HKUST-KnowComp/CorrGRPO">代码 ↗</a></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2609.39687">Neighborhood On-Policy Self-Distillation（N-OPSD）</a></h4>
+        <div class="pmeta">美团 LongCat · 09-30 · arXiv:2609.39687</div>
+        <div class="pdesc">一池扰动「专家」替代单一教师：在线按 token 分位数路由选专家、clipped forward-KL 蒸馏；Qwen3-1.7B/4B/8B 在 AIME24/25、HMMT 上比 OPSD 高 1.67~2.75 分，推理零额外开销。</div>
+        <div class="pwhy"><b>为什么值得读</b>：自蒸馏领域「专家扰动池」新玩法。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2609.39687">arXiv ↗</a><span class="muted">未开源</span></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2609.32993">X-Tree: Tokenizing Reusable Experience for Efficient Agent Generalization</a></h4>
+        <div class="pmeta">滑铁卢大学 · 09-26 · arXiv:2609.32993</div>
+        <div class="pdesc">把 agent 轨迹按可复用性合并成「经验树」再喂给离线 RL / RLVR / 自蒸馏，全程零 LLM 调用；WebArena / ScienceWorld / WebShop 成功率最多 +4.5% / +5.8% / +4.1%。</div>
+        <div class="pwhy"><b>为什么值得读</b>：经验结构化是 agent 训练数据效率的杠杆点。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2609.32993">arXiv ↗</a><a href="https://github.com/sitaocheng/X-Tree">代码 ↗</a></div>
+      </div>
+    </div>
+
+    <div class="layer">C · Agent 与推理</div>
+    <div class="paper-grid">
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2609.38923">GraphForge: Training Working Agents with Graph-Anchored Workspace Synthesis</a></h4>
+        <div class="pmeta">机构未标注（待验证）· 09 末 · arXiv:2609.38923 <span class="chip">本体论-工程</span></div>
+        <div class="pdesc">用「证据图」把任务和验证都锚定在真实文件上，从职业场景种子合成带可验证交付物的办公任务，补上「干活型」Agent 的训练数据管线。</div>
+        <div class="pwhy"><b>落地价值</b>：办公自动化 Agent 的训练数据工厂。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2609.38923">arXiv ↗</a><span class="muted">未开源</span></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2610.01415">Beyond Memory: Harnessing Long-Horizon Agents with Explicit Belief States</a></h4>
+        <div class="pmeta">Yu Luo 等 · 10-01 · arXiv:2610.01415 <span class="chip">本体论-工程</span></div>
+        <div class="pdesc">推理时框架 PoS：为 Agent 维护显式「信念状态」（世界状态估计 + 未完成任务需求），并监测「信念陷阱」——持续行动却无实质进展就报警修正，替代粗暴堆历史记忆。</div>
+        <div class="pwhy"><b>落地价值</b>：长程流程 Agent（工单、运维、科研助理）防空转外挂。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2610.01415">arXiv ↗</a><a href="papers/2610.01415.pdf">本地 PDF ↓</a></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2610.02150">From Knowledge Access to Source Learning</a></h4>
+        <div class="pmeta">Lucheng Fu 等 · 10-01 · arXiv:2610.02150 <span class="chip">本体论-工程</span></div>
+        <div class="pdesc">源学习：把对同一权威文档库的反复访问沉淀为可复用「源模型」能力，而非每次重新检索，Agent 越用越懂这个源。</div>
+        <div class="pwhy"><b>落地价值</b>：企业知识库 / 法规库 / 产品手册的长期专属助理。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2610.02150">arXiv ↗</a><a href="https://github.com/luchengfu6/SourceLearn">代码 ↗</a></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2610.01026">It Takes Workflows to Evolve Better Workflows（FloWright）</a></h4>
+        <div class="pmeta">UIUC 等 · 10-01 · arXiv:2610.01026 <span class="chip">ASI</span></div>
+        <div class="pdesc">工作流生成器与执行 agent 双角色共进化：层级化结构奖励 + DataWright 数据硬化，无需额外模型或标注；小开源模型最高 +7.41%，共进化比单角色优化多 2.2 个点。</div>
+        <div class="pwhy"><b>为什么值得读</b>：从「进化 prompt」进阶到「进化工作流+数据」的实证。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2610.01026">arXiv ↗</a><a href="papers/2610.01026.pdf">本地 PDF ↓</a></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2609.40097">AutoDataBench: A Data-centric Testbed for Accelerating Auto Research</a></h4>
+        <div class="pmeta">多机构合作 · 09-30 · arXiv:2609.40097 <span class="chip">ASI</span></div>
+        <div class="pdesc">首个隔离「数据智能」的自动化研究基准：固定框架 / 算力 / 超参，专考 agent 诊断、组织、构造训练数据的能力，还测 LLM 的「数据效果推理」。</div>
+        <div class="pwhy"><b>为什么值得读</b>：自动化 AI 研发终于有了控制变量的考卷。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2609.40097">arXiv ↗</a><a href="https://github.com/AutoDataBench/AutoDataBench">代码 ↗</a></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2610.01108">AgSpec: Retrieval-Based Speculative Decoding in Coding Agent Pipelines</a></h4>
+        <div class="pmeta">机构未标注 · 10-01 · arXiv:2610.01108</div>
+        <div class="pdesc">针对 coding-agent 场景重做检索式投机解码：会话 / 工作区 / 全局三级语料 + agent 输出格式索引 + 在线自适应草稿长度；多数设置胜过 EAGLE-3，吞吐最高 4.37×（bs=1）/ 4.76×（bs=16）。</div>
+        <div class="pwhy"><b>为什么值得读</b>：投机解码与 agent 工作负载第一次深度咬合。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2610.01108">arXiv ↗</a><span class="muted">未开源</span></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2609.32259">Prefill-Free Cross-Family KV Cache Transfer（HeteroFold）</a></h4>
+        <div class="pmeta">USC · 09-26 · arXiv:2609.32259</div>
+        <div class="pdesc">双模型冻结前提下跨模型家族直接搬 KV cache（处理分词 / 深度 / 表示差异），32K 上下文下 Llama-3.1-8B→Ministral-3-14B 传输比原生 prefill 快 10.7×。</div>
+        <div class="pwhy"><b>落地价值</b>：多 agent 系统里「异构模型接力」的推理成本杀手。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2609.32259">arXiv ↗</a><span class="muted">未开源</span></div>
+      </div>
+    </div>
+
+    <div class="layer">D · 世界模型与具身</div>
+    <div class="paper-grid">
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2610.02162">World Observer: Joint Actor-Observer Generation for Persistent World Modeling</a></h4>
+        <div class="pmeta">NUS（待验证）· 10-01 · arXiv:2610.02162</div>
+        <div class="pdesc">视频世界模型「演员视角一转就失忆」：引入与 actor 联合生成的全景观察者，让离开视野的物体继续演化，重入视野时状态一致。</div>
+        <div class="pwhy"><b>落地价值</b>：游戏 / 仿真环境的状态持久化、机器人操作中的遮挡记忆。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2610.02162">arXiv ↗</a><a href="papers/2610.02162.pdf">本地 PDF ↓</a></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2610.02160">4Director: Controlling Video World Models with Rigid 3D Geometry</a></h4>
+        <div class="pmeta">Stability AI + UIUC · 10-01 · arXiv:2610.02160</div>
+        <div class="pdesc">视频世界模型改为以显式 4D 场景为条件：物体一次性重建为 canonical mesh，逐帧施加指定刚体变换，相机 / 物体 / 插入物体可联合精确控制。</div>
+        <div class="pwhy"><b>落地价值</b>：影视预演、广告的导演级可控生成。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2610.02160">arXiv ↗</a><a href="https://github.com/VVeiCao/4Director">代码 ↗</a></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2610.02204">Reconstruct, Practice, Go Real: Guided Self-Improvement for Embodied Agents</a></h4>
+        <div class="pmeta">Yen-Jen Wang 等 · 10-02 前后 · arXiv:2610.02204 <span class="chip">ASI</span></div>
+        <div class="pdesc">不更新模型权重的机器人自我改进闭环：从离线数据识别能力 → 仿真中构建练习任务 → 用执行反馈与 privileged state 诊断失败 → 产出新符号技能与修订后的系统提示，再回真实环境。</div>
+        <div class="pwhy"><b>落地价值</b>：已部署机器人系统的免训练持续运维。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2610.02204">arXiv ↗</a><a href="papers/2610.02204.pdf">本地 PDF ↓</a></div>
+      </div>
+    </div>
+
+    <div class="layer">E · 多模态与生成</div>
+    <div class="paper-grid">
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2610.01762">OneStreamer: Unifying Perception, Memory, and Proactive Response in Streaming Video</a></h4>
+        <div class="pmeta">南京大学 MCG · 10-01 · arXiv:2610.01762</div>
+        <div class="pdesc">流式视频 LLM 统一「边看、边记、该开口时开口」：Proactive Hierarchical Caption Memory 生成带时间戳的局部字幕与事件摘要，实时感知与可复用记忆兼得。</div>
+        <div class="pwhy"><b>落地价值</b>：直播、监控、可穿戴第一视角的实时问答助手。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2610.01762">arXiv ↗</a><a href="https://mcg-nju.github.io/OneStreamer">项目页 ↗</a></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2609.38597">PixelUMM: Encoder-Free Unified Image and Video Understanding and Generation</a></h4>
+        <div class="pmeta">NVIDIA · 09 末 · arXiv:2609.38597</div>
+        <div class="pdesc">8B（Qwen3-8B 底座）无视觉编码器统一模型：图像 / 视频以像素 patch 直接进 Transformer，理解与生成共享表示，支持文生图、视频理解与视频生成。</div>
+        <div class="pwhy"><b>为什么值得读</b>：架构上验证「去编码器」路线可扩展到 8B。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2609.38597">arXiv ↗</a><a href="https://huggingface.co/nvidia/PixelUMM">权重 ↗</a></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2605.07019">LensVLM-9B（模型发布）</a></h4>
+        <div class="pmeta">Apple · 09-21 发布 · arXiv:2605.07019</div>
+        <div class="pdesc">先读文本的压缩图像，再由学习到的工具按需展开相关页面，长文档理解大幅省上下文；9B 权重与代码全部开放。</div>
+        <div class="pwhy"><b>落地价值</b>：合同 / 财报等长文档问答的低成本部署。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2605.07019">arXiv ↗</a><a href="https://huggingface.co/apple/LensVLM-9B">权重 ↗</a><a href="https://github.com/apple-aiml-research/ml-lensvlm">代码 ↗</a></div>
+      </div>
+    </div>
+
+    <div class="layer">F · AI for Science 与落地</div>
+    <div class="paper-grid">
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2610.02038">Mimir: Physics-Grounded LLM Agents for Long-Horizon Irrigation Control</a></h4>
+        <div class="pmeta">密歇根州立大学（待验证）· 10-01 · arXiv:2610.02038</div>
+        <div class="pdesc">面向整季灌溉的物理约束 LLM Agent：动作改变未来状态、误差跨天累积；结构化物理接口 + 双时间尺度修复，Agent 可从经验改进但不可改写物理规则。</div>
+        <div class="pwhy"><b>落地价值</b>：精准农业灌溉决策，可推广到温室、水资源调度。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2610.02038">arXiv ↗</a></div>
+      </div>
+      <div class="paper">
+        <h4><a href="https://arxiv.org/abs/2610.01827">Scientific Discovery under Validation Congestion via Multi-Fidelity Pairwise Rankings</a></h4>
+        <div class="pmeta">MIT CSAIL · 含 Wojciech Matusik · 10-01 · arXiv:2610.01827</div>
+        <div class="pdesc">针对「候选海量、实验验证堵车」的 AI for Science 瓶颈：多保真两两排序做候选甄选，把稀缺实验名额分给最值得做的设计。</div>
+        <div class="pwhy"><b>落地价值</b>：材料 / 分子筛选中实验资源的分配器，兼容现有生成管线。</div>
+        <div class="plinks"><a href="https://arxiv.org/abs/2610.01827">arXiv ↗</a><a href="papers/2610.01827.pdf">本地 PDF ↓</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec">SECTION 02 · <b>开源与代码发布</b></h2>
+    <ul class="news">
+      <li><span class="d">0920</span><b>Qwen-Image-2.1</b>（阿里 Qwen）—— 7B 单流 DiT 统一文生图+图像编辑：原生 RGBA 透明层、10 参考图、圈选/蒙版局部编辑、前缀 KV 复用降成本。<a href="https://huggingface.co/Qwen/Qwen-Image-2.1">HF ↗</a> · <a href="https://github.com/QwenLM/Qwen-Image-2.1">GitHub ↗</a></li>
+      <li><span class="d">0921</span><b>LensVLM-9B</b>（Apple）—— 9B 长文档理解权重开放，见 E 组。<a href="https://huggingface.co/apple/LensVLM-9B">HF ↗</a></li>
+      <li><span class="d">0926</span><b>X-Tree</b>（滑铁卢）—— 经验树 agent 训练框架（in progress）。<a href="https://github.com/sitaocheng/X-Tree">GitHub ↗</a></li>
+      <li><span class="d">0929</span><b>CorrGRPO</b>（HKUST）—— 多奖励 GRPO 修正。<a href="https://github.com/HKUST-KnowComp/CorrGRPO">GitHub ↗</a></li>
+      <li><span class="d">0930</span><b>AutoDataBench</b> —— 自动化研究数据基准。<a href="https://github.com/AutoDataBench/AutoDataBench">GitHub ↗</a></li>
+      <li><span class="d">0930</span><b>SemanTok</b>（Stability AI）—— 可预测语义 token 加速自回归视频生成（[arXiv:2610.00686](https://arxiv.org/abs/2610.00686)）。<a href="https://github.com/Stability-AI/SemanTok">GitHub ↗</a></li>
+      <li><span class="d">1001</span><b>SourceLearn</b> —— 源学习框架。<a href="https://github.com/luchengfu6/SourceLearn">GitHub ↗</a></li>
+      <li><span class="d">1001</span><b>4Director</b>（Stability AI + UIUC）—— 4D 几何控制视频世界模型。<a href="https://github.com/VVeiCao/4Director">GitHub ↗</a></li>
+      <li><span class="d">——</span><b>PixelUMM 权重</b>（NVIDIA，非商用许可）。<a href="https://huggingface.co/nvidia/PixelUMM">HF ↗</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="sec">SECTION 03 · <b>创业公司 / 实验室深度分析</b></h2>
+    <p><span class="chip">VIDEO WORLD MODELS</span><span class="chip">CONTROLLABLE GENERATION</span><b>Stability AI</b> <span class="muted">—— 从社区扩散公司转型为「可控视频世界模型」研究公司，两周连出 4Director + SemanTok 两篇可复现工作。</span></p>
+    <div class="block"><h4>关键成果与数据</h4><p>4Director（<a href="https://arxiv.org/abs/2610.02160">arXiv:2610.02160 ↗</a>，显式 4D 几何控制，代码开源）；SemanTok（<a href="https://arxiv.org/abs/2610.00686">arXiv:2610.00686 ↗</a>，推理代码开源）；rCM 一致性蒸馏基础设施自 6 月起持续开源。</p></div>
+    <div class="block"><h4>技术路线</h4><p>三线互咬——一致性蒸馏做快（rCM）、显式几何做可控（mesh + 刚体轨迹替代模糊的图像平面控制）、语义 token 化降成本；基于 Qwen 系底座做工程收敛。</p></div>
+    <div class="block"><h4>代表工作拆解</h4><p>4Director 把控制信号从文本 / 轨迹提示升级为显式 4D 场景——物体一次性重建 canonical mesh，逐帧施加刚体变换，相机 / 物体 / 插入物联合编辑；生成的物理一致性来自几何约束而非模型「悟性」。</p></div>
+    <div class="block"><h4>差异化与同行对比</h4><p>Sora 类走 latent 端到端（效果好但难精确控制）；Stability 押「显式结构 + 一致性加速」，面向专业制作管线——影视预演、虚拟制片、游戏资产动画、机器人仿真数据合成。</p></div>
+    <div class="risk"><b>风险</b>：旗舰权重多不开源，社区口碑是护城河也可能是软肋；视频世界模型算力消耗极大，商业化依赖 API；与 Runway / 电影级大厂正面竞争。</div>
+    <div class="verdict">核心判断：生成质量的差距在快速收敛，可控性才是视频世界模型的下一个主战场——Stability 用「显式几何」换「导演级控制」，再次证明结构化先验比纯 scaling 更先落地。</div>
+  </section>
+
+  <section>
+    <h2 class="sec">SECTION 04 · <b>技术方向深度分析</b></h2>
+    <p><span class="chip">ONTOLOGY × AGENT</span><b>Agent 的显式结构：信念状态、经验树与源学习</b> <span class="chip">本体论-工程</span></p>
+    <details open><summary>1 · 大白话解释（讲给 12 岁的你）</summary>
+      <p>给 Agent 配一本「工作手册 + 进度条」，而不是让它全靠聊天记录回忆自己干嘛。信念状态 = <b>进度条</b>（世界现在什么样、还欠哪些活）；经验树 = <b>错题本</b>（哪些经验可复用）；源模型 = 对某个资料库越混越熟的<b>专属秘书</b>。</p>
+    </details>
+    <details><summary>2 · 原理机制</summary>
+      <p>PoS：估计世界状态 → 列未完成任务需求 → 监测「持续行动无进展」即报警修正；X-Tree：轨迹按可复用性合并 → 结构化经验喂 RL / 自蒸馏；Source Learning：访问沉淀 → 源能力复用。</p>
+    </details>
+    <details><summary>3 · 为什么是现在</summary>
+      <p>长程 Agent 的两大故障模式——失忆（上下文滚掉）与空转（原地打转）——在工单、运维、科研助理等真实负载中集中爆发；堆记忆治标不治本。</p>
+    </details>
+    <details><summary>4 · 最新进展（本期论文）</summary>
+      <ul>
+        <li>PoS 显式信念状态 <a href="https://arxiv.org/abs/2610.01415">arXiv:2610.01415 ↗</a>（<a href="papers/2610.01415.pdf">本地 PDF ↓</a>）</li>
+        <li>X-Tree 经验树 <a href="https://arxiv.org/abs/2609.32993">arXiv:2609.32993 ↗</a></li>
+        <li>GraphForge 证据图任务合成 <a href="https://arxiv.org/abs/2609.38923">arXiv:2609.38923 ↗</a></li>
+        <li>Source Learning 源学习 <a href="https://arxiv.org/abs/2610.02150">arXiv:2610.02150 ↗</a></li>
+        <li>Mimir 结构化物理接口 <a href="https://arxiv.org/abs/2610.02038">arXiv:2610.02038 ↗</a></li>
+      </ul>
+    </details>
+    <details><summary>5 · 研究 / 产业影响</summary>
+      <p>这就是把「本体」做进 Agent 运行时——显式结构即轻量本体，与 ontology-as-kernel / GraphRAG 记忆合流后，将成为长程 Agent 的标配组件。</p>
+    </details>
+    <details><summary>6 · 学习要点</summary>
+      <p>① 信念状态 ≠ 记忆：前者是对世界与任务的估计，后者只是历史；② 经验结构化的收益来自「可复用性筛选」，不是存得多；③ Mimir 证明结构先验可以做到「允许学习、禁止越界」。</p>
+    </details>
+    <div class="verdict">核心判断：Agent 的下一个默认组件不是更大的上下文，而是显式世界结构——谁把本体做进运行时，谁的 Agent 才能长程不崩。</div>
+  </section>
+
+  <section>
+    <h2 class="sec">SECTION 05 · <b>语料精选</b></h2>
+    <p class="muted">今日无。把材料（含论文 PDF）丢进 <code>corpus/</code> 即会在下一期出现。</p>
+  </section>
+
+  <section class="feynman">
+    <h2 class="sec">SECTION 06 · <b>今日费曼时刻</b></h2>
+    <p><span class="chip">FEYNMAN</span><b>概念：前向 KL vs 反向 KL</b></p>
+    <p><b>示范解释（讲给 12 岁的你）</b>：拍毕业照。前向 KL 是<b>广角镜头</b>——老师会的每个知识点学生都必须会，代价是每个都不够精（mean-seeking，覆盖所有模式）；反向 KL 是<b>长焦镜头</b>——学生只敢落在老师最可能的少数区域，输出锋利但容易漏解（mode-seeking）。这就是为什么蒸馏研究里，反向 KL 只在「学生自己采数据」时才好用。</p>
+    <div class="quiz"><b>自测三问</b>
+      <ol>
+        <li>为什么反向 KL 蒸馏对 rollout 来自学生还是教师很敏感，前向 KL 却无所谓？（提示：谁的分布在「追」谁）</li>
+        <li>用 mode-seeking 一句话解释：反向 KL 蒸馏的模型为何在多样任务上容易漏解？</li>
+        <li>N-OPSD 为什么选 clipped forward-KL？结合「专家池提供互补覆盖」说说它与覆盖面的关系。</li>
+      </ol>
+    </div>
+    <p class="hw">你的作业：用自己的话写 200-300 字解释，保存为 <code>knowledge/feynman-notes/2026-10-05-我的解释.md</code>（上一期 RSI 的作业也还开着，一起交），周一的费曼课逐一点评。</p>
+  </section>
+
+  <div class="note">论文 PDF 获取说明：本期 8 份 arXiv PDF 已入库 <code>site/papers/</code>。校园网状态：当前出口为代理节点（非校园网），IEEE / ACM / Springer / Nature 等付费库暂无法自动入库——用 EasyConnect / aTrust 登录学校 VPN 后，下一期起自动抓取。系统不会替你保存或输入密码。</div>
+  <footer>NO.002 · 研究版 · 多智能体管线编译 · 24 条全部附来源 · arXiv ID 逐篇核实 · <a href="index.html">← 返回目录</a></footer>
+</div>
+</body>
+</html>
