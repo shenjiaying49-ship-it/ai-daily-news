@@ -129,56 +129,105 @@
 
   <section id="s2">
     <h2 class="sec">SECTION 02 · <b>GitHub 热榜与开源发布</b></h2>
-    <div class="layer">A · 趋势榜（本周上星最快，数据实抓于 github.com/trending）</div>
+    <div class="layer">A · 趋势榜（本周上星最快，数据实抓于 github.com/trending，分析基于各项目 README）</div>
     <div class="paper-grid">
       <div class="paper">
         <h4><a href="https://github.com/DietrichGebert/ponytail">DietrichGebert/ponytail</a></h4>
         <div class="pmeta">★ 156,283（本周 +8,596）· JavaScript</div>
-        <div class="pdesc"><b>它是干嘛的</b>：让 AI Agent 学会「最懒的高级工程师思维」——最好的代码是你永远不用写的那行。</div>
-        <div class="pwhy"><b>为什么火</b>：踩中「Agent 产出过剩、判断稀缺」的情绪。<b>与你的方向</b>：Agent 行为设计策略。</div>
+        <div class="pdesc"><b>它是干嘛的</b>：一个「prompt 形态的技能」，把一位沉默寡言、只写一行代码的资深工程师的思维装进你的 AI Agent。</div>
+        <details><summary>▸ 展开详细分析</summary>
+          <p><b>解决什么问题</b>：AI 写代码的最大毛病是过度工程——你要个日期选择器，它装一个 flatpickr、写 wrapper 组件、加样式表、还要跟你讨论时区。官方对照实测（12 个功能任务、Haiku 4.5、n=4）：代码量 ~54% 更少（最高 94%）、成本 ~20% 更低、速度 ~27% 更快，且 100% 功能等价。</p>
+          <p><b>核心机制</b>：它本质上就是一个 SKILL.md 提示词，内置决策阶梯——写代码前先逐级自问：「这需要存在吗？（YAGNI）→ 有没有现成的？→ 一行能解决吗？→…」，在第一级站得住的地方停下来。</p>
+          <p><b>怎么上手</b>：Claude Code 两条命令装插件（/plugin marketplace add DietrichGebert/ponytail）；其他 Agent 把 AGENTS.md 复制进项目即可。</p>
+          <p><b>为什么现在火</b>：Agent 编码工具爆发后，「如何让 Agent 少写代码」成了新的稀缺能力；仓库自带对照实验数据，可复现。</p>
+          <p><b>与你的方向的连接</b>：这是「Insight 先于代码」的极端案例——想清楚了才能写短，与费曼学习法完全同构。</p>
+        </details>
+        <div class="insight"><b>INSIGHT BY AI</b> · 最好的代码是不用写的那行——54% 的代码量削减来自一个提示词。</div>
         <div class="plinks"><a href="https://github.com/DietrichGebert/ponytail">仓库 ↗</a></div>
       </div>
       <div class="paper">
         <h4><a href="https://github.com/paperclipai/paperclip">paperclipai/paperclip</a></h4>
         <div class="pmeta">★ 97,820（本周 +6,030）· TypeScript</div>
-        <div class="pdesc"><b>它是干嘛的</b>：开源的「工作 Agent 管理器」——公司里所有人怎么用 Agent 干活，都在一个 App 里管起来。</div>
-        <div class="pwhy"><b>为什么火</b>：Agent 从玩具进办公室，缺的正是管理层。<b>与你的方向</b>：Agent 基建。</div>
+        <div class="pdesc"><b>它是干嘛的</b>：自治 AI 组织管理器——像管一家公司一样管 Agent：定目标、招「员工」（任意 Agent）、批预算、看仪表盘。</div>
+        <details><summary>▸ 展开详细分析</summary>
+          <p><b>解决什么问题</b>：同时开 20 个 Claude Code 终端就管不过来；Agent 24/7 自治但无法审计、成本失控、没有组织。</p>
+          <p><b>核心机制</b>：四支柱——Agentic Task Manager（任务 / 审批 / 复核门 / 从 diff 与截图验证产出）、Org Chart for Agents（人 + Agent 混合组织架构、权限与边界）、Agent Employee Training（Skill Studio、评测与绩效考核）、Agentic OS（跨运行时、沙箱、SSO、成本控制）。心跳机制：Agent 被任务、跟进消息或定时唤醒，委派沿组织架构上下流动。</p>
+          <p><b>怎么上手</b>：「能收到心跳就能被雇」——Claude Code / Codex / Cursor / OpenClaw 等皆可接入，支持手机端管理自治业务。</p>
+          <p><b>为什么现在火</b>：多 Agent 并行从演示走向生产，「管理层缺失」是第一个爆掉的痛点。</p>
+          <p><b>与你的方向的连接</b>：这是 L3 系统层的「组织本体」——角色、权限、职责的结构化定义，是 Agent 组织化的前置条件。</p>
+        </details>
+        <div class="insight"><b>INSIGHT BY AI</b> · 多 Agent 时代的第一缺口是「组织架构」，不是模型。</div>
         <div class="plinks"><a href="https://github.com/paperclipai/paperclip">仓库 ↗</a></div>
       </div>
       <div class="paper">
         <h4><a href="https://github.com/Panniantong/Agent-Reach">Panniantong/Agent-Reach</a></h4>
         <div class="pmeta">★ 92,219（本周 +5,703）· Python</div>
-        <div class="pdesc"><b>它是干嘛的</b>：给 AI Agent 一双看全网的眼睛——Twitter / Reddit / YouTube / GitHub / B站 / 小红书，一个 CLI 零 API 费。</div>
-        <div class="pwhy"><b>为什么火</b>：Agent 的瓶颈从「会不会想」变成「看不看得到」。<b>与你的方向</b>：正是通识线 Toolformer「用工具」思想的工程版。</div>
+        <div class="pdesc"><b>它是干嘛的</b>：给 Agent 一键装上「互联网能力」——读推特、搜 Reddit、看 YouTube、刷小红书、订 RSS，一个 CLI 全搞定。</div>
+        <details><summary>▸ 展开详细分析</summary>
+          <p><b>解决什么问题</b>：Agent 的现实困境清单——YouTube 字幕拿不到、Twitter API 收费、Reddit 403 被封、小红书要登录、B站被风控、网页抓回来全是 HTML 标签。每个平台一个坑，自己折腾要半天。</p>
+          <p><b>核心机制</b>：把各平台的接入方式（免费 API、登录态、解析与清洗方案）预置打包并持续跟进风控变化；安装本身也是 Agent 化的——把 install.md 链接发给你的 Agent，它自己装好并自检。</p>
+          <p><b>怎么上手</b>：完全开源免费，唯一可能花钱的是服务器代理（$1/月，本地电脑不需要）。</p>
+          <p><b>为什么现在火</b>：Agent 的瓶颈从「会不会想」变成「看不看得到」；中文社区驱动、平台覆盖广。</p>
+          <p><b>与你的方向的连接</b>：正是本周通识线 Toolformer「学会用工具」的大众化工程版——本简报的信息抓取也是同类思路。</p>
+        </details>
+        <div class="insight"><b>INSIGHT BY AI</b> · Agent 的瓶颈从「会不会想」变成「看不看得到」。</div>
         <div class="plinks"><a href="https://github.com/Panniantong/Agent-Reach">仓库 ↗</a></div>
       </div>
       <div class="paper">
         <h4><a href="https://github.com/pbakaus/impeccable">pbakaus/impeccable</a></h4>
         <div class="pmeta">★ 77,245（本周 +4,936）· JavaScript</div>
-        <div class="pdesc"><b>它是干嘛的</b>：一套让 AI 前端生成更懂设计的「设计语言」规范——喂给 Agent，它做出来的界面就有品味。</div>
-        <div class="pwhy"><b>为什么火</b>：AI 生成的 UI 千篇一律，审美成了新瓶颈。</div>
+        <div class="pdesc"><b>它是干嘛的</b>：给 AI 编码 Agent 的「设计指导」——1 个 skill、24 条命令、浏览器实时迭代、60 条确定性检测规则。</div>
+        <details><summary>▸ 展开详细分析</summary>
+          <p><b>解决什么问题</b>：所有模型在同一批 SaaS 模板上训练——Inter 字体、紫蓝渐变、卡片套卡片、灰字配彩底；不做干预，AI 生成的界面千篇一律。它脱胎于 Anthropic 官方 frontend-design skill 并大幅扩展。</p>
+          <p><b>核心机制</b>：/impeccable init 先把「产品真相」（受众、目的、使用语境、约束、语气）写进 PRODUCT.md，让后续命令能区分本质需求与表面视觉方向；60 条 detector 规则做确定性检查，而不是靠模型自觉。</p>
+          <p><b>怎么上手</b>：项目根目录 npx impeccable install，然后在 AI 工具里跑 /impeccable init。</p>
+          <p><b>为什么现在火</b>：AI 生成 UI 的「平均脸」问题集中爆发，审美成了新瓶颈。</p>
+          <p><b>与你的方向的连接</b>：结构化先验（规则 + 检测器）能立刻改善生成质量——与本周本体论主题同构。</p>
+        </details>
+        <div class="insight"><b>INSIGHT BY AI</b> · 结构化设计先验能让 AI 生成质量立刻上一个台阶。</div>
         <div class="plinks"><a href="https://github.com/pbakaus/impeccable">仓库 ↗</a></div>
       </div>
       <div class="paper">
         <h4><a href="https://github.com/heygen-com/hyperframes">heygen-com/hyperframes</a></h4>
         <div class="pmeta">★ 57,511（本周 +3,342）· TypeScript · HeyGen 出品</div>
-        <div class="pdesc"><b>它是干嘛的</b>：写 HTML 就能渲染成视频，专门为 Agent 设计的视频生产管线。</div>
-        <div class="pwhy"><b>为什么火</b>：视频是 Agent 产出的下一个主战场，结构化输入（HTML）比像素生成可控得多。</div>
+        <div class="pdesc"><b>它是干嘛的</b>：写 HTML 就能渲染成确定性 MP4 视频的开源框架，专为 Agent 设计的视频生产管线。</div>
+        <details><summary>▸ 展开详细分析</summary>
+          <p><b>解决什么问题</b>：像素级视频生成不可控、不可复现；而 HTML/CSS/可寻址动画是 Agent 已经精通的语言——渲染是确定性的。</p>
+          <p><b>核心机制</b>：21 个 skills 教 Agent 完整生产环：规划视频 → 写 HTML → 接可寻址动画 → 加媒体 → lint → 预览 → 渲染；/hyperframes 路由按「帮我做个…」的请求自动挑工作流。</p>
+          <p><b>怎么上手</b>：claude plugin install hyperframes@hyperframes，然后一句话「用 /hyperframes 做 10 秒产品介绍，淡入标题 + 背景视频 + 轻音乐」。</p>
+          <p><b>为什么现在火</b>：视频是 Agent 产出的下一个主战场，HeyGen 把自家渲染核心开源了。</p>
+          <p><b>与你的方向的连接</b>：结构化输入（HTML）替代像素生成——「可控性路线」的又一例证，与本周 4Director 的显式几何控制异曲同工。</p>
+        </details>
+        <div class="insight"><b>INSIGHT BY AI</b> · HTML→MP4 让「视频生成」从概率问题变成确定性问题。</div>
         <div class="plinks"><a href="https://github.com/heygen-com/hyperframes">仓库 ↗</a></div>
       </div>
       <div class="paper">
         <h4><a href="https://github.com/debpalash/VoiceStudio">debpalash/VoiceStudio</a></h4>
         <div class="pmeta">★ 53,976（本周 +12,036 · 全榜增速第一）· Python</div>
-        <div class="pdesc"><b>它是干嘛的</b>：开源、完全本地的 ElevenLabs 替代——语音克隆、音色设计、视频配音、转写、有声书一条龙。</div>
-        <div class="pwhy"><b>为什么火</b>：全本地 = 零调用费 + 隐私，Voice AI 开源化的标志性一周。</div>
+        <div class="pdesc"><b>它是干嘛的</b>：开源、完全本地的 ElevenLabs 替代——语音克隆、音色设计、视频配音、听写、转写、有声书，支持 646 种语言。</div>
+        <details><summary>▸ 展开详细分析</summary>
+          <p><b>解决什么问题</b>：语音 API 按字符收费且数据上云；现有本地方案碎片化、装起来痛苦。</p>
+          <p><b>核心机制</b>：Electron 桌面 App，默认引擎为 k2-fsa/OmniVoice，可切换引擎目录；提供本地 API 与 MCP 接口——你的 Agent 可以直接调用语音能力；支持可选远程 worker 分担算力。</p>
+          <p><b>怎么上手</b>：一条命令 curl -fsSL https://voicestudio.sh/install | sh（macOS / Linux / Windows 皆有）。</p>
+          <p><b>为什么现在火</b>：全本地 = 零调用费 + 隐私 + 离线可用，本周全榜增速第一，Voice AI 开源化的标志性事件。</p>
+          <p><b>与你的方向的连接</b>：MCP 接口让它天然成为 Agent 的「嗓子」——Agent 工具生态的语音一环。</p>
+        </details>
+        <div class="insight"><b>INSIGHT BY AI</b> · 全本地语音栈 + MCP = 每个 Agent 都请得起配音演员。</div>
         <div class="plinks"><a href="https://github.com/debpalash/VoiceStudio">仓库 ↗</a></div>
       </div>
       <div class="paper">
         <h4><a href="https://github.com/vectorize-io/hindsight">vectorize-io/hindsight</a></h4>
         <div class="pmeta">★ 46,096（本周 +6,565）· Python</div>
-        <div class="pdesc"><b>它是干嘛的</b>：会学习的 Agent 记忆——不是存聊天记录，而是从经验里沉淀出可复用的知识。</div>
-        <div class="pwhy"><b>为什么火</b>：Agent 记忆是本周论文线的同名主题。<b>与你的方向</b>：记忆「知识图谱化」+ 本体论的工程落点。</div>
-        <div class="plinks"><a href="https://github.com/vectorize-io/hindsight">仓库 ↗</a></div>
+        <div class="pdesc"><b>它是干嘛的</b>：「会学习」的 Agent 记忆系统——不是存聊天记录，而是让 Agent 从经验中沉淀知识；LongMemEval 基准 SOTA（2026-01 报告）。</div>
+        <details><summary>▸ 展开详细分析</summary>
+          <p><b>解决什么问题</b>：RAG 与知识图谱方案的短板——只回忆、不理解。Hindsight 主张记忆系统的目标不是「记住」而是「学会」。</p>
+          <p><b>核心机制</b>：三个操作 retain（存）/ recall（取）/ reflect（生成带倾向的回答）+ observations（从经验中提炼的事实）+ mental models & knowledge pages（心智模型与知识页）+ memory banks（按域分库）；有 arXiv 论文（2512.12818）支撑，LongMemEval 成绩公开可查。</p>
+          <p><b>怎么上手</b>：pip 装 hindsight-api / hindsight-client；最省事的接入是 LLM Wrapper——把 LLM client 换成 wrap 后的版本，每次调用自动存取记忆（LiteLLM 底座覆盖 100+ 模型，LangGraph / LlamaIndex / CrewAI 等框架原生集成）。</p>
+          <p><b>为什么现在火</b>：Agent 记忆是本周论文线的同名主题，它甚至公开宣称「消除 RAG 与知识图谱两条路线的短板」。</p>
+          <p><b>与你的方向的连接</b>：记忆「知识图谱化 + 心智模型」正是本体论的工程落点——值得把它的论文与 OaK（2608.22974）对读。</p>
+        </details>
+        <div class="insight"><b>INSIGHT BY AI</b> · 记忆的终局不是「存」，是「学」。</div>
+        <div class="plinks"><a href="https://github.com/vectorize-io/hindsight">仓库 ↗</a><a href="https://arxiv.org/abs/2512.12818">论文 ↗</a></div>
       </div>
     </div>
     <div class="layer">B · 重要开源发布</div>
