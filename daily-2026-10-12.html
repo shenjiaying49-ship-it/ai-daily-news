@@ -99,7 +99,44 @@
         .footer-copy { font-size: 12px; color: var(--text-3); }
         .footer-top { font-size: 12px; color: var(--text-3); text-decoration: none; padding: 4px 12px; border: 1px solid var(--border); border-radius: 3px; }
         .footer-top:hover { color: var(--text); border-color: var(--text-3); }
-        @media (max-width: 900px) { .sidebar { display: none; } .main { padding-left: 0; } .page { padding: 0 20px; } }
+        /* ===== H5 移动端适配 ===== */
+        .mob-toc { display: none; }
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main { padding-left: 0; }
+            .page { padding: 0 16px; }
+            .topbar { padding: 0 14px; }
+            .topbar-tagline { display: none; }
+            .header { padding: 20px 0 16px; }
+            .header h1 { font-size: 20px; line-height: 1.45; }
+            .header-sub { font-size: 12px; }
+            .summary { padding: 16px 0 18px; }
+            .sum-item { font-size: 12.5px; }
+            .card-h { font-size: 15px; }
+            .card-body { font-size: 13.5px; }
+            .card-note { font-size: 12.5px; }
+            .boxes { grid-template-columns: 1fr; }
+            .mob-toc {
+                display: flex; gap: 8px; overflow-x: auto;
+                padding: 10px 14px; background: var(--bg);
+                border-bottom: 1px solid var(--border);
+                position: sticky; top: 48px; z-index: 90;
+                -webkit-overflow-scrolling: touch;
+            }
+            .mob-toc::-webkit-scrollbar { display: none; }
+            .mob-toc a {
+                flex-shrink: 0; font-size: 12px; font-weight: 600;
+                color: var(--text-2); text-decoration: none;
+                border: 1px solid var(--border); border-radius: 999px; padding: 5px 13px;
+            }
+            .mob-toc a:active { color: var(--purple); border-color: var(--purple); }
+            .quiz-item label { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; margin: 4px 0; border: 1px solid var(--border); border-radius: 6px; font-size: 13.5px; }
+            .quiz-item label:active { background: var(--purple-20); }
+            .quiz-item input[type=radio] { flex-shrink: 0; margin-top: 4px; }
+            .qbtn { width: 100%; padding: 12px 0; font-size: 14px; }
+            .issue-nav { flex-wrap: wrap; gap: 8px; }
+            .issue-nav a { padding: 8px 14px; }
+        }
 </style>
 </head>
 <body>
@@ -114,6 +151,10 @@
     <a class="topbar-btn" href="https://github.com/shenjiaying49-ship-it/ai-daily-news">GitHub ↗</a>
   </div>
 </div>
+
+<nav class="mob-toc">
+  <a href="#s1">01 通识</a><a href="#s2">02 热榜</a><a href="#s3">03 速递</a><a href="#s4">04 深度</a><a href="#s5">05 初创</a><a href="#s6">06 语料</a><a href="#s7">07 测验</a>
+</nav>
 
 <div class="page">
 
@@ -422,40 +463,40 @@
       </div>
 
       <div class="sec" id="s7" style="background:var(--note-bg);border:1px solid var(--border);border-radius:3px;padding:16px 18px">
-        <div class="sec-h">Section 07 — 每日测验（L1 · 识别级）· 可直接在本页作答</div>
-        <div class="sec-intro"><span class="pill">今日难度 L1</span> 小提醒：10-06 / 10-08 / 10-12 三份测验均未见到作答记录——不急，页面里做完把得分写进 quiz-answers 对应日期文件即可，下次批改一起算。全对升 L2。</div>
+        <div class="sec-h">Section 07 — 每日测验（L2 · 机制理解级）· 可直接在本页作答</div>
+        <div class="sec-intro"><span class="pill">今日难度 L2</span> 难度已按你的要求上调：不再考「是什么」，考「为什么」——证明你不只是看过，是真的理解了。全对升 L3（迁移级）。</div>
 
-        <div class="quiz-item" data-key="b">
-          <p class="qt">1. Chinchilla 的核心结论是什么？ <span class="qhint">提示：通识精读第 1 节</span></p>
-          <label><input type="radio" name="q1" value="a"> 模型越大越好，数据量不重要</label>
-          <label><input type="radio" name="q1" value="b"> 模型大小与训练数据应等比缩放</label>
-          <label><input type="radio" name="q1" value="c"> 小模型永远优于大模型</label>
-          <label><input type="radio" name="q1" value="d"> RL 比预训练更划算</label>
-          <div class="exp"><b>答案：B。</b>400+ 模型实验收敛到同一结论：每翻倍参数，训练 token 也要翻倍——「书和书架一起长」。</div>
-        </div>
-        <div class="quiz-item" data-key="b">
-          <p class="qt">2. Chinchilla 论文判定当时的超大模型（如 GPT-3）处于什么状态？ <span class="qhint">提示：第 1-2 节</span></p>
-          <label><input type="radio" name="q2" value="a"> 过拟合</label>
-          <label><input type="radio" name="q2" value="b"> 显著欠训练（undertrained）</label>
-          <label><input type="radio" name="q2" value="c"> 数据污染</label>
-          <label><input type="radio" name="q2" value="d"> 对齐过度</label>
-          <div class="exp"><b>答案：B。</b>GPT-3 用 175B 参数只喂了 300B token——书架远多于书；70B 的 Chinchilla 因此全面胜过 280B 的 Gopher。</div>
+        <div class="quiz-item" data-key="c">
+          <p class="qt">1. 为什么 70B 的 Chinchilla 能全面胜过 280B 的 Gopher？ <span class="qhint">提示：通识精读第 2-3 节</span></p>
+          <label><input type="radio" name="q1" value="a"> 它的 Transformer 架构更先进</label>
+          <label><input type="radio" name="q1" value="b"> 它训练了更长时间、学习率调度更精细</label>
+          <label><input type="radio" name="q1" value="c"> 参数与数据按等比定律配平——同样算力下它把预算花在了「书」（数据）上而非「书架」（参数）</label>
+          <label><input type="radio" name="q1" value="d"> 它用了更大的词表和更好的 tokenizer</label>
+          <div class="exp"><b>答案：C。</b>Gopher 把算力堆在参数上导致数据不足；Chinchilla 用 1/4 参数 × 4 倍数据拿到更优损失——架构与训练时长都不是原因，<b>配平</b>才是。</div>
         </div>
         <div class="quiz-item" data-key="a">
-          <p class="qt">3. Chinchilla 用什么实验得出结论？ <span class="qhint">提示：第 3 节</span></p>
-          <label><input type="radio" name="q3" value="a"> 训练了 400+ 个模型（70M–16B 参数 × 5–500B token）</label>
-          <label><input type="radio" name="q3" value="b"> 只分析了公开 benchmark</label>
-          <label><input type="radio" name="q3" value="c"> 一个 70B 模型的消融</label>
-          <label><input type="radio" name="q3" value="d"> 元分析 100 篇旧论文</label>
-          <div class="exp"><b>答案：A。</b>三种实验方法（固定模型变数据 / 固定算力变分配 / 等损失拟合边界）在 400+ 模型上收敛到同一 scaling 结论。</div>
+          <p class="qt">2. 论文判定 GPT-3「显著欠训练」的依据是什么？ <span class="qhint">提示：第 1 节 + 「图书馆」类比</span></p>
+          <label><input type="radio" name="q2" value="a"> 在拟合出的最优 N/D 曲线上，175B 参数对应的 300B token 远低于等比配平点——书架远多于书</label>
+          <label><input type="radio" name="q2" value="b"> 它的训练损失曲线到结尾仍未下降平台</label>
+          <label><input type="radio" name="q2" value="c"> 它在下游 benchmark 上分数不如 Chinchilla</label>
+          <label><input type="radio" name="q2" value="d"> 它推理时的成本太高</label>
+          <div class="exp"><b>答案：A。</b>「欠训练」不是指 loss 没收敛，而是指<b>相对最优配平点数据喂少了</b>——这是 Chinchilla 曲线给出的结构性判断，与训练是否完成无关。</div>
         </div>
         <div class="quiz-item" data-key="b">
-          <p class="qt">4.（复习 · NO.004）GPT-3 论文里的「few-shot learning」指什么？ <span class="qhint">提示：NO.004 通识精读第 2 节</span></p>
-          <label><input type="radio" name="q4" value="a"> 用少量数据微调权重</label>
-          <label><input type="radio" name="q4" value="b"> 上下文里给几个示例、不动权重直接作答</label>
-          <label><input type="radio" name="q4" value="c"> 强化学习从人类反馈学习</label>
-          <label><input type="radio" name="q4" value="d"> 模型自我对弈练习</label>
-          <div class="exp"><b>答案：B。</b>「试卷开头看三道例题就会做」——能力来自预训练，示例只是激活它；权重一个都没动。</div>
+          <p class="qt">3. Chinchilla 为什么用三种不同的实验方法（固定模型变数据 / 固定算力变分配 / 等损失拟合）互相印证？ <span class="qhint">提示：第 3 节</span></p>
+          <label><input type="radio" name="q3" value="a"> 为了增加论文篇幅与引用点</label>
+          <label><input type="radio" name="q3" value="b"> 每种方法单独都有系统偏差，三条独立证据链收敛到同一结论才可信</label>
+          <label><input type="radio" name="q3" value="c"> 当时审稿人的硬性要求</label>
+          <label><input type="radio" name="q3" value="d"> 为了覆盖更多下游任务</label>
+          <div class="exp"><b>答案：B。</b>scaling law 拟合极易被方法学偏差污染（如固定模型只看数据端）；三方法三角定位同一 N ∝ D 结论，才让「定律」站得住。</div>
+        </div>
+        <div class="quiz-item" data-key="d">
+          <p class="qt">4.（连接 NO.004）base 模型只在上下文里放几个示例就能把 MATH-500 从 42% 提到 78%——按 Chinchilla 的「能力来自配平的预训练」思路，这个现象说明什么？ <span class="qhint">提示：NO.004 通识精读 + 本期第 1 节</span></p>
+          <label><input type="radio" name="q4" value="a"> 模型权重在推理时被悄悄更新了</label>
+          <label><input type="radio" name="q4" value="b"> 说明 RL 后训练是获得推理能力的必需环节</label>
+          <label><input type="radio" name="q4" value="c"> 说明上下文窗口越长效果一定越好</label>
+          <label><input type="radio" name="q4" value="d"> 能力在预训练时已注入权重，示例只是「激活」它的接口——所以不用 RL 也能被唤醒</label>
+          <div class="exp"><b>答案：D。</b>能力来自数据配平的预训练（Chinchilla 视角），few-shot 示例不动权重、只负责唤醒（GPT-3 视角）——两篇通识在此接成一条逻辑线。</div>
         </div>
 
         <button class="qbtn" onclick="gradeQuiz()">提交批改</button>
@@ -481,9 +522,9 @@
             var box=document.getElementById('qresult');
             box.style.display='block';
             var msg;
-            if(correct===total){msg='全对！下次测验升到 L2（复述级）——把 4/4 记进 quiz-answers/2026-10-12.md 即可。';}
-            else if(correct>=total*0.6){msg='答对 '+correct+'/'+total+'：难度保持 L1，错题解析见上方——把得分记进 quiz-answers/2026-10-12.md。';}
-            else{msg='答对 '+correct+'/'+total+'：下次降回巩固档，薄弱概念会重讲——把得分记进 quiz-answers/2026-10-12.md。';}
+            if(correct===total){msg='全对！下次测验升到 L3（迁移级）——把 4/4 记进 quiz-answers/2026-10-12.md 即可。';}
+            else if(correct>=total*0.6){msg='答对 '+correct+'/'+total+'：难度保持 L2，错题解析见上方——把得分记进 quiz-answers/2026-10-12.md。';}
+            else{msg='答对 '+correct+'/'+total+'：错题解析见上方，概念会用大白话重讲——把得分记进 quiz-answers/2026-10-12.md。';}
             box.textContent=msg;
           }
         </script>
