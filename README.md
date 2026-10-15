@@ -2,7 +2,7 @@
 
 > 一份每天早上 8:10 自动生成的 AI 前沿研究日报 —— 论文速递 · GitHub 热榜 · 初创研报 · 通识精读 · 在线测验，全部由多智能体管线编译、发布到 GitHub Pages。
 
-**[▸ 在线阅读（GitHub Pages）](https://shenjiaying49-ship-it.github.io/ai-daily-news/)** · **[▸ 最新一期 NO.005](https://shenjiaying49-ship-it.github.io/ai-daily-news/daily-2026-10-12.html)** · **[▸ W1 周报](https://shenjiaying49-ship-it.github.io/ai-daily-news/weekly-briefing-20261005-1012.html)**
+**[▸ 在线阅读（GitHub Pages）](https://shenjiaying49-ship-it.github.io/ai-daily-news/)** · **[▸ 最新一期 NO.006](https://shenjiaying49-ship-it.github.io/ai-daily-news/daily-2026-10-15.html)** · **[▸ W1 周报](https://shenjiaying49-ship-it.github.io/ai-daily-news/weekly-briefing-20261005-1012.html)**
 
 ![Status](https://img.shields.io/badge/更新-每天_08:10-660874) ![Pages](https://img.shields.io/badge/GitHub_Pages-在线可访问-843990) ![License](https://img.shields.io/badge/内容-附来源链接-a36bac)
 
