@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Daily News · 研究版 · 2026-10-16</title>
+<style>
+        html { scroll-behavior: smooth; }
+        :root {
+            --bg: #ffffff; --bg-page: #FAF9F6; --text: #1a1a1a; --text-2: #444444; --text-3: #888888;
+            --border: #D9D8D6; --note-bg: #f4eff5; --pill-bg: #EFEDEA;
+            --purple: #660874; --purple-80: #843990; --purple-60: #a36bac; --purple-40: #c29cc8; --purple-20: #e8dce9;
+            --sidebar-w: 220px; --max-w: 740px;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root { --bg:#0a0a0a; --bg-page:#0a0a0a; --text:#e5e5e5; --text-2:#aaaaaa; --text-3:#666666;
+                --border:#1e1e1e; --note-bg:#1a111b; --pill-bg:#161412;
+                --purple:#b87cc4; --purple-80:#a06aad; --purple-60:#8a5d96; --purple-40:#6e3f7a; --purple-20:#3d1e45; }
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Noto Sans SC", sans-serif; background: var(--bg-page); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+        .topbar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); padding: 0 24px; height: 48px; display: flex; align-items: center; justify-content: space-between; }
+        .topbar-left { display: flex; align-items: baseline; gap: 10px; }
+        .topbar-brand { font-size: 14px; font-weight: 700; color: var(--purple); letter-spacing: -0.3px; }
+        .topbar-brand a { color: var(--purple); text-decoration: none; }
+        .topbar-tagline { font-size: 11px; color: var(--text-3); letter-spacing: 0.2px; }
+        .topbar-right { display: flex; gap: 8px; }
+        .topbar-btn { font-size: 12px; padding: 4px 12px; border: 1px solid var(--border); border-radius: 3px; color: var(--text-3); text-decoration: none; transition: all 0.15s ease; }
+        .topbar-btn:hover { color: var(--text); border-color: var(--text-3); }
+        .page { max-width: calc(var(--max-w) + var(--sidebar-w) + 80px); margin: 0 auto; padding: 0 32px; }
+        .header { padding: 28px 0 24px; border-bottom: 1px solid var(--border); }
+        .header-date { font-size: 12px; color: var(--text-3); font-variant-numeric: tabular-nums; margin-bottom: 8px; }
+        .header h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.3px; line-height: 1.4; color: var(--text); }
+        .header-sub { margin-top: 8px; font-size: 13px; color: var(--text-3); }
+        .summary { padding: 20px 0 24px; border-bottom: 1px solid var(--border); }
+        .sum-label { font-size: 11px; font-weight: 600; color: var(--purple); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+        .sum-cat { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px; margin-bottom: 10px; }
+        .sum-cat:last-child { margin-bottom: 0; }
+        .sum-cat-name { display: inline-block; background: var(--purple-20); color: var(--purple); padding: 2px 8px; border-radius: 3px; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+        .sum-item { background: var(--pill-bg); padding: 3px 10px; border-radius: 3px; font-size: 13px; color: var(--text-2); line-height: 1.5; }
+        .layout { display: flex; }
+        .sidebar { width: var(--sidebar-w); flex-shrink: 0; padding: 20px 16px 20px 0; position: sticky; top: 48px; height: calc(100vh - 48px); overflow-y: auto; border-right: 1px solid var(--border); }
+        .sidebar::-webkit-scrollbar { width: 0; }
+        .nav-label { font-size: 10px; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 1px; padding-bottom: 16px; }
+        .nav-sec { display: block; padding: 6px 0; font-size: 11px; font-weight: 600; color: var(--text); text-decoration: none; }
+        .nav-sec:hover { color: var(--purple); }
+        .nav-sec .n { color: var(--text-3); font-variant-numeric: tabular-nums; margin-right: 6px; }
+        .main { flex: 1; max-width: var(--max-w); padding: 20px 0 0 24px; min-width: 0; }
+        .sec { margin-bottom: 32px; scroll-margin-top: 64px; }
+        .sec-h { font-size: 11px; font-weight: 600; color: var(--purple); text-transform: uppercase; letter-spacing: 1.5px; padding-bottom: 10px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+        .card { padding: 16px 0; border-bottom: 1px solid var(--border); scroll-margin-top: 64px; }
+        .card:last-child { border-bottom: none; }
+        .card-h { font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--text); letter-spacing: -0.2px; margin-bottom: 8px; }
+        .card-h a { color: var(--text); text-decoration: none; }
+        .card-h a:hover { color: var(--purple); }
+        .ent { font-weight: 500; }
+        .card-meta { font-size: 12px; color: var(--text-3); margin-bottom: 8px; font-variant-numeric: tabular-nums; }
+        .card-body { font-size: 14px; line-height: 1.75; color: var(--text-2); }
+        .card-body strong { color: var(--text); font-weight: 600; }
+        .card-body a { color: var(--purple-80); text-decoration: none; }
+        .card-body a:hover { text-decoration: underline; }
+        .card-note { margin-top: 10px; padding: 10px 14px; background: var(--note-bg); font-size: 13px; line-height: 1.75; color: var(--text-2); border-radius: 2px; }
+        .note-label { font-size: 10px; font-weight: 600; color: var(--purple-80); text-transform: uppercase; letter-spacing: 0.5px; margin-right: 6px; }
+        .card-src { margin-top: 10px; font-size: 12px; color: var(--text-3); display: flex; flex-wrap: wrap; gap: 4px 14px; }
+        .card-src a { color: var(--text-3); text-decoration: none; }
+        .card-src a:hover { color: var(--text); }
+        .pill { display: inline-block; background: var(--purple-20); color: var(--purple); padding: 1px 8px; border-radius: 3px; font-size: 11px; font-weight: 600; margin-right: 6px; vertical-align: 1px; }
+        .sec-intro { font-size: 13px; color: var(--text-3); margin-bottom: 12px; }
+        .layer { font-size: 11px; font-weight: 600; color: var(--purple); letter-spacing: 1px; margin: 14px 0 4px; }
+        details.exp { margin-top: 10px; border: 1px solid var(--border); border-radius: 3px; padding: 0 14px; background: var(--bg); }
+        details.exp summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--purple-80); padding: 8px 0; list-style: none; }
+        details.exp summary::before { content: "▸ "; color: var(--text-3); }
+        details.exp[open] summary::before { content: "▾ "; }
+        details.exp p { font-size: 13.5px; line-height: 1.75; color: var(--text-2); margin: 6px 0 10px; }
+        details.exp p strong { color: var(--text); }
+        .boxes { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin: 10px 0; }
+        .box { border: 1px solid var(--border); border-radius: 3px; padding: 8px 10px; text-align: center; background: var(--bg); }
+        .box b { display: block; font-size: 14px; font-variant-numeric: tabular-nums; }
+        .box span { font-size: 11px; color: var(--text-3); }
+        ul.hl { margin: 8px 0 0; padding-left: 18px; font-size: 13.5px; color: var(--text-2); }
+        ul.hl li { margin: 4px 0; }
+        ul.hl strong { color: var(--text); }
+        .bar { background: var(--purple-20); border-radius: 3px; height: 6px; overflow: hidden; margin: 10px 0 4px; }
+        .bar i { display: block; height: 6px; background: var(--purple); }
+        .bar-cap { font-size: 11px; color: var(--text-3); }
+        .quiz-item { padding: 14px 0; border-bottom: 1px solid var(--border); }
+        .quiz-item p.qt { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+        .qhint { font-size: 12px; color: var(--text-3); font-weight: 400; }
+        .quiz-item label { display: block; font-size: 13.5px; color: var(--text-2); margin: 3px 0; cursor: pointer; padding-left: 4px; }
+        .quiz-item label:hover { color: var(--text); }
+        .quiz-item .exp { display: none; margin-top: 8px; padding: 10px 14px; background: var(--note-bg); font-size: 13px; line-height: 1.7; color: var(--text-2); border-radius: 2px; }
+        .qbtn { margin-top: 14px; background: var(--purple); color: #fff; border: 0; border-radius: 3px; padding: 8px 20px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+        .qbtn:hover { background: var(--purple-80); }
+        #qresult { display: none; margin-top: 14px; padding: 12px 14px; background: var(--note-bg); border-radius: 2px; font-size: 14px; font-weight: 600; }
+        .howto { margin-top: 12px; font-size: 13px; color: var(--text-3); }
+        code { font-size: 12px; background: var(--pill-bg); border-radius: 3px; padding: 1px 5px; }
+        .bottom { border-top: 1px solid var(--border); margin-top: 16px; padding: 20px 0 32px; }
+        .issue-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .issue-nav a { font-size: 13px; padding: 6px 16px; border: 1px solid var(--border); border-radius: 3px; color: var(--text-3); text-decoration: none; transition: all 0.15s ease; }
+        .issue-nav a:hover { color: var(--text); border-color: var(--text-3); }
+        .footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 16px; }
+        .footer-copy { font-size: 12px; color: var(--text-3); }
+        .footer-top { font-size: 12px; color: var(--text-3); text-decoration: none; padding: 4px 12px; border: 1px solid var(--border); border-radius: 3px; }
+        .footer-top:hover { color: var(--text); border-color: var(--text-3); }
+        /* ===== H5 移动端适配 ===== */
+        .mob-toc { display: none; }
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main { padding-left: 0; }
+            .page { padding: 0 16px; }
+            .topbar { padding: 0 14px; }
+            .topbar-tagline { display: none; }
+            .header { padding: 20px 0 16px; }
+            .header h1 { font-size: 20px; line-height: 1.45; }
+            .header-sub { font-size: 12px; }
+            .summary { padding: 16px 0 18px; }
+            .sum-item { font-size: 12.5px; }
+            .card-h { font-size: 15px; }
+            .card-body { font-size: 13.5px; }
+            .card-note { font-size: 12.5px; }
+            .boxes { grid-template-columns: 1fr; }
+            .mob-toc {
+                display: flex; gap: 8px; overflow-x: auto;
+                padding: 10px 14px; background: var(--bg);
+                border-bottom: 1px solid var(--border);
+                position: sticky; top: 48px; z-index: 90;
+                -webkit-overflow-scrolling: touch;
+            }
+            .mob-toc::-webkit-scrollbar { display: none; }
+            .mob-toc a {
+                flex-shrink: 0; font-size: 12px; font-weight: 600;
+                color: var(--text-2); text-decoration: none;
+                border: 1px solid var(--border); border-radius: 999px; padding: 5px 13px;
+            }
+            .mob-toc a:active { color: var(--purple); border-color: var(--purple); }
+            .quiz-item label { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; margin: 4px 0; border: 1px solid var(--border); border-radius: 6px; font-size: 13.5px; }
+            .quiz-item label:active { background: var(--purple-20); }
+            .quiz-item input[type=radio] { flex-shrink: 0; margin-top: 4px; }
+            .qbtn { width: 100%; padding: 12px 0; font-size: 14px; }
+            .issue-nav { flex-wrap: wrap; gap: 8px; }
+            .issue-nav a { padding: 8px 14px; }
+        }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-brand"><a href="index.html">AI Daily News · 研究版</a></span>
+    <span class="topbar-tagline">通识是主线，前沿全量保留 · 不含政策 / 伦理 / 安全</span>
+  </div>
+  <div class="topbar-right">
+    <a class="topbar-btn" href="index.html">目录</a>
+    <a class="topbar-btn" href="https://github.com/shenjiaying49-ship-it/ai-daily-news">GitHub ↗</a>
+  </div>
+</div>
+
+<nav class="mob-toc">
+  <a href="#s1">01 通识</a><a href="#s2">02 热榜</a><a href="#s3">03 速递</a><a href="#s4">04 深度</a><a href="#s5">05 初创</a><a href="#s6">06 语料</a><a href="#s7">07 测验</a>
+</nav>
+
+<div class="page">
+
+  <div class="header">
+    <div class="header-date">2026-10-16 · 星期五 · 第 007 期 · 研究版 · 每天早上 8:10 自动更新</div>
+    <h1>RSI 进入「周更」节奏——一周四篇自改进实证同现（Terminal-RSI / Athanor / AutoSFT / TimeRSI），增量式改进的数学骨架正是今日通识 ResNet 的残差思想</h1>
+    <div class="header-sub">通识进度 第 5/20 篇（ResNet）· 测验难度 L2 · 前沿速递 16 篇 · GitHub 热榜 8+5 项 · 全部条目附来源 · 自动深色模式</div>
+  </div>
+
+  <div class="summary">
+    <div class="sum-label">Today's Briefing</div>
+    <div class="sum-cat"><span class="sum-cat-name">通识精读</span><span class="sum-item">ResNet《Deep Residual Learning》（CVPR 2016）：把每层学习目标从 H(x) 改成 x + F(x)——2016 年的布线成为 2026 年自改进的数学原型</span></div>
+    <div class="sum-cat"><span class="sum-cat-name">GitHub 热榜</span><span class="sum-item">mattpocock/skills ★293,006 ｜ rea 周+239,477 继续霸榜 ｜ diagram-design 周+10,237 ｜ ghidra ★88,897 ｜ billion-context ｜ 另 5 条开源发布</span></div>
+    <div class="sum-cat"><span class="sum-cat-name">前沿速递</span><span class="sum-item">Terminal-RSI ｜ Athanor ｜ OntoAct ｜ L3M ｜ AutoSFT ｜ TimeRSI ｜ MaLoW ｜ COUNT ｜ Titan-Llama ｜ Speculative Forcing 等 16 篇</span></div>
+    <div class="sum-cat"><span class="sum-cat-name">初创研报</span><span class="sum-item">Sakana AI（Schmidhuber 任首席科学顾问 + MASS 递归自改进）｜ Liquid AI（决策模型基础设施，d1 开源）</span></div>
+    <div class="sum-cat"><span class="sum-cat-name">每日测验</span><span class="sum-item">L2 机制理解级 · 4 题 · 页内作答 · 含跨期连接题</span></div>
+  </div>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="nav-label">Contents</div>
+      <a class="nav-sec" href="#s1"><span class="n">01</span>通识精读</a>
+      <a class="nav-sec" href="#s2"><span class="n">02</span>GitHub 热榜与开源</a>
+      <a class="nav-sec" href="#s3"><span class="n">03</span>前沿论文速递</a>
+      <a class="nav-sec" href="#s4"><span class="n">04</span>技术方向深度</a>
+      <a class="nav-sec" href="#s5"><span class="n">05</span>初创研报</a>
+      <a class="nav-sec" href="#s6"><span class="n">06</span>语料精选</a>
+      <a class="nav-sec" href="#s7"><span class="n">07</span>每日测验</a>
+    </aside>
+
+    <div class="main">
+
+      <div class="sec" id="s1">
+        <div class="sec-h">Section 01 — 通识精读（今日主线）</div>
+        <div class="card">
+          <div class="card-h"><span class="pill">FOUNDATIONS</span><a href="https://arxiv.org/abs/1512.03385">Deep Residual Learning for Image Recognition（ResNet）</a></div>
+          <div class="card-meta">He, Zhang, Ren, Sun · Microsoft Research · CVPR 2016 · arXiv:1512.03385 · 通识计划第 5/20 篇 · PDF 已入库</div>
+          <div class="card-body">
+            <strong>为什么是分水岭</strong>：ILSVRC 2015 冠军，152 层深度网络 ensemble 把 top-5 错误压到 <strong>3.57%</strong>（当年人类水平约 5.1%）；关键数据是<strong>比 VGG-19 深 8 倍、但计算复杂度反而更低</strong>。在此之前「加深网络」是撞墙——20 层以上训练就不收敛或退化。ResNet 第一次把「深」从口号变成可稳定复制的工程事实，此后十年所有主流架构（Transformer 的残差流、各家 CNN backbone）都以它做布线。<br><br>
+            <strong>核心思想（讲给 12 岁）</strong>：每层不必从头学「完整的新特征」，只学「在上一层的输出上，我还差什么」。改稿时只写批注、不重抄全文；接力跑中每一棒只需要在上一棒的位置上继续前进。论文把学习目标从「写完整答案 H(x)」改写为「只写增量 F(x)，答案 = x + F(x)」——<strong>如果增量最优是 0，这一层自动退化成直通</strong>，什么坏事都不会发生。<br><br>
+            <strong>原理机制 A→B→C</strong>：观察（退化问题）：56 层网络<strong>训练误差</strong>反而高于 20 层——不是过拟合（训练集上更差恰好相反）、加了 BatchNorm 梯度流也压不住 → 猜想：堆叠的非线性层<strong>难以逼近恒等映射（identity）</strong>，深层优化的目标面太难 → 重写：把层从「学 H(x)」改为「学 F(x)=H(x)−x」，输出 y = x + F(x)；短路连接不引入任何新参数 → 结果：34/50/101/152 层全部成功训练；恒等映射最优时 F→0，网络退回浅层行为——<strong>优化路径被大幅缩短，深层第一次变得「好优化」</strong>。<br><br>
+            <strong>与近期进展的联系</strong>：残差是贯穿本期所有板块的暗线——昨日通识 LoRA 的 ΔW 是「权重空间的残差」；MaLoW 把流式视频固化进 LoRA 权重（记忆即增量）；MSAR（10-12 速递）证明残差连接本身还有规模化空间（多流注意力残差等算力加速 1.58×）；今日 RSI 四篇的每次自我改进本质上也是一次 ΔW。<strong>2016 年的布线思想，成为 2026 年自改进的数学原型。</strong><br><br>
+            <strong>今日怎么读（15 分钟路线）</strong>：§3.1（退化问题的实验证据，两段）→ §3.2（残差公式推导 + 短路连接，全文核心）→ 表 3 / 图 4（34/50/101/152 层对比）；ImageNet 训练细节与附录可跳。<br><br>
+            <strong>延伸阅读</strong>：下期通识预告 <strong>InstructGPT（#6，2203.02155）</strong>——从「网络怎么布线」到「微调时该听谁的」（RLHF 三阶段的技术面）；可选：GPT-2 的残差流分析、PreNorm vs PostNorm 之争。
+          </div>
+          <div class="card-src"><a href="https://arxiv.org/abs/1512.03385">arXiv</a><a href="https://arxiv.org/pdf/1512.03385">PDF ↓</a><a href="https://github.com/KaimingHe/deep-residual-networks">官方代码</a></div>
+        </div>
+      </div>
+
+      <div class="sec" id="s2">
+        <div class="sec-h">Section 02 — GitHub 热榜与开源发布</div>
+        <div class="sec-intro">趋势榜实抓于 github.com/trending（周榜）+ 仓库 API；分析基于各项目 README 实抓。本周主线：「Agent 技能生态」——mattpocock/skills（★293,006）与 diagram-design、text-to-cad 一起把「技能分发」变成基础设施；rea 以周 +239,477 继续现象级霸榜。</div>
+
+        <div class="layer">A · 趋势榜（8 项）</div>
+        <div class="card">
+          <div class="card-h"><span class="pill">TRENDING #1</span><a href="https://github.com/morluto/rea">REA: Reverse Engineer Anything</a> <span class="card-meta" style="display:inline">★273,536 · 本周 +239,477 · TypeScript</span></div>
+          <div class="card-body">一个 MCP 同时驱动 Ghidra / IDA / Hopper 做二进制逆向——「看到喜欢的功能，理解它怎么工作，直到底层二进制」。</div>
+          <details class="exp"><summary>展开详细分析（基于 README 实抓）</summary>
+            <p><strong>解决什么问题</strong>：逆向工程三巨头（Ghidra/IDA/Hopper）各有脚本 API 但互不通用，分析流程靠手工点菜单；想「看懂一个功能怎么实现」要反工程师手工搭桥。rea 把它变成 agent 的一句话任务。</p>
+            <p><strong>核心机制</strong>：MCP 服务器统一封装反汇编 / 反编译 / 交叉引用 / 运行时追踪接口，agent 在「分析桥」里远程驱动反编译器；带 MCP 工具目录契约与技能商店分发（skills.sh / npm rea-agents），18 种语言 README 全覆盖——分发做得极重。</p>
+            <p><strong>怎么上手</strong>：<code>npx rea-agents setup</code> 一条命令接入 Claude Code / Codex / Cursor；丢给它一个二进制或 app，说「搞清楚这个功能怎么实现的」。</p>
+            <p><strong>为什么现在火</strong>：逆向是「高技能 + 高重复」的典型岗位，恰好是 agent 的甜点区；安全研究、兼容性工程、恶意软件分析全是刚需。本周再添 23.9 万星说明需求积压已久，MCP 生态成熟刚好接住。</p>
+            <p><strong>与你方向的连接</strong>：逆向 = 从二进制反推「世界的显式状态与规则」——本质是给无源码系统<strong>重建本体</strong>；「专业能力封装为可组合工具」的路线再添重镇。</p>
+          </details>
+        </div>
+        <div class="card">
+          <div class="card-h"><span class="pill">TRENDING</span><a href="https://github.com/boykopovar/AnyPS5">AnyPS5</a> <span class="card-meta" style="display:inline">★38,816 · 本周 +25,174</span></div>
+          <div class="card-body">PS5 可执行文件自动移植到 Linux / Windows：relinker + system prx 库实现，无模拟器、无独立运行时进程。NO.004 已展开五段分析，本周热度延续。</div>
+        </div>
+        <div class="card">
+          <div class="card-h"><span class="pill">TRENDING</span><a href="https://github.com/mattpocock/skills">mattpocock/skills</a> <span class="card-meta" style="display:inline">★293,006 · 本周 +12,147 · TypeScript</span></div>
+          <div class="card-body">「Skills for Real Engineers」——Matt Pocock 把自己每天用的 agent skills 开源：<strong>小、可适配、可组合，任何模型都能用</strong>；明确批评 GSD / BMAD 这类「接管过程」的框架「拿走你的控制权，出 bug 难查」。约 60,000 人订阅其变更 newsletter。</div>
+          <details class="exp"><summary>展开详细分析（基于 README 实抓）</summary>
+            <p><strong>解决什么问题</strong>：不是 vibe coding 的严肃工程流程被框架化后难以调试；需要能插进真实工作流的技能而非银弹。</p>
+            <p><strong>核心机制</strong>：skills.sh 分发、插件自更新、文件拷进项目后可手改；设计原则是「小而可组合」，基于数十年工程经验而非 prompt 玄学。</p>
+            <p><strong>怎么上手</strong>：skills.sh 30 秒安装，拷入项目后自行修改。</p>
+            <p><strong>为什么现在火</strong>：技能集市标准化（agentskills.io / skills.sh）后，顶尖工程师的经验第一次能被复制分发；他是本周「技能生态」主线的源头。</p>
+            <p><strong>与你方向的连接</strong>：「领域专家知识 → 可安装 skill」范式正在取代提示词碰运气——工程判断开始成为可版本管理的资产。</p>
+          </details>
+        </div>
+        <div class="card">
+          <div class="card-h"><span class="pill">TRENDING</span><a href="https://github.com/cathrynlavery/diagram-design">diagram-design</a> <span class="card-meta" style="display:inline">★55,990 · 本周 +10,237 · Agent Skill</span></div>
+          <div class="card-body">「Editorial diagram design」agent skill：<strong>45 种图型、自包含 HTML + SVG 单文件、按你的品牌走</strong>——「No shadows. No Mermaid slop.」</div>
+          <details class="exp"><summary>展开详细分析（基于 README 实抓）</summary>
+            <p><strong>解决什么问题</strong>：Mermaid / draw.io 出的图「设计师看了摇头」；AI 生图又不可编辑、不可复用。要「能进正式文档的图」至今靠手排。</p>
+            <p><strong>核心机制</strong>：以 Claude Code 插件 / skill 形式分发；产出单文件 HTML+SVG（矢量、可 diff、可版本管理）；内置品牌 onboarding（读你的字体 / 色板 / 间距）；支持从 draw.io / Mermaid / Excalidraw 导入、导出 PNG / SVG。</p>
+            <p><strong>怎么上手</strong>：装 skill → 一句「画一个 X 的架构图」→ 得到可编辑 SVG；先跑品牌 onboarding 让输出自动对齐你的视觉规范。</p>
+            <p><strong>为什么现在火</strong>：agent skill 格式标准化后，「设计能力」第一次能被复制分发；上期 mattpocock/skills 验证了技能集市路线，本周设计垂类爆发（与 NO.005 的 SwiftUI-Agent-Skill 同赛道）。</p>
+            <p><strong>与你方向的连接</strong>：图 = 结构化知识的显式表示；「单文件 SVG + 语义结构」天然适合挂进本体阅读流（论文图 → 可编辑本体图）。</p>
+          </details>
+        </div>
+        <div class="card">
+          <div class="card-h"><span class="pill">TRENDING</span><a href="https://github.com/NationalSecurityAgency/ghidra">ghidra</a> <span class="card-meta" style="display:inline">★88,897 · 本周 +6,614 · Java</span></div>
+          <div class="card-body">NSA 研发维护的软件逆向工程（SRE）框架：反汇编 / 反编译 / 作图 / 脚本，Java / Python 扩展、交互与自动化双模式。本周 rea 爆火把 Ghidra 推向新受众——rea 正是它的驱动后端之一，逆向基建的两端同周上星。</div>
+        </div>
+        <div class="card">
+          <div class="card-h"><span class="pill">TRENDING</span><a href="https://github.com/heygen-com/hyperframes">hyperframes</a> <span class="card-meta" style="display:inline">★64,645 · 本周 +5,318</span></div>
+          <div class="card-body">「Write HTML. Render video. Built for agents.」——HeyGen 开源的 agent 视频渲染框架：用 HTML/CSS 描述帧、按时间线渲染成视频，给「视频生成」换了一条可编程的路。</div>
+        </div>
+        <div class="card">
+          <div class="card-h"><span class="pill">TRENDING</span><a href="https://github.com/earthtojake/text-to-cad">text-to-cad</a> <span class="card-meta" style="display:inline">★20,749 · 本周 +2,244</span></div>
+          <div class="card-body">「Give your agent CAD superpowers.」——让 agent 直接生成 CAD 模型（Open CASCADE + build123d），skills.sh 分发。NO.005 已展开分析，本周热度延续。</div>
+        </div>
+        <div class="card">
+          <div class="card-h"><span class="pill">TRENDING #8</span><a href="https://github.com/ranxianglei/billion-context">billion-context</a> <span class="card-meta" style="display:inline">★1,404 · 本周 +659 · 中文开发者</span></div>
+          <div class="card-body">「billion-context is all you need」——上下文压缩插件：<strong>100K 上下文足够、省 5× token、单会话数月累计几十亿 token</strong>。</div>
+          <details class="exp"><summary>展开详细分析（基于 README 实抓）</summary>
+            <p><strong>解决什么问题</strong>：长会话的 token 成本线性堆积，上下文窗口再多也装不下「几个月的工作记忆」——重读旧上下文既贵又稀释注意力。</p>
+            <p><strong>核心机制</strong>：Active Context Pruning（主动上下文剪枝）——模型自己决定何时压缩、压缩什么，把「已学到的历史」替换成压缩摘要继续工作；插件形式接入现有模型，不动权重。</p>
+            <p><strong>怎么上手</strong>：作为浏览器 / 桌面插件安装，会话内自动按预算压缩；<code>100K 足够</code>是默认预算哲学。</p>
+            <p><strong>为什么现在火</strong>：与昨日 Latent Compaction（32× 压缩保 96.7%）同方向但走工程路线——「压缩即学习」从论文走向开发者日常；中文开发者社区扩散快。</p>
+            <p><strong>与你方向的连接</strong>：上下文压缩是「记忆分层」的工程实现——与 Cortex 的「上下文固化为参数」互补：压缩是省空间，固化是转介质。</p>
+          </details>
+        </div>
+
+        <div class="layer">B · 重要开源发布（5 条）</div>
+        <div class="card">
+          <div class="card-body">
+            <a href="https://github.com/onehumanbeing/esp32-iphone-agent"><strong>esp32-iphone-agent</strong></a> ★2,542 —— <strong>$7 的 ESP32 让 AI 模型操作真实 iPhone</strong>：AirPlay 当眼睛 + USB HID 当手，无需电脑 / 开发者账号 / 越狱；agent 直接跑在 iPhone 里的 app 上，「电脑消失了」。<br>
+            <a href="https://github.com/storytold/craft-launcher"><strong>storytold/craft-launcher</strong></a> ★2,888 —— ArtCraft Launcher：PhotoCraft 等 13 个 Craft App 套件的统一安装更新器，<strong>100% Rust 重写</strong>，macOS / Windows / Linux / FreeBSD / Web 五端。<br>
+            <a href="https://github.com/rociiu/talorys"><strong>talorys</strong></a> ★1,175 —— 个人 AI agent 跑在<strong>你自己的 Cloudflare 账号里</strong>：聊天 / 记忆 / 任务 / 定时提醒，一条命令部署，无服务器无数据库，免费额度可用。<br>
+            <a href="https://github.com/chenglou/handwired"><strong>handwired</strong></a> ★1,129 —— 把普通 JavaScript 代码<strong>变成神经网络</strong>：if-else 与循环转成矩阵乘法 + ReLU，免训练、精确、还可微——解冻权重去训练它、把固定程序接到 nanoGPT 上端到端训练。<br>
+            <a href="https://github.com/zhuyansen/new-term-radar"><strong>new-term-radar</strong></a> ★1,030 —— AI 新词雷达：在关键词工具之前捕捉新模型 / 产品 / 仓库的名字（X、HF 日榜、GitHub 先行信号），为内容站抢时间窗。
+          </div>
+        </div>
+      </div>
+
+      <div class="sec" id="s3">
+        <div class="sec-h">Section 03 — 前沿论文速递（全量 16 篇 · 素材窗口 10-15 / 10-16 · 按 ★ 难度排序）</div>
+
+        <div class="layer">★★★ 前沿专题（可只看 Insight）</div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.22192">1 · Terminal-RSI：终端里的递归自改进 agent</a> <span class="pill">PDF 已入库</span></div>
+          <div class="card-meta">Junyao Yang 等 · 10-16 · arXiv:2610.22192 · cs.AI</div>
+          <div class="card-body">对已验证轨迹做 Recursive Self-Rewrite（RSR），配合继承 critic 的 Recursive Policy-Refine（RPR）。Terminal-RSI-27B：Terminal-Bench 4.0 <strong>19.84%</strong>、2.1 <strong>86.52%</strong>、3.0 <strong>16.95%</strong>、Hard <strong>79.00%</strong>；过程奖励 0.21→0.37，SWR100 成功率 3.00%→6.00% 翻倍。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>改进的抓手不是更大的模型，而是把「验证 + 重写」变成每轮循环里的两个原语——「研究-实现-评估」整条循环第一次被 agent 在终端闭环跑起来。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.22192">arXiv</a><a href="https://arxiv.org/pdf/2610.22192">PDF ↓</a></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.21055">2 · Athanor：自主后训练研究的 agent 原生系统</a> <span class="pill">PDF 已入库</span></div>
+          <div class="card-meta">Yufa Zhou 等 · 10-16 · arXiv:2610.21055 · cs.AI</div>
+          <div class="card-body">开放的 AutoPostTrain 系统：四个 Claude Opus 5.5 agent 各占一个八卡节点，在真实 GPU 上<strong>自主读数据、造训练数据、改算法、调超参、分析结果</strong>，沙盒内无外部教师模型。Qwen3-4B-Base 六任务开发集 <strong>15.9→67.3</strong>、留出集 <strong>9.2→48.2</strong>。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>后训练研究员的日常工作第一次被完整自动化——「改进模型」到「改进改进模型」的质变样本；样本效率来自循环自治，失败在沙盒里几乎免费。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.21055">arXiv</a><a href="https://arxiv.org/pdf/2610.21055">PDF ↓</a></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.21983">3 · OntoAct：本体抽象驱动的假设型神经符号 agent</a> <span class="pill">本体论</span><span class="pill">PDF 已入库</span></div>
+          <div class="card-meta">Donghyeok Lee 等 · preprint（under review）· arXiv:2610.21983 · cs.AI</div>
+          <div class="card-body">把个体经验转成<strong>实体类型 / 关系 / 条件上的公理（axioms）</strong>，LLM 用这份世界知识提出假设与动作，符号验证器对照当前观测检查假设的支撑条件。在 Tacit-FLE、Mars、ALFWorld 上以高效交互与推理取得领先任务表现。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>经验不是拿来检索的，是拿来<strong>证伪</strong>的——本体抽象让 agent 的每个动作背后都有可检查的假设；符号层的「样本压缩」做到了可验证。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.21983">arXiv</a><a href="https://arxiv.org/pdf/2610.21983">PDF ↓</a></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.19591">4 · L3M：自扩展自改进 agent 的可验证 harness 与运行时</a></div>
+          <div class="card-meta">Carson Eisenach 等 · arXiv:2610.19591 · cs.AI</div>
+          <div class="card-body">「一次计算横跨人类、agent、模型与代码，全部状态活在 Git 里」；工具的 review 层级取决于<strong>其效果可被撤销的程度</strong>。Terminal-Bench 上未调优的 L3M 仅用安全（无需人工 review）工具就达到 shell 装备 pass rate 的约 2/3。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>自改进的第一原则不是能力而是可撤销——凡是不能回滚的改动都不该让 agent 自己做；「可撤销性」第一次成为安全计量单位。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.19591">arXiv</a><a href="https://arxiv.org/pdf/2610.19591">PDF ↓</a></div>
+        </div>
+
+        <div class="layer">★★ 需要一点基础</div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.22194">5 · AutoSFT：SFT 的自动化数据研究系统</a></div>
+          <div class="card-meta">Bingxiang He 等 · arXiv:2610.22194 · cs.AI</div>
+          <div class="card-body">设计数据动作空间；meta agent 把执行与分析分离，从独立角度收集方案并调用合成子代理。分析子代理单独就把 IFEval <strong>+6.5</strong>，合成再加 <strong>+3.4 IFEval / +2.9 IFBench</strong>，分析让 MBPP+ <strong>+3.7</strong>。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>「造数据」从 prompt 手艺变成可编排的研究流水线——数据研究比模型研究更早实现 agent 化：分析、合成、验证三环节各司其职。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.22194">arXiv</a><a href="https://arxiv.org/pdf/2610.22194">PDF ↓</a></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.19725">6 · TimeRSI：时序基础模型的自改进部署</a></div>
+          <div class="card-meta">Haoxin Liu 等 · arXiv:2610.19725 · cs.LG</div>
+          <div class="card-body">coding agent 把任务描述转成可执行的 pipeline 改动，在历史预测窗口上<strong>逐一测试修订</strong>；自适应选择器依据相似条件下的已完成预测挑选 pipeline。TIME 与 fev-bench 的 <strong>198 个任务</strong>上，六个点预测与概率预测指标<strong>全部优于所有提交</strong>。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>自改进不需要通用终端——只要有「历史结果可对照」，任何预测任务都能闭环；RSI 通用性的又一证据。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.19725">arXiv</a><a href="https://arxiv.org/pdf/2610.19725">PDF ↓</a></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.20836">7 · Confidence-Calibrated Inference Expansion</a> <span class="pill">NeurIPS 2026</span></div>
+          <div class="card-meta">Weida Liang 等 · NeurIPS 2026 已接收 · arXiv:2610.20836 · cs.AI</div>
+          <div class="card-body">evaluator-guided 测试时推理：compute-aware 三动作控制器，以预测回答成功概率给终结动作打分、以 rollout-based continuation-success surrogate 给扩展打分，<strong>显式定价计算成本</strong>。留出任务上较固定策略提升效用、归一化在线算力约降 <strong>30% / 16%</strong>。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>测试时扩展第一次把「花多少算力」当作可优化的决策变量——推理经济的正式化。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.20836">arXiv</a><a href="https://arxiv.org/pdf/2610.20836">PDF ↓</a></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.19362">8 · Tail Competition Explains Scaling in Best-of-N</a> <span class="pill">NeurIPS 2026</span></div>
+          <div class="card-meta">Taro Yano 等 · NeurIPS 2026 已接收 · arXiv:2610.19362 · cs.CL</div>
+          <div class="card-body">可验证问题 BoN 采样的 scaling 理论：成功<strong>不仅取决于采样到正确答案的概率，还取决于正确回答是否在分布上尾压过错误回答</strong>；高斯奖励下「方差足够大的错误回答即使均值更低也能支配选择」；不完整选择器下收敛可为多项式而非指数。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>采样 scaling 的敌人不是概率低而是<strong>尾部噪声</strong>——提升上尾纯度比提升平均正确率更值钱。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.19362">arXiv</a><a href="https://arxiv.org/pdf/2610.19362">PDF ↓</a></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.20456">9 · COUNT：n-gram 计数解锁 host 内存扩展</a></div>
+          <div class="card-meta">Ian Magnusson 等 · arXiv:2610.20456 · cs.CL</div>
+          <div class="card-body">不增加学习参数：把预计算的 n-gram 计数放 host 内存，<strong>用语料频率加权模型自己对「当前 n-gram 之后最常出现的下一 token」的无嵌入</strong>作为附加输入。固定算力预算下作为 1B 参数 LM 的附加嵌入，<strong>效果相当于参数多 57% 算力的 LM</strong>。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>「免训练加能力」的新杠杆——统计记忆放 host 内存而不是权重里，算力→能力的转化率被重估。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.20456">arXiv</a><a href="https://arxiv.org/pdf/2610.20456">PDF ↓</a></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.19210">10 · Titan-Llama：给预训练 LLM 改装外部神经记忆模块</a> <span class="pill">PDF 已入库</span></div>
+          <div class="card-meta">Sarah Pan 等 · arXiv:2610.19210 · cs.CL</div>
+          <div class="card-body">块级 attention mask：近期 token 保留全保真 attention，历史上下文压缩进<strong>循环的固定大小神经记忆模块（NMM）</strong>。Llama-3.2-1B-Instruct 对比分段 attention：QuALITY 23.87%→<strong>40.51%</strong>、LongHealth 14.50%→<strong>40.75%</strong>；推理 prefill <strong>+20%</strong>、中长上下文 decode <strong>+37%</strong>、稳态 decode 内存 <strong>−24%</strong>。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>记忆不必挤进 attention——循环压缩模块接管历史，attention 只管眼前，又快又准；Titans 架构对现有 LLM 的 retrofit 实证。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.19210">arXiv</a><a href="https://arxiv.org/pdf/2610.19210">PDF ↓</a></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.20609">11 · SafeDriveVLA：导航条件世界模型 dreaming 的冲突感知端到端驾驶</a> <span class="pill">CoRL 2026</span></div>
+          <div class="card-meta">Shaoyuan Xie 等 · CoRL 2026 已接收 · arXiv:2610.20609 · cs.RO</div>
+          <div class="card-body">显式预测三级导航合规模式，解耦冲突推理与动作生成；导航条件世界模型「dreaming」预测严格跟随导航是否安全。Bench2Drive：Driving Score <strong>88.16</strong>、成功率 <strong>68.64%</strong>；闭环语言跟随 <strong>+49.3%</strong>，不安全指令下碰撞 60→38。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>dreaming 的价值不在想象而在<strong>预演后果</strong>——先在心里跑一遍导航信号，再决定听不听；世界模型第一次被用作安全预演而非内容生成。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.20609">arXiv</a><a href="https://arxiv.org/pdf/2610.20609">PDF ↓</a></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.21985">12 · VeriVLA：flow VLA 的自适应测试时验证</a></div>
+          <div class="card-meta">Xueli Sun 等 · arXiv:2610.21985 · cs.RO</div>
+          <div class="card-body">训练免费的 two-axis 触发器：用两个初始样本测量 chunk 内时序变化与跨样本方差识别关键状态；触发后 JEPA 潜在世界模型预测动作条件下的未来潜在状态与任务进展，对候选动作 chunk 排序。单张 RTX 4090 每次触发决策仅 +326 ms。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>「何时验证」与「如何验证」分离——验证触发器用方差做信号：状态变化大才值得花钱验证，稳态直接执行。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.21985">arXiv</a><a href="https://arxiv.org/pdf/2610.21985">PDF ↓</a></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.18933">13 · Agentic Scientist：编排编码 agent 的自动化科学发现</a> <span class="pill">ALIFE 2026（摘要自述）</span></div>
+          <div class="card-meta">Robert Tjarko Lange 等 · arXiv:2610.18933 · cs.AI</div>
+          <div class="card-body">端到端分布式 pipeline：把研究分解为任务起草、点子生成、规划、沙盒实验，meta-controller 管理并行研究代理并执行 rubric 验证。88 页长文。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>研究机构的最小单位正在从「研究员」变成「meta-controller + 并行代理 + rubric」——自动科研从单 agent 写代码升级为多 agent 编排。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.18933">arXiv</a><a href="https://arxiv.org/pdf/2610.18933">PDF ↓</a></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.20012">14 · ChemArgus：实验室级多模态化学推理前沿基准</a></div>
+          <div class="card-meta">Hanyao Guo 等 · arXiv:2610.20012 · cs.LG</div>
+          <div class="card-body">细粒度评分逐步逐点给部分分；GPT-5.6-Sol 无辅助整题求解 <strong>23.2%</strong>，两种顺序指标下 28.8% / 30.4%——<strong>差距即「集成负担」的度量</strong>；诊断归因用共享评分单元、仅上下文构造不同的配对指标隔离单一原因。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>模型能得分但不会解题——顺序指标的 5-7 分差距量化了「整合能力」这个独立维度；「为什么错」被做进基准设计。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.20012">arXiv</a><a href="https://arxiv.org/pdf/2610.20012">PDF ↓</a></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.22070">15 · MaLoW：Memory as Weights——流式视频长程历史的参数化</a></div>
+          <div class="card-meta">Zhuoming Liu 等 · arXiv:2610.22070 · cs.CV</div>
+          <div class="card-body"><strong>循环 HyperNetwork 把流式视频观测增量式固化进定长 LoRA 权重</strong>——历史表示为权重、当前观测作为输入；构建 MaLoW-Instruct 数据集（381K 问答对 / 56K 视频）。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>与今日主线直接同构：记忆即权重、增量即改进——LoRA 从「适配器」变成「记忆介质」；流式历史不再挤爆上下文。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.22070">arXiv</a><a href="https://arxiv.org/pdf/2610.22070">PDF ↓</a></div>
+        </div>
+
+        <div class="layer">★ 今日最易读</div>
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.22347">16 · Speculative Forcing：自回归视频生成的投机解码</a></div>
+          <div class="card-meta">Hyunwoo Choi 等 · arXiv:2610.22347 · cs.CV</div>
+          <div class="card-body">把中间 clean estimate 当作 draft，verifier 判断哪些 token 可被安全提前接受并冻结，<strong>同时保留其 KV 缓存作为上下文</strong>。LongLive 上匹配四步生成器、每 token 约 <strong>1.7 次 denoising</strong>、<strong>1.5× 加速</strong>（41.7 / 37.8 fps）；Lingbot-World 2.0 上 <strong>1.35×</strong>（24.5 fps）。</div>
+          <div class="card-note"><span class="note-label">INSIGHT</span>视频生成的解码也学会了投机——能安全冻结的 token 不必重跑，KV 缓存就是赌注的凭据。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.22347">arXiv</a><a href="https://arxiv.org/pdf/2610.22347">PDF ↓</a></div>
+        </div>
+      </div>
+
+      <div class="sec" id="s4">
+        <div class="sec-h">Section 04 — 技术方向深度：自改进的样本效率（RSI 周报）【ASI × 本体论】</div>
+        <div class="card">
+          <div class="card-body">
+            <strong>为什么是现在</strong>：本周「递归自改进」四个字同时出现在四篇新实证里——Terminal-RSI（终端闭环重写）、Athanor（自主后训练研究）、AutoSFT（数据研究）、TimeRSI（时序部署自改进）；加上上周的 Harness² 与 Latent Compaction，<strong>RSI 从论文名词变成工程节奏</strong>——这个密度值得单独深挖一次。<br><br>
+            <strong>大白话解释</strong>：改进模型的传统方式靠人：读失败案例、想假设、写代码、跑实验、写论文，一轮几周。RSI 把「研究员」整个换成 agent：<strong>失败 → 归因 → 假设 → 改代码 → 终端 / 沙盒跑验证 → 再来一轮</strong>。类比：以前是请外科医生做大手术（几个月一次，一次成败定生死）；现在是每天十次微创——每次只改一小块，失败了便宜，成功了立刻进下一轮。<br><br>
+            <strong>原理机制 A→B→C（样本效率从哪来）</strong>：A. <strong>自动评估信号</strong>——终端可执行验证（Terminal-Bench / SWR100）、留出集（Athanor 的 held-out suite）、历史窗口对照（TimeRSI），评估不再需要人；B. <strong>闭环归因与重写</strong>——Terminal-RSI 的 RSR 对已验证轨迹自我重写、Athanor 的 agent 自主「读数据-造数据-改算法-调超参」，失败信息直接进下一轮假设；C. <strong>增量落地</strong>——每轮改进是一次重写 / 一次数据动作 / 一次策略精炼，<strong>不是一次重训练</strong>。数字对照：Athanor 把 Qwen3-4B-Base 从 15.9 推到 67.3（≈4.2×，四个 agent × 八卡节点）；Terminal-RSI 过程奖励 0.21→0.37、SWR100 成功率翻倍；AutoSFT 单个分析子代理就贡献 +6.5 IFEval。<strong>样本效率 = 评估便宜 + 迭代便宜（增量）+ 失败便宜（沙盒）</strong>，三者缺一不可。<br><br>
+            <strong>与近期进展的联系</strong>：增量式改进正是今日通识 ResNet 残差思想的参数空间版本——每轮 RSI 的改进就是一次「站在旧权重上的 ΔW」；MaLoW 把记忆固化成 LoRA（记忆即增量）是同一骨架；COUNT 用 host 内存 n-gram 免训练加能力，说明「不训练也能改进」还有第三路线；昨日 Latent Compaction 的压缩即学习则提示<strong>自改进的输入（经验表征）本身也在被压缩</strong>。<br><br>
+            <strong>研究 / 产业影响</strong>：对 ASI 技术面——瓶颈已不在模型而在<strong>循环基础设施</strong>：Athanor 展示「改进改进模型本身」的自治形态，L3M 则用「可撤销性」给循环装上审计阀（自改进的第一原则是可回滚）；对你的本体论方向——OntoAct 给出符号层的对应物：把经验抽象成公理再让验证器检查，<strong>RSI 的样本压缩在符号层可以做到可证伪</strong>。<br><br>
+            <strong>学习要点</strong>：①RSI 的核心不是模型变强而是<strong>循环变快</strong>；②增量 + 验证 + 沙盒三位一体，缺一个就退回「大模型 + 人肉研究」；③风险侧——Terminal-Bench 各版本分数差异巨大（2.1 的 86.52% vs 3.0 的 16.95%），度量饱和与自生成数据无外部锚的崩塌边界仍未解决。
+          </div>
+          <div class="card-note"><span class="note-label">核心判断</span>RSI 一周四发不是巧合而是节奏——「评估便宜 + 增量落地 + 沙盒失败便宜」三件套把研究循环从月级压到天级；而「增量式改进」正是 ResNet 残差思想的参数空间版——<strong>2016 年的布线成为 2026 年自改进的数学原型，本期主线闭环。</strong></div>
+        </div>
+      </div>
+
+      <div class="sec" id="s5">
+        <div class="sec-h">Section 05 — 初创研报</div>
+
+        <div class="card">
+          <div class="card-h"><span class="pill">融资关注</span><span class="ent">Sakana AI ｜ B 轮</span></div>
+          <div class="card-meta">东京 AI 研究实验室（Llion Jones 与 David Ha 创立）· 10-14 发布 MASS 技术报告 · Schmidhuber 2026-09-24 任首席科学顾问</div>
+          <div class="card-body">完成 B 轮融资，同日发布 MASS 技术报告，把递归自改进的实证推向多智能体自监督。</div>
+          <div class="boxes">
+            <div class="box"><b>¥320 亿</b><span>融资额（约 $200M）</span></div>
+            <div class="box"><b>$2.7B</b><span>投后估值</span></div>
+            <div class="box"><b>2026-09-24</b><span>Schmidhuber 任首席科学顾问</span></div>
+          </div>
+          <div class="bar"><i style="width:75%"></i></div>
+          <div class="bar-cap">融资额占比示意</div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><span class="pill">值得关注</span><span class="ent">01 · DECISION-MODEL INFRASTRUCTURE —— Liquid AI</span></div>
+          <div class="card-meta">MIT spinoff · 10-09 d1 开源 · 10-14 24B-A2B · 10-15 D1-Ultra</div>
+          <div class="card-body"><strong>tagline</strong>：专注「决策模型」基础设施：d1-3B 在 Decision Index 上 <strong>48.57</strong>，超过 Decider 35B-A3B 的 47.11；Jetson 上单次决策 <strong>16ms</strong>。当推理从「生成文本」转向「做决策」，延迟和确定性成为新的模型维度——决策模型可能是下一轮模型竞争的差异化战场。</div>
+          <div class="boxes">
+            <div class="box"><b>48.57</b><span>d1-3B Decision Index（超 Decider 47.11）</span></div>
+            <div class="box"><b>16ms</b><span>Jetson 单次决策延迟</span></div>
+            <div class="box"><b>$250M</b><span>A 轮融资</span></div>
+          </div>
+          <div class="card-note"><span class="note-label">判断</span>键值：A 轮 $250M · 产品线 d1-3B / 24B-A2B / D1-Ultra ——「决策模型」把模型从内容生成器重定义为<strong>低延迟决策器</strong>，与本周 RSI 主线（把评估做成实时决策循环）在同一个方向上。</div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><span class="pill">COMPANY DEEP-DIVE</span><span class="ent">Sakana AI（RECURSIVE SELF-IMPROVEMENT）——自改进从理论到产品</span></div>
+          <div class="card-meta">东京 · 2023 创立 · 观察仓：融资事实来自公开报道，技术数字取自 MASS 摘要</div>
+          <div class="card-body"><strong>tagline</strong>：2023 年由 Transformer 作者之一 Llion Jones 与 David Ha 在东京创立，主打「自然启发」的小型化研究（合成长寿命、对称破坏、量子启发算法）；2026 年重心转向递归自改进，10-14 发布 MASS（Recursive Self-Improvement through Multi-Agent Self-Supervision），9 月底迎来递归自改进理论提出者 Jürgen Schmidhuber 出任首席科学顾问。</div>
+          <div class="boxes">
+            <div class="box"><b>1.2–1.6×</b><span>每输出 token 性能（两轮 MASS + Qwen3.6-27B）</span></div>
+            <div class="box"><b>$2.7B</b><span>B 轮投后估值</span></div>
+            <div class="box"><b>2610.12176</b><span>MASS 技术报告（10-14）</span></div>
+          </div>
+          <ul class="hl">
+            <li><strong>增长</strong>：B 轮 ¥320 亿（约 $200M）、投后 $2.7B；10-14 发布 MASS 技术报告，自改进产品线成为公司叙事中心。</li>
+            <li><strong>产品线</strong>：基础模型自改进工作流（进化搜索 + 结构 guardrail 约束的计算图编排）；多智能体自监督管线作为通用训练基础设施。</li>
+            <li><strong>技术架构</strong>：MASS 让单一基础模型迭代提出、执行、自我评估多智能体工作流，经结构 guardrail 约束的进化搜索优化角色分工与信息路由；两轮 MASS 周期 + Qwen3.6-27B 后<strong>每输出 token 性能 1.2-1.6×</strong>，且学生模型胜过用 1.4× 训练 token 训出的单 agent 学生（数字均出自摘要原文）。</li>
+            <li><strong>成本</strong>：基于开源基座 + 自监督信号，无大规模自预训练资本开支；进化搜索主要花推理算力。</li>
+            <li><strong>客户</strong>：以技术报告与开源研究输出为主，商业化客户未披露。</li>
+            <li><strong>团队融资</strong>：Llion Jones（Transformer 作者之一）+ David Ha（World Models 论文作者）创立；Schmidhuber 2026-09-24 任首席科学顾问；B 轮 ¥320 亿 / $200M。</li>
+            <li><strong>风险</strong>：自改进增益的度量环境脆弱（Terminal-Bench 各版本差异巨大，无统一基准）；自监督环路缺少外部锚点，效果声明需第三方复现；与 Prime Intellect / 各大实验室的自改进阵营同质竞争。</li>
+          </ul>
+          <div class="card-note"><span class="note-label">核心判断</span>递归自改进的理论之父（Schmidhuber）与 Transformer 作者之一（Llion Jones）在同一家公司——<strong>「自改进」从学术名词变成产品主线的信号最强者</strong>；MASS 的 53.9%→69.9% 胜率流传甚广但不在摘要中（经双重核验），本卡数字全部取自论文摘要原文。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.12176">MASS 技术报告</a></div>
+        </div>
+      </div>
+
+      <div class="sec" id="s6">
+        <div class="sec-h">Section 06 — 语料精选</div>
+        <div class="card">
+          <div class="card-body">今日无。把材料（含论文 PDF）丢进 <code>corpus/</code> 即会在下一期出现。</div>
+        </div>
+      </div>
+
+      <div class="sec" id="s7" style="background:var(--note-bg);border:1px solid var(--border);border-radius:3px;padding:16px 18px">
+        <div class="sec-h">Section 07 — 每日测验（L2 · 机制理解级）· 可直接在本页作答</div>
+        <div class="sec-intro"><span class="pill">今日难度 L2</span> 沿用 10-12 起的标准：不考「是什么」，考「为什么 / 依据 / 说明什么」；干扰项均为常见误解。另：10-06 / 10-08 / 10-12 / 10-15 四期测验均未提交——提交任意一期即可解锁梯度反馈。</div>
+
+        <div class="quiz-item" data-key="a">
+          <p class="qt">1.（通识）论文说更深的 plain 网络「训练误差更高」——这个退化问题<strong>不能</strong>归因于梯度消失，最有力的依据是？ <span class="qhint">提示：01 节③</span></p>
+          <label><input type="radio" name="q1" value="a"> 网络加了 BatchNorm 后梯度流已明显改善，退化依然出现（且 34 层训练误差仍高于 18 层）</label>
+          <label><input type="radio" name="q1" value="b"> 数据集太小，深层网络过拟合了</label>
+          <label><input type="radio" name="q1" value="c"> ReLU 在深层饱和导致梯度为 0</label>
+          <label><input type="radio" name="q1" value="d"> 深层参数太多，优化器直接发散</label>
+          <div class="exp"><b>答案：A。</b>退化发生在<strong>训练集上</strong>（不是泛化问题），且加 BatchNorm 后反向传播的梯度流已明显改善、退化依然出现——两个证据都排除了「梯度消失」与「过拟合」这两个常见误解；作者由此转向「深层难以逼近恒等映射」的猜想。</div>
+        </div>
+        <div class="quiz-item" data-key="c">
+          <p class="qt">2.（通识）ResNet 把每层学习目标从 H(x) 改成 x + F(x)。为什么这个「先保底、只学增量」的布线至今仍是规模化架构的通用前提？ <span class="qhint">提示：01 节③④</span></p>
+          <label><input type="radio" name="q2" value="a"> 残差让每层输出变大，携带信息更多</label>
+          <label><input type="radio" name="q2" value="b"> 残差相当于正则化，主要作用是防过拟合</label>
+          <label><input type="radio" name="q2" value="c"> 给梯度与信息流一条「高速公路」：新增层只需学恒等附近的增量，不必重复承担复刻旧功能的成本；恒等映射代价 ≈ 0</label>
+          <label><input type="radio" name="q2" value="d"> 残差只在 CNN 有效，Transformer 并不使用它</label>
+          <div class="exp"><b>答案：C。</b>残差的核心价值是<strong>优化捷径</strong>：新层最差也能复制恒等（F→0），于是深层训练不必从零逼近旧功能；这正是 Transformer 残差流的直系来源（D 是误解），与输出大小（A）或正则化（B）无关。</div>
+        </div>
+        <div class="quiz-item" data-key="c">
+          <p class="qt">3.（速递 × 深度）Terminal-RSI / Athanor 这类系统为什么能把「研究-实现-评估」循环从月级压缩到几天？ <span class="qhint">提示：04 节③</span></p>
+          <label><input type="radio" name="q3" value="a"> 基座模型变强了，思考与写代码都更快</label>
+          <label><input type="radio" name="q3" value="b"> 训练算力大涨，单轮训练时间大幅缩短</label>
+          <label><input type="radio" name="q3" value="c"> 把研究循环本身自动化：agent 承担失败归因、方案生成、代码修改与终端验证，每轮改进以增量落地（一次重写 / 一次微调），失败在沙盒里几乎免费——样本效率来自循环变快而非单步变强</label>
+          <label><input type="radio" name="q3" value="d"> 用了更大的评估模型，判断更准</label>
+          <div class="exp"><b>答案：C。</b>样本效率的三件套：评估便宜（终端可执行验证）、迭代便宜（增量落地而非重训练）、失败便宜（沙盒）——循环变快是核心，单步能力（A/B/D 都是误解）不是关键。</div>
+        </div>
+        <div class="quiz-item" data-key="a">
+          <p class="qt">4.（跨期连接 NO.006）昨天 Cortex 把「单条上下文增益」蒸馏成低秩 ΔW，今天 MaLoW 把流式视频固化进 LoRA 权重，通识 ResNet 让每层只学 H(x)−x——三者共享的数学直觉是？ <span class="qhint">提示：01 节④ + NO.006 深读</span></p>
+          <label><input type="radio" name="q4" value="a"> 增量式编码：始终站在已有状态（权重 / 特征）之上只记录差异，差异空间低维且好优化</label>
+          <label><input type="radio" name="q4" value="b"> 都是为了让模型体积更小</label>
+          <label><input type="radio" name="q4" value="c"> 都是为了让推理延迟更低</label>
+          <label><input type="radio" name="q4" value="d"> 只是命名上的巧合，机制互不相干</label>
+          <div class="exp"><b>答案：A。</b>ResNet 的 F(x)、LoRA 的 ΔW、Cortex 的上下文增益、MaLoW 的记忆固话——同一个骨架：<strong>站在已有状态上只学差异，差异空间（残差 / 低秩）低维且好优化</strong>。尺寸（B）与延迟（C）是副产品而非动机。</div>
+        </div>
+
+        <button class="qbtn" onclick="gradeQuiz()">提交批改</button>
+        <div id="qresult"></div>
+        <div class="howto">提交后页面立即判分并显示解析。把得分记到 <code>knowledge/quiz-answers/2026-10-16.md</code>（一行「X/4 + 错题号」），下次任务批改并调整难度。</div>
+
+        <script>
+          function gradeQuiz(){
+            var total=4, correct=0;
+            var qs=document.querySelectorAll('.quiz-item');
+            qs.forEach(function(q){
+              var key=q.getAttribute('data-key');
+              var picked=q.querySelector('input:checked');
+              var exp=q.querySelector('.exp');
+              exp.style.display='block';
+              if(picked && picked.value===key){
+                correct++;
+                exp.innerHTML='✓ 答对了。'+exp.innerHTML;
+              }else{
+                exp.innerHTML=(picked?'✗ 不对。':'✗ 未作答。')+exp.innerHTML;
+              }
+            });
+            var box=document.getElementById('qresult');
+            box.style.display='block';
+            var msg;
+            if(correct===total){msg='全对！下次测验升到 L3（迁移级）——把 4/4 记进 quiz-answers/2026-10-16.md 即可。';}
+            else if(correct>=total*0.6){msg='答对 '+correct+'/'+total+'：难度保持 L2，错题解析见上方——把得分记进 quiz-answers/2026-10-16.md。';}
+            else{msg='答对 '+correct+'/'+total+'：错题解析见上方，概念会用大白话重讲——把得分记进 quiz-answers/2026-10-16.md。';}
+            box.textContent=msg;
+          }
+        </script>
+      </div>
+
+      <div class="bottom">
+        <div class="issue-nav">
+          <a href="daily-2026-10-15.html">← NO.006 · 10-15</a>
+          <a href="index.html">目录页</a>
+          <a href="index.html">NO.008 · 明早 8:10 →</a>
+        </div>
+        <div class="footer">
+          <span class="footer-copy">AI Daily News · 研究版 · 多智能体管线编译 · 设计语言复刻自 linkx-capital/ai-daily-news · 自动深色模式</span>
+          <a class="footer-top" href="index.html">Top ↑</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
