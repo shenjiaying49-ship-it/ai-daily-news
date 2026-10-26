@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Daily News · 研究版 · 2026-10-26</title>
+<style>
+        html { scroll-behavior: smooth; }
+        :root {
+            --bg: #ffffff; --bg-page: #FAF9F6; --text: #1a1a1a; --text-2: #444444; --text-3: #888888;
+            --border: #D9D8D6; --note-bg: #f4eff5; --pill-bg: #EFEDEA;
+            --purple: #660874; --purple-80: #843990; --purple-60: #a36bac; --purple-40: #c29cc8; --purple-20: #e8dce9;
+            --sidebar-w: 220px; --max-w: 740px;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root { --bg:#0a0a0a; --bg-page:#0a0a0a; --text:#e5e5e5; --text-2:#aaaaaa; --text-3:#666666;
+                --border:#1e1e1e; --note-bg:#1a111b; --pill-bg:#161412;
+                --purple:#b87cc4; --purple-80:#a06aad; --purple-60:#8a5d96; --purple-40:#6e3f7a; --purple-20:#3d1e45; }
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Noto Sans SC", sans-serif; background: var(--bg-page); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+        .topbar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); padding: 0 24px; height: 48px; display: flex; align-items: center; justify-content: space-between; }
+        .topbar-left { display: flex; align-items: baseline; gap: 10px; }
+        .topbar-brand { font-size: 14px; font-weight: 700; color: var(--purple); letter-spacing: -0.3px; }
+        .topbar-brand a { color: var(--purple); text-decoration: none; }
+        .topbar-tagline { font-size: 11px; color: var(--text-3); letter-spacing: 0.2px; }
+        .topbar-right { display: flex; gap: 8px; }
+        .topbar-btn { font-size: 12px; padding: 4px 12px; border: 1px solid var(--border); border-radius: 3px; color: var(--text-3); text-decoration: none; transition: all 0.15s ease; }
+        .topbar-btn:hover { color: var(--text); border-color: var(--text-3); }
+        .page { max-width: calc(var(--max-w) + var(--sidebar-w) + 80px); margin: 0 auto; padding: 0 32px; }
+        .header { padding: 28px 0 24px; border-bottom: 1px solid var(--border); }
+        .header-date { font-size: 12px; color: var(--text-3); font-variant-numeric: tabular-nums; margin-bottom: 8px; }
+        .header h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.3px; line-height: 1.4; color: var(--text); }
+        .header-sub { margin-top: 8px; font-size: 13px; color: var(--text-3); }
+        .summary { padding: 20px 0 24px; border-bottom: 1px solid var(--border); }
+        .sum-label { font-size: 11px; font-weight: 600; color: var(--purple); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+        .sum-cat { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px; margin-bottom: 10px; }
+        .sum-cat:last-child { margin-bottom: 0; }
+        .sum-cat-name { display: inline-block; background: var(--purple-20); color: var(--purple); padding: 2px 8px; border-radius: 3px; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+        .sum-item { background: var(--pill-bg); padding: 3px 10px; border-radius: 3px; font-size: 13px; color: var(--text-2); line-height: 1.5; }
+        .layout { display: flex; }
+        .sidebar { width: var(--sidebar-w); flex-shrink: 0; padding: 20px 16px 20px 0; position: sticky; top: 48px; height: calc(100vh - 48px); overflow-y: auto; border-right: 1px solid var(--border); }
+        .sidebar::-webkit-scrollbar { width: 0; }
+        .nav-label { font-size: 10px; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 1px; padding-bottom: 16px; }
+        .nav-sec { display: block; padding: 6px 0; font-size: 11px; font-weight: 600; color: var(--text); text-decoration: none; }
+        .nav-sec:hover { color: var(--purple); }
+        .nav-sec .n { color: var(--text-3); font-variant-numeric: tabular-nums; margin-right: 6px; }
+        .main { flex: 1; max-width: var(--max-w); padding: 20px 0 0 24px; min-width: 0; }
+        .sec { margin-bottom: 32px; scroll-margin-top: 64px; }
+        .sec-h { font-size: 11px; font-weight: 600; color: var(--purple); text-transform: uppercase; letter-spacing: 1.5px; padding-bottom: 10px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+        .card { padding: 16px 0; border-bottom: 1px solid var(--border); scroll-margin-top: 64px; }
+        .card:last-child { border-bottom: none; }
+        .card-h { font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--text); letter-spacing: -0.2px; margin-bottom: 8px; }
+        .card-h a { color: var(--text); text-decoration: none; }
+        .card-h a:hover { color: var(--purple); }
+        .ent { font-weight: 500; }
+        .card-meta { font-size: 12px; color: var(--text-3); margin-bottom: 8px; font-variant-numeric: tabular-nums; }
+        .card-body { font-size: 14px; line-height: 1.75; color: var(--text-2); }
+        .card-body strong { color: var(--text); font-weight: 600; }
+        .card-body a { color: var(--purple-80); text-decoration: none; }
+        .card-body a:hover { text-decoration: underline; }
+        .card-note { margin-top: 10px; padding: 10px 14px; background: var(--note-bg); font-size: 13px; line-height: 1.75; color: var(--text-2); border-radius: 2px; }
+        .note-label { font-size: 10px; font-weight: 600; color: var(--purple-80); text-transform: uppercase; letter-spacing: 0.5px; margin-right: 6px; }
+        .card-src { margin-top: 10px; font-size: 12px; color: var(--text-3); display: flex; flex-wrap: wrap; gap: 4px 14px; }
+        .card-src a { color: var(--text-3); text-decoration: none; }
+        .card-src a:hover { color: var(--text); }
+        .pill { display: inline-block; background: var(--purple-20); color: var(--purple); padding: 1px 8px; border-radius: 3px; font-size: 11px; font-weight: 600; margin-right: 6px; vertical-align: 1px; }
+        .sec-intro { font-size: 13px; color: var(--text-3); margin-bottom: 12px; }
+        .layer { font-size: 11px; font-weight: 600; color: var(--purple); letter-spacing: 1px; margin: 14px 0 4px; }
+        details.exp { margin-top: 10px; border: 1px solid var(--border); border-radius: 3px; padding: 0 14px; background: var(--bg); }
+        details.exp summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--purple-80); padding: 8px 0; list-style: none; }
+        details.exp summary::before { content: "▸ "; color: var(--text-3); }
+        details.exp[open] summary::before { content: "▾ "; }
+        details.exp p { font-size: 13.5px; line-height: 1.75; color: var(--text-2); margin: 6px 0 10px; }
+        details.exp p strong { color: var(--text); }
+        .boxes { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin: 10px 0; }
+        .box { border: 1px solid var(--border); border-radius: 3px; padding: 8px 10px; text-align: center; background: var(--bg); }
+        .box b { display: block; font-size: 14px; font-variant-numeric: tabular-nums; }
+        .box span { font-size: 11px; color: var(--text-3); }
+        ul.hl { margin: 8px 0 0; padding-left: 18px; font-size: 13.5px; color: var(--text-2); }
+        ul.hl li { margin: 4px 0; }
+        ul.hl strong { color: var(--text); }
+        .bar { margin-top: 10px; height: 6px; background: var(--pill-bg); border-radius: 3px; overflow: hidden; }
+        .bar i { display: block; height: 100%; background: var(--purple); }
+        .bar-cap { margin-top: 4px; font-size: 11px; color: var(--text-3); }
+        .quiz-item { padding: 14px 0; border-bottom: 1px solid var(--border); }
+        .quiz-item p.qt { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+        .qhint { font-size: 12px; color: var(--text-3); font-weight: 400; }
+        .quiz-item label { display: block; font-size: 13.5px; color: var(--text-2); margin: 3px 0; cursor: pointer; padding-left: 4px; }
+        .quiz-item label:hover { color: var(--text); }
+        .quiz-item .exp { display: none; margin-top: 8px; padding: 10px 14px; background: var(--note-bg); font-size: 13px; line-height: 1.7; color: var(--text-2); border-radius: 2px; }
+        .qbtn { margin-top: 14px; background: var(--purple); color: #fff; border: 0; border-radius: 3px; padding: 8px 20px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+        .qbtn:hover { background: var(--purple-80); }
+        #qresult { display: none; margin-top: 14px; padding: 12px 14px; background: var(--note-bg); border-radius: 2px; font-size: 14px; font-weight: 600; }
+        .howto { margin-top: 12px; font-size: 13px; color: var(--text-3); }
+        code { font-size: 12px; background: var(--pill-bg); border-radius: 3px; padding: 1px 5px; }
+        .bottom { border-top: 1px solid var(--border); margin-top: 16px; padding: 20px 0 32px; }
+        .issue-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .issue-nav a { font-size: 13px; padding: 6px 16px; border: 1px solid var(--border); border-radius: 3px; color: var(--text-3); text-decoration: none; transition: all 0.15s ease; }
+        .issue-nav a:hover { color: var(--text); border-color: var(--text-3); }
+        .footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 16px; }
+        .footer-copy { font-size: 12px; color: var(--text-3); }
+        .footer-top { font-size: 12px; color: var(--text-3); text-decoration: none; padding: 4px 12px; border: 1px solid var(--border); border-radius: 3px; }
+        .footer-top:hover { color: var(--text); border-color: var(--text-3); }
+        /* ===== H5 移动端适配 ===== */
+        .mob-toc { display: none; }
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main { padding-left: 0; }
+            .page { padding: 0 16px; }
+            .topbar { padding: 0 14px; }
+            .topbar-tagline { display: none; }
+            .header { padding: 20px 0 16px; }
+            .header h1 { font-size: 20px; line-height: 1.45; }
+            .header-sub { font-size: 12px; }
+            .summary { padding: 16px 0 18px; }
+            .sum-item { font-size: 12.5px; }
+            .card-h { font-size: 15px; }
+            .card-body { font-size: 13.5px; }
+            .card-note { font-size: 12.5px; }
+            .boxes { grid-template-columns: 1fr; }
+            .mob-toc {
+                display: flex; gap: 8px; overflow-x: auto;
+                padding: 10px 14px; background: var(--bg);
+                border-bottom: 1px solid var(--border);
+                position: sticky; top: 48px; z-index: 90;
+                -webkit-overflow-scrolling: touch;
+            }
+            .mob-toc::-webkit-scrollbar { display: none; }
+            .mob-toc a {
+                flex-shrink: 0; font-size: 12px; font-weight: 600;
+                color: var(--text-2); text-decoration: none;
+                border: 1px solid var(--border); border-radius: 999px; padding: 5px 13px;
+            }
+            .mob-toc a:active { color: var(--purple); border-color: var(--purple); }
+            .quiz-item label { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; margin: 4px 0; border: 1px solid var(--border); border-radius: 6px; font-size: 13.5px; }
+            .quiz-item label:active { background: var(--purple-20); }
+            .quiz-item input[type=radio] { flex-shrink: 0; margin-top: 4px; }
+            .qbtn { width: 100%; padding: 12px 0; font-size: 14px; }
+            .issue-nav { flex-wrap: wrap; gap: 8px; }
+            .issue-nav a { padding: 8px 14px; }
+        }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-brand"><a href="index.html">AI Daily News · 研究版</a></span>
+    <span class="topbar-tagline">通识是主线，前沿全量保留 · 不含政策 / 伦理 / 安全</span>
+  </div>
+  <div class="topbar-right">
+    <a class="topbar-btn" href="index.html">目录</a>
+    <a class="topbar-btn" href="https://github.com/shenjiaying49-ship-it/ai-daily-news">GitHub ↗</a>
+  </div>
+</div>
+
+<nav class="mob-toc">
+  <a href="#s1">01 通识</a><a href="#s2">02 热榜</a><a href="#s3">03 速递</a><a href="#s4">04 深度</a><a href="#s5">05 初创</a><a href="#s6">06 语料</a><a href="#s7">07 测验</a>
+</nav>
+
+<div class="page">
+
+  <div class="header">
+    <div class="header-date">2026-10-26 · 星期一 · 第 009 期 · 研究版 · 每天早上 8:10 自动更新 · 周一加更 W2 周报与费曼课</div>
+    <h1>改进的两条路同框——DPO 用消元法把 RLHF 压成闭式解，RSI 用分层法把循环搬进 harness 层，SplatLab 给出合流点</h1>
+    <div class="header-sub">通识进度 第 7/20 篇（DPO）· 测验难度 L2 · 前沿速递 15 篇 · GitHub 热榜 8 项 · 本地 PDF 5 份 · 全部条目附来源 · 自动深色模式</div>
+  </div>
+
+  <div class="summary">
+    <div class="sum-label">Today's Briefing</div>
+    <div class="sum-cat"><span class="sum-cat-name">通识精读</span><span class="sum-item">DPO（NeurIPS 2023）：你的语言模型本身就是奖励模型——三阶段坍缩成一次分类损失</span></div>
+    <div class="sum-cat"><span class="sum-cat-name">GitHub 热榜</span><span class="sum-item">graphify 代码库知识图谱 ★135k ｜ Cloudflare security-audit-skill 周增 15k ｜ Karpathy CLAUDE.md ★224k ｜ Anthropic 知识工作者插件 ×11 ｜ t3code ｜ rea 三连冠终结</span></div>
+    <div class="sum-cat"><span class="sum-cat-name">前沿速递</span><span class="sum-item">SplatLab 全自动科研（NeurIPS 2026）｜ TPO 鲁棒 DPO（NeurIPS 2026）｜ Raw-RAG 冷水（6/7 基准第一）｜ WeVisOne-VL 榜首 243 赞 ｜ IQuest-Q1 320B 开源 等 15 篇</span></div>
+    <div class="sum-cat"><span class="sum-cat-name">初创研报</span><span class="sum-item">doubleAI 深潜（$200M A 轮 + Lean 形式化象棋纪录）+ Eka Robotics（VFA 力觉机械臂 $1.45B）</span></div>
+    <div class="sum-cat"><span class="sum-cat-name">周一加更</span><span class="sum-item">W2 周报（双周窗口 4 期汇编 + 趋势 T01-T03）· 费曼课（RLHF / 残差 / harness 三概念苏格拉底测验）</span></div>
+  </div>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="nav-label">Contents</div>
+      <a class="nav-sec" href="#s1"><span class="n">01</span>通识精读</a>
+      <a class="nav-sec" href="#s2"><span class="n">02</span>GitHub 热榜与开源</a>
+      <a class="nav-sec" href="#s3"><span class="n">03</span>前沿论文速递</a>
+      <a class="nav-sec" href="#s4"><span class="n">04</span>技术方向深度</a>
+      <a class="nav-sec" href="#s5"><span class="n">05</span>初创研报</a>
+      <a class="nav-sec" href="#s6"><span class="n">06</span>语料精选</a>
+      <a class="nav-sec" href="#s7"><span class="n">07</span>每日测验</a>
+    </aside>
+
+    <div class="main">
+
+      <div class="sec" id="s1">
+        <div class="sec-h">Section 01 — 通识精读（今日主线）</div>
+        <div class="card">
+          <div class="card-h"><span class="pill">FOUNDATIONS</span><a href="https://arxiv.org/abs/2305.18290">Direct Preference Optimization: Your Language Model is Secretly a Reward Model（DPO）</a></div>
+          <div class="card-meta">Rafailov, Sharma, Mitchell, Ermon, Manning, Finn · Stanford / CMU 阵容 · 2023-05-29 · 后发表于 NeurIPS 2023 · arXiv:2305.18290 · 通识计划第 7/20 篇</div>
+          <div class="card-body">
+            <strong>为什么是分水岭</strong>：昨天的 InstructGPT 立起了 RLHF 三阶段（SFT → RM → PPO），但 PPO 是「a complex and often unstable procedure」——要训奖励模型、要在训练中采样、要调大量超参。DPO 的主张惊人而简单：<strong>对 RLHF 目标做一个数学重参数化，最优策略可以闭式提取（in closed form）——整个「奖励模型 + 强化学习」可以被一个简单的分类损失替代</strong>。标题就是结论：你的语言模型本身就是一个隐式奖励模型。实测 DPO「exceeds PPO-based RLHF in ability to control sentiment of generations」，单轮对话质量持平或更好，训练 stable、computational lightweight、无需采样与大量调参。此后它成为开源社区对齐微调的事实标准。<br><br>
+            <strong>核心思想（讲给 12 岁）</strong>：昨天的三步教学法是「示范 → 助教打分 → 对着分数刷题」。DPO 说：<strong>请助教这步可以省掉</strong>。既然「最优做法」能从「评分标准」直接算出来（有一个公式），那评分标准就能从最优做法反推回去——把评分标准代回目标，两项互相抵消，剩下的任务只有一件事：<strong>看到一对好答案和坏答案，把好的概率往上推、坏的往下压</strong>。不用先请教练打分再练习，直接给学生看两份作业并告诉他哪份好，他自己就会改。<br><br>
+            <strong>原理机制（A→B→C）</strong>：<strong>A · RLHF 的真实目标</strong>——最大化奖励，同时用 KL 惩罚不许偏离参考模型太远；关键观察：这个约束优化的最优解有闭式形式 <strong>π* ∝ π_ref · exp(r/β)</strong>（最优策略 = 参考模型按奖励指数加权）；<strong>B · 反解奖励</strong>——把 r = β·log(π/π_ref) + 常数 代回原目标；<strong>C · 消元</strong>——奖励项与最优策略项在目标里<strong>互相抵消</strong>，剩下只依赖策略本身的二元分类损失：好答案与坏答案的概率比值（相对参考模型）要拉开。注意：<strong>KL 约束没有消失，它被藏进了公式里</strong>——这正是「隐式奖励模型」的含义，也是它与裸 SFT 的本质区别。<br><br>
+            <strong>与近期进展的联系</strong>：本周速递正好有一条「DPO 后裔」生产线——TPO（NeurIPS 2026，2610.28229）指出 DPO 的 i.i.d. 假设在真实部署中沿「群体—prompt—偏好」三层漂移，用三层分布鲁棒目标修正；DPO 计算图随机剪枝（2610.29538）把训练提速 <strong>1.4×</strong> 且降峰值显存。连起来看：<strong>DPO 赢在便宜与稳定，输在离线——它只能学「见过的偏好分布」，这正是 TPO 要补的洞</strong>。另一条线：InstructGPT 的 KL 惩罚与 DPO 的隐式 KL 是同一设计原则的两种实现；RSI 一侧的 SplatLab（2610.30468）用「verified-reproduction 骨干」当改进底座——<strong>把循环换成「已验证的常数项」，与 DPO 的消元思想同构</strong>（04 深度展开）。<br><br>
+            <strong>今日怎么读（15 分钟路线）</strong>：先读摘要（标题那句就是题眼）→ 直跳 §4 推导的前两步（闭式解 π* ∝ π_ref·exp(r/β) 是全文枢纽，看懂这一步后面全通）→ 图 1（DPO 与 RLHF 的训练目标在偏好数据上的行为对比）→ 表 1/2 结果（情感控制超 PPO + 真实对话偏好胜率）→ §6 相关工作扫一眼谱系。附录证明全跳过。<br><br>
+            <strong>延伸阅读</strong>：明日通识 #8 DeepSeek-R1（Nature 2025，arXiv:2501.12948）——<strong>RL 路线的反攻</strong>：纯规则奖励（RLVR）+ 大规模 RL 催生长推理链。DPO 与 R1 恰好是偏好优化的两极：一个把 RL 消掉，一个把 RL 推到极致。
+          </div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>能闭式的就不必循环——DPO 的胜利是数学消元的胜利：先把不变的锚定住，剩下的部分一次算完。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2305.18290">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2305.18290">PDF ↓ arXiv</a><span>PDF 已入库</span></div>
+        </div>
+      </div>
+
+      <div class="sec" id="s2">
+        <div class="sec-h">Section 02 — GitHub 热榜与开源发布</div>
+        <div class="sec-intro">趋势数据实抓于 github.com/trending（本周榜，2026-10-26）；分析基于各项目 README 实抓。上期已析项目只更新数据行。</div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://github.com/Graphify-Labs/graphify">Graphify-Labs/graphify</a> <span class="pill">本体论-工程</span></div>
+          <div class="card-meta">★ 135,243 · 本周 +6,903 · Python · Apache-2.0</div>
+          <div class="card-body"><span class="ent">它是干嘛的</span>：把任意代码库——连同文档、SQL schema、配置、PDF——变成一个<strong>可查询的知识图谱</strong>。</div>
+          <details class="exp"><summary>展开详细分析</summary>
+            <p><strong>解决什么问题</strong>：代码库的知识散落在文档、schema、配置与 PDF 里，agent 与检索都拿不到结构——「代码库的本体」没人建。</p>
+            <p><strong>核心机制</strong>：多源摄取（docs / SQL schemas / configs / PDFs）→ 图谱化 → 可查询接口；PyPI 包 graphifyy 一行安装，另有 Graphify Cloud 与 docs.graphify.com。</p>
+            <p><strong>怎么上手</strong>：pip install graphifyy，按 docs.graphify.com 配置数据源；云端版 app.graphify.com。</p>
+            <p><strong>为什么现在火</strong>：agent 要在大型代码库里干活，扁平检索不够用——GraphRAG 工程化的需求第一次有了热度对标。</p>
+            <p><strong>与你的方向的连接</strong>：本体论-工程直接命中——知识图谱就是给代码库建本体（schema 在上、实例在下），与 OntoAct / CLI-Anything 的「把世界翻译成结构」同一思想家族。</p>
+          </details>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>给代码库建「户口系统」——本体不是学术装饰，是 agent 的检索基建。</div>
+          <div class="card-src"><a href="https://github.com/Graphify-Labs/graphify">仓库 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://github.com/cloudflare/security-audit-skill">cloudflare/security-audit-skill</a></div>
+          <div class="card-meta">★ 46,861 · 本周 +15,072（周增速第一）· JavaScript</div>
+          <div class="card-body"><span class="ent">它是干嘛的</span>：Cloudflare 开源的 coding-agent skill——把 agent 编排成多阶段安全审计流水线，源自其漏洞发现 harness 的单仓库种子版本（<a href="https://blog.cloudflare.com/build-your-own-vulnerability-harness">博客：Build your own vulnerability harness</a>）。</div>
+          <details class="exp"><summary>展开详细分析</summary>
+            <p><strong>解决什么问题</strong>：单个 agent 做审计会「自己发现自己验证」，结论不可信；覆盖率也没人管。</p>
+            <p><strong>核心机制</strong>：六阶段——侦察（产出 architecture.md 与 coverage-ledger.json）→ 按覆盖率账本派发隔离 hunter → <strong>每个候选交给一个全新的 verifier 专门去证伪</strong> → 结构化输出（confirmed / needs_validation / rejected 三态，进 findings.json 并按 schema 校验）→ 独立记录复核 → 目标中立报告。</p>
+            <p><strong>怎么上手</strong>：仓库即 skill（SKILL.md + 分阶段提示词文件），加载进任意兼容 agent；同一仓库多次运行是 additive 的——用旧账本定位盲区。</p>
+            <p><strong>为什么现在火</strong>：agent 自报产出不可信是本周论文圈的公共话题，Cloudflare 把「独立证伪 + 覆盖率账本」做成可安装件，周增 15k 说明刚需。</p>
+            <p><strong>与你的方向的连接</strong>：这是 NO.008 深度「证据链必须长在 harness 里」的工程化答案——fresh verifier 制度恰好是 Into the Unknown 里 114 篇论文缺失的那一环。</p>
+          </details>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>审计的正确单位不是「问模型信不信」，是「派一个新 agent 专门去证伪」。</div>
+          <div class="card-src"><a href="https://github.com/cloudflare/security-audit-skill">仓库 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://github.com/multica-ai/andrej-karpathy-skills">multica-ai/andrej-karpathy-skills</a></div>
+          <div class="card-meta">★ 223,839 · 本周 +2,937</div>
+          <div class="card-body"><span class="ent">它是干嘛的</span>：把 Karpathy 对 LLM 编码通病的观察（模型替你做假设、过度复杂化、顺手改不该改的代码）提炼成<strong>一个 CLAUDE.md 文件的四条原则</strong>：Think Before Coding / Simplicity First / Surgical Changes / Goal-Driven Execution。</div>
+          <details class="exp"><summary>展开详细分析</summary>
+            <p><strong>解决什么问题</strong>：Karpathy 原话——模型「don't manage their confusion, don't seek clarifications... implement a bloated construction over 1000 lines when 100 would do」。</p>
+            <p><strong>核心机制</strong>：四原则各配反模式清单与自测问题（如「一个资深工程师会说这过度复杂吗？」）；Surgical Changes 要求每一行改动都能追溯到用户请求；Goal-Driven Execution 把指令改写成「先写测试再让它通过」的可验证目标。</p>
+            <p><strong>怎么上手</strong>：把 CLAUDE.md 放进项目根目录（或按 README 安装选项）；中文版自带。</p>
+            <p><strong>为什么现在火</strong>：22 万星说明「提示词层 harness 改进」是人人可用的最低成本改进——与本周主线（改进对象上移到 harness）完全同频。</p>
+            <p><strong>与你的方向的连接</strong>：harness 层改进的最小案例——改一个文件，全局行为变化。</p>
+          </details>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>Karpathy 的观察变成 22 万星的规则文件——harness 改进的颗粒度可以小到一个 md。</div>
+          <div class="card-src"><a href="https://github.com/multica-ai/andrej-karpathy-skills">仓库 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://github.com/anthropics/knowledge-work-plugins">anthropics/knowledge-work-plugins</a></div>
+          <div class="card-meta">★ 32,977 · 本周 +2,790 · Python</div>
+          <div class="card-body"><span class="ent">它是干嘛的</span>：Anthropic 官方开源 <strong>11 个知识工作者插件</strong>——productivity / sales / customer-support / product-management / marketing / legal / finance / data / enterprise-search / bio-research / 插件管理，每个打包 skills + connectors + slash commands + sub-agents。</div>
+          <details class="exp"><summary>展开详细分析</summary>
+            <p><strong>解决什么问题</strong>：通用 agent 对具体岗位不专业——销售不会查 HubSpot、法务不熟合同审查流程。</p>
+            <p><strong>核心机制</strong>：按岗位打包「技能 + 数据连接器（Slack / Notion / Linear / Snowflake / PubMed 等）+ 子 agent」；为 Claude Cowork 与 Claude Code 双兼容；bio-research 插件直接接 PubMed / ChEMBL 等科研数据库。</p>
+            <p><strong>怎么上手</strong>：Claude Code 用户从仓库直接装；Cowork 用户从 claude.com/plugins 装。</p>
+            <p><strong>为什么现在火</strong>：官方把「岗位级 harness」产品化——agent 竞争从通用能力转向岗位纵深。</p>
+            <p><strong>与你的方向的连接</strong>：每个插件就是一套「岗位本体 + 工具接口」——垂直 harness 的官方样本。</p>
+          </details>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>agent 的护城河正在从模型挪到「岗位级的技能与连接器打包」。</div>
+          <div class="card-src"><a href="https://github.com/anthropics/knowledge-work-plugins">仓库 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://github.com/pingdotgg/t3code">pingdotgg/t3code</a></div>
+          <div class="card-meta">★ 30,125 · 本周 +1,770 · TypeScript</div>
+          <div class="card-body"><span class="ent">它是干嘛的</span>：Theo 团队开源的「agent harness control surface」——用手机 / web / 桌面端控制你电脑上的全部 coding agent（Claude Code、Codex、Cursor、Grok Build、OpenCode、Antigravity），免费、可 fork。</div>
+          <details class="exp"><summary>展开详细分析</summary>
+            <p><strong>解决什么问题</strong>：agent 跑在电脑上，人不在电脑前——「控制在哪」缺一个跨厂商的统一面板。</p>
+            <p><strong>核心机制</strong>：本地 server（curl -fsSL https://t3.codes/install.sh | sh）+ iOS / Android / web / Electron 多端控制；不绑定单一厂商，用你已有的各 CLI 登录态；README 明确「We are (mostly) not accepting contributions yet」，可 fork。</p>
+            <p><strong>怎么上手</strong>：一条命令装 server，t3 启动即开本地 web app；t3 service install 常驻。</p>
+            <p><strong>为什么现在火</strong>：与 orca 同赛道但跨平台全免费——「fleet 控制面」进入混战期。</p>
+            <p><strong>与你的方向的连接</strong>：harness 主题（04 深度）的消费端延续——控制面是 harness 的用户侧形态。</p>
+          </details>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>agent 控制面开始出现「免费 + 跨厂商 + 可 fork」的公共基础设施候选。</div>
+          <div class="card-src"><a href="https://github.com/pingdotgg/t3code">仓库 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h">紧凑三连</div>
+          <div class="card-body">
+            <span class="ent"><a href="https://github.com/vllm-project/vllm">vllm-project/vllm</a></span> ★ 95,490（+1,445）· Python：高吞吐推理 serving 引擎回归热榜——agent 负载推高推理基建需求。<br>
+            <span class="ent"><a href="https://github.com/Comfy-Org/ComfyUI">Comfy-Org/ComfyUI</a></span> ★ 142,932（+4,790）· Python：节点式扩散模型工作台，本周与 WeVisOne-VL / LayerEditor（03 速递）同频。<br>
+            <span class="ent"><a href="https://github.com/android/skills">android/skills</a></span> ★ 9,716（+1,070）· Kotlin：Google Android 官方仓库连续三周在榜（desc 未公开，README 内容待下次核实展开）。
+          </div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>推理引擎与节点式工作台同时在榜——基建层的「agent 负载 × 生成负载」双热。</div>
+        </div>
+
+        <div class="card">
+          <div class="card-h">上期已析数据更新</div>
+          <div class="card-body">
+            ruflo ★ 79,280（+2,987）｜ orca ★ 105,810（+9,622）｜ ai-memory ★ 13,517（+3,254）｜ opencode ★ 221,515（+5,921）｜ hyperframes ★ 72,151（+5,612）｜ claude-plugins-official ★ 44,559（+2,245）。<br>
+            <strong>注意：rea 本周掉出前 14——三连冠终结</strong>（NO.006-008 冠军），逆向工程热开始让位给「harness 控制面与知识图谱化」。
+          </div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>热榜主题完成换血：从「读二进制」到「给代码库建本体 + 管 agent 编队」。</div>
+        </div>
+
+        <div class="card">
+          <div class="card-h">重要开源发布</div>
+          <div class="card-body">
+            <strong>IQuest-Q1</strong>（03 速递 #7）：320B 总参 / 15B 激活 MoE agent 基础模型开源，512K 上下文，权重已放 HF · <a href="https://github.com/IQuestLab/IQuest-Q1">GitHub ↗</a><br>
+            <strong>WeVisOne-VL</strong>（03 速递 #1，HF 当日榜首）：腾讯微信视觉统一感知 VLM，宣布开源 · <a href="https://arxiv.org/abs/2610.31329">arXiv ↗</a><br>
+            <strong>OmniDR-Bench</strong>（03 速递 #8）：北大「以视频为中心的深度研究报告」基准开源 · <a href="https://github.com/marinero4972/OmniDR-Bench">GitHub ↗</a><br>
+            <strong>Cloudflare 漏洞发现 harness 方法论</strong>（02 热榜 #2 配套博客）：多阶段 fleet 审计系统从种子 skill 到集群的完整路径公开 · <a href="https://blog.cloudflare.com/build-your-own-vulnerability-harness">博客 ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec" id="s3">
+        <div class="sec-h">Section 03 — 前沿论文速递（全量 15 篇 · 按 ★ 难度排序）</div>
+        <div class="sec-intro">素材窗口：HF daily papers 10-24/25 为周末回退版面（同一批 49 篇混合列表，无当日新鲜批次），10-26 版面早间尚未生成——本期素材窗口为回退版面未收录条目 + WebSearch 补查，实际覆盖约 72 小时。全部 15 篇均逐一核实 arXiv abs 页。</div>
+
+        <div class="layer">★ 今日最易读</div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.31329">WeVisOne-VL: Unified Visual Perception from Objects to Pixels</a> <span class="pill">多模态</span></div>
+          <div class="card-meta">腾讯微信视觉 · <strong>HF 当日榜首 243 赞</strong> · 技术报告，宣布开源 · arXiv:2610.31329</div>
+          <div class="card-body">统一物体级与像素级感知：检测、grounding、计数、OCR、分割到 matting，支持任意粒度定位（点 / 框 / mask / alpha matte）；轻量像素解码器经 &lt;OBJ&gt; token 接入 VLM，三阶段课程 SFT + 混合任务 RL；30+ 基准物体级与像素级双领先，对无目标查询稳健拒答。<strong>为什么值得读</strong>：感知的终点不是「认出物体」，是按用户要求的粒度交付像素。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>感知的粒度本身成为产品能力——从「是什么」到「按你说的粒度给我」。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.31329">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.31329">PDF ↓ arXiv</a><span>宣布开源</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.24738">Editing Images into Reusable Layers via Compositional Edit-Prior Distillation</a> <span class="pill">多模态</span></div>
+          <div class="card-meta">鹏城实验室 + 清华 + 华南理工 · HF 版面第 2 位 184 赞 · preprint · arXiv:2610.24738</div>
+          <div class="card-body">LayerEditor 把指令编辑与可复用 RGBA 图层统一：In-Context RGB-Alpha Token 让画布与有序图层同处一个 token 序列，Compositional Edit-Prior Distillation 迁移预训练编辑先验；配套 LayerEditor-100K 数据集。<strong>为什么值得读</strong>：编辑结果从「压平的图」变成「可拆改的图层」——图像第一次有工程意义上的可维护性。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>从「结果」到「图层」——生成式图像开始长出版本管理。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.24738">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.24738">PDF ↓ arXiv</a><span>未开源</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.28950">HyperDrone: Simulation-to-Reality Transfer at Millions of Frames per Second</a> <span class="pill">世界模型</span> <span class="pill">CoRL 2026</span></div>
+          <div class="card-meta">UC Berkeley（Jonas Eschmann）+ NYU · <strong>CoRL 2026 已接收</strong> · arXiv:2610.28950</div>
+          <div class="card-body">极快四旋翼仿真器：多旋翼动力学 + 新光线追踪引擎 HyperLux（OptiX / Vulkan / Metal / WebGPU 全 GPU 后端），比 SOTA 批量仿真器快 <strong>20× 以上</strong>，最高保真度下仍达<strong>每秒百万帧级</strong>渲染（RGB / 深度 / 分割 / 法线 / 光流，含 PBR 与动态模糊）。<strong>为什么值得读</strong>：sim-to-real 的瓶颈从算力转移到任务设计。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>渲染进入百万帧/秒——仿真便宜到可以「把现实当测试集」。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.28950">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.28950">PDF ↓ arXiv</a><span>未开源</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.30755">Is Complex Agentic Memory Always Needed? Naive RAG Is Stronger Than We Thought</a> <span class="pill">本体论-工程</span></div>
+          <div class="card-meta">西安交通大学（Minnan Luo, Muning Wen 等）· 62 页 preprint · arXiv:2610.30755</div>
+          <div class="card-body">Raw-RAG（原始对话史上的稠密检索 + 重排）在 LoCoMo / LongMemEval / MEME / MemoryAgentBench 的 7 个基准-模型组合中 <strong>6 个排名第一</strong>，超最强 agentic memory 系统 0.13–5.53 点；归因显示其「必要证据覆盖率」优势足以抵消利用率劣势。<strong>为什么值得读</strong>：给本周记忆赛道泼的冷水——复杂度先要过朴素基线这一关。（PDF 已入库）</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>记忆系统的第一考卷是「证据找齐了吗」，不是「机制多精巧」。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.30755">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.30755">PDF ↓ arXiv</a><span>未开源</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.26233">Heartbeat Thinking: Speculative Reasoning and Tool Execution While Listening in Realtime Voice Agents</a></div>
+          <div class="card-meta">Ant International · HF 版面 24 赞 · preprint · arXiv:2610.26233</div>
+          <div class="card-body">语音 agent 在用户说话期间就完成推测性推理与工具执行：进行中的调用照常完成、新输入由新 Thinker 处理，周期性调用读取最新转写补全参数；FDBench v3 工具覆盖 <strong>+16 个百分点</strong>、最终响应延迟 <strong>-36.4%</strong>。<strong>为什么值得读</strong>：把用户说话的时间变成 agent 的并行工位。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>延迟优化的新维度不是更快的模型，是更聪明的并行。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.26233">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.26233">PDF ↓ arXiv</a><span>未开源</span></div>
+        </div>
+
+        <div class="layer">★★ 需要一点基础</div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.25100">Deep Fusion Memory: A Chunk-Level Parametric Memory for LLMs</a> <span class="pill">本体论-工程</span></div>
+          <div class="card-meta">上海交大 LUMIA Lab + 上海AI实验室 · HF 版面第 7 位 50 赞 · preprint · arXiv:2610.25100</div>
+          <div class="card-body">参数化记忆：因果记忆预测器从上文生成记忆（检索 chunk 嵌入做监督），门控交叉注意力融入中间隐状态，<strong>推理时无需显式检索</strong>；训练数据构建比 token 级参数记忆少 <strong>32× 检索查询、2048× 检索条目</strong>；六个 QA 任务超最强参数记忆基线 <strong>+12.71%（Mistral-7B）/ +11.19%（Qwen3-8B）</strong>。<strong>为什么值得读</strong>：与 Raw-RAG 正反对读——记忆到底该进参数还是留在检索。（PDF 已入库）</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>参数记忆的护城河不在精度，在数据构建成本降三个数量级。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.25100">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.25100">PDF ↓ arXiv</a><span>未开源</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.30949">IQuest-Q1: Advancing Foundation Capabilities for Agentic CLI Systems</a></div>
+          <div class="card-meta">IQuest Research（177 位作者）· 技术报告 · <strong>权重已开源</strong> · arXiv:2610.30949</div>
+          <div class="card-body">320B 总参 / 15B 激活的稀疏 MoE agent 基础模型（512K 上下文，约 29T tokens）：Stable SplitNorm + Muon + muP 稳定预训练 → 细粒度 mid-training → 跨 scaffold 的 SFT + 领域 RL + MOPD 多版本后训练与合并，面向 CLI 类 agent（Claude Code / Codex 场景）。<strong>为什么值得读</strong>：320B 级 agentic 模型走「小实验室全开源」路线——CLI agent 的地基在快速铺平。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>开源 agentic 模型的竞争单位从「有没有」变成「为哪种 harness 调的」。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.30949">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.30949">PDF ↓ arXiv</a><a href="https://github.com/IQuestLab/IQuest-Q1">模型 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.31158">Beyond Watching and Searching: Benchmarking Agents for Video-centered Deep Research Reports</a> <span class="pill">本体论-工程</span></div>
+          <div class="card-meta">北京大学 · preprint · 代码数据已开源 · arXiv:2610.31158</div>
+          <div class="card-body">定义「以视频为中心的深度研究报告」任务（找问题 → 跨模态取证 → 产出可跳转视频时刻的交互报告）：OmniDR-Bench 含 50 个中英任务 / 19 子类 / <strong>6414 条原子判据</strong>；18 种 agent 配置最佳仅 <strong>63.3/100</strong>；显式分析 models × harnesses × skill 配置的影响。<strong>为什么值得读</strong>：deep research 的下一战在「看得懂视频并给出可核验的引用时刻」。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>可核验性进入视频引用——「引用时刻」是视频版的「证据链」。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.31158">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.31158">PDF ↓ arXiv</a><a href="https://github.com/marinero4972/OmniDR-Bench">代码 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.30320">FRED: Self-Distilling Future Video Representations for World Action Models</a> <span class="pill">世界模型</span></div>
+          <div class="card-meta">KAIST（Jinwoo Shin 组）等 · 27 页 preprint · arXiv:2610.30320</div>
+          <div class="card-body">自蒸馏让 WAM 在单步去噪内从噪声直接预测未来视频表征（以真值未来观测提取的表征为目标），条件化历史观测提供时间上下文；长程与域外任务大幅领先，人-机技能迁移 <strong>50.0% 成功率 vs 最强 WAM 的 19.4%</strong>（仅有人类视频演示、无机器人数据的任务）。<strong>为什么值得读</strong>：只看人类视频就能上手机器人——「示范」的物种边界在抹掉。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>人类视频 → 机器人技能的转化率翻 2.5 倍——世界模型在补「翻译」这一环。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.30320">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.30320">PDF ↓ arXiv</a><a href="https://huiwon-jang.github.io/FRED/">项目页 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.27598">Meta Expert: Cross-Layer Expert Sharing for Storage- and Retrieval-Efficient MoE</a></div>
+          <div class="card-meta">上海AI实验室 + 清华 · HF 版面 31 赞 · preprint · arXiv:2610.27598</div>
+          <div class="card-body">实证发现主流 MoE 各层专家在存储内容上高度冗余，提出跨层共享的 Meta Expert：同等激活量与专家粒度下，<strong>仅用 70–80% 的专家对齐 Vanilla MoE 性能</strong>（更低交叉熵 + 更高下游精度）；Meta Expert 为隐状态提供更灵活的残差通路。<strong>为什么值得读</strong>：MoE 的下一轮省钱不是裁专家，是让专家跨层兼职——且与通识 ResNet 的残差通路一脉相承。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>冗余的解法不是删除是共享——「复用」第一次在专家维度被系统性兑现。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.27598">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.27598">PDF ↓ arXiv</a><span>未开源</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.31574">Rethinking Sequence Compression with Test-time Regression</a></div>
+          <div class="card-meta">港中文 spherelab（Yiran Zhong 组）· 技术报告（19 页）· arXiv:2610.31574</div>
+          <div class="card-body">把序列压缩重构为 test-time 回归：回归器端到端学习、系数前向<strong>闭式求解</strong>（TTR-Compressor）；作块稀疏注意力压缩器时 RULER 大幅超注意力类压缩器；作视觉 token 合并器时以 <strong>55.6% 更少视觉 token</strong> 打平标准 MLP 合并器。<strong>为什么值得读</strong>：与今日通识 DPO 同一哲学——闭式解正在回到深度学习工具箱。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>能闭式的就不必梯度学——「该解哪个回归」成了新的学习目标。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.31574">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.31574">PDF ↓ arXiv</a><a href="https://spherelab.ai/ttr-compressor">项目页 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.28229">TPO: Tri-level Distributionally Robust Learning for OOD Direct Preference Optimization</a> <span class="pill">ASI</span> <span class="pill">DPO</span> <span class="pill">NeurIPS 2026</span></div>
+          <div class="card-meta">同济 + 上海自主智能研究院 + 深圳河套研究院 · <strong>NeurIPS 2026 已接收</strong> · arXiv:2610.28229</div>
+          <div class="card-body">指出 DPO 的 i.i.d. 假设在真实部署中沿「群体—prompt—偏好」三层漂移，提出带层次矩形歧义集的三层分布鲁棒目标，Wasserstein 距离实例化后得到含<strong>闭式偏好层修正项</strong>的可解目标。<strong>为什么值得读</strong>：今日通识的直接后裔——DPO 赢在稳定便宜，TPO 补的正是「没见过的偏好分布」这一课。（PDF 已入库）</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>DPO 学的是见过的偏好，TPO 让它学会对偏好分布的漂移保持稳健。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.28229">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.28229">PDF ↓ arXiv</a><span>未开源</span></div>
+        </div>
+
+        <div class="layer">★★★ 前沿专题（可只看 Insight）</div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.30468">SplatLab: Autonomous Scientific Discovery for 3DGS Research</a> <span class="pill">ASI</span> <span class="pill">NeurIPS 2026</span></div>
+          <div class="card-meta">UCSD（Manmohan Chandraker 组）· <strong>NeurIPS 2026 已接收</strong> · arXiv:2610.30468</div>
+          <div class="card-body">全自动科研系统：给定研究 prompt、目标论文 URL 或零输入，完成复现基线 → 提出扩展 → 跨 Mip-NeRF 360 / LLFF 训练消融 → 写稿，<strong>每个报告数字绑定到留痕的训练 run</strong>；五个设计选择（verified-reproduction 骨干上变异插件、候选淘汰等）首次在活跃 CV 子领域端到端演示。<strong>为什么值得读</strong>：NO.008「0/135 审计冷水」的正面回应——证据链长在了系统的每一环。（PDF 已入库）</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>全自动科研的门槛不是会做实验，是每个数字都能回溯到留痕的 run。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.30468">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.30468">PDF ↓ arXiv</a><a href="https://seemandhar.github.io/splatlab">项目页 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.29677">Toward Recursive Self-Improvement in Physical AI</a> <span class="pill">ASI</span> <span class="pill">世界模型</span></div>
+          <div class="card-meta">HUST / NTU / NUS / SJTU / HKBU 等 12 人 · 93 页 position paper · arXiv:2610.29677</div>
+          <div class="card-body">把数字 RSI 的「改自己代码 + 可执行测试」机制搬到物理世界：给出增益可累积的四个条件（反馈对准剩余学习需求、组件可用、价值跨任务 / 硬件存活、练习安全且可负担），并指出现有物理研究尚未分离出「递归」本身的增益。<strong>为什么值得读</strong>：数字世界 RSI 有编译器和测试兜底，物理世界每一步自我改进都要先回答「错了能不能退回来」。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>物理 RSI 的第一张考卷是可逆性——没有 undo 键的世界里递归要重新设计。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.29677">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.29677">PDF ↓ arXiv</a><a href="https://physical2rsi.github.io">项目页 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.29538">Stochastic Pruning of the DPO Computation Graph: 1.4x Faster Training and Lower Peak Memory</a> <span class="pill">DPO</span></div>
+          <div class="card-meta">深圳技术大学 + 华南理工 · preprint · arXiv:2610.29538</div>
+          <div class="card-body">把 DPO 训练计算图拆成打分、前缀执行、分支反传三段分别随机剪枝，逆概率加权得到条件无偏的单分支梯度估计；实测训练提速 <strong>1.4×</strong> 且显著降低峰值显存。<strong>为什么值得读</strong>：偏好学习的成本不在数据量在反传路径——有些梯度根本不用算全。（PDF 已入库）</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>DPO 已经够便宜了还能再省 30%——效率线也在内卷。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.29538">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.29538">PDF ↓ arXiv</a><span>未开源</span></div>
+        </div>
+      </div>
+
+      <div class="sec" id="s4">
+        <div class="sec-h">Section 04 — 技术方向深度</div>
+        <div class="card">
+          <div class="card-h">压缩循环 vs 加速循环——改进的两条路</div>
+          <div class="card-body">
+            <strong>核心判断：DPO 与 RSI 是同一个问题（如何从反馈中改进）的两个相反答案——DPO 用消元法把循环压成一次闭式更新，RSI 用分层法把循环搬进成本最低的层让它转得更快；两者共享同一个设计铁律：必须有一个「锚」防止系统漂移（DPO 是隐式 KL，RSI 是验证门与复现底座）。选哪条路不取决于品味，取决于你的反馈信号能不能闭式写出来。</strong><br><br>
+            <strong>① 为什么是现在</strong>：昨日通识 InstructGPT 立起三阶段管线，今日通识 DPO 把它压成一步分类损失；本周速递里 CoEvo-RSI / HPO 把改进循环搬进 harness 层（NO.008 深度），今天 SplatLab 又把「已验证的复现」做成全自动科研的底座。三种改进架构同周出现，不是巧合——<strong>当「改进」本身成为工程对象，它的架构光谱（压扁 vs 加速）就必然被系统勘探</strong>。<br><br>
+            <strong>② 大白话 + 类比</strong>：把「改进」想象成学做菜。DPO 的思路是<strong>把循环压扁</strong>：既然「好菜的标准」和「最优做法」可以互相算出来（闭式解），那就不必请教练反复打分，直接把「好菜 vs 坏菜」的对比卷发给学生，一次讲评到位。RSI 的思路是<strong>把循环搬快</strong>：教练太贵，那就先改厨房（harness）——更好的灶、更好的量具、自动尝味器——让学生在便宜的环境里一天试错一百次，偶尔再回驾校（SFT）。两条路的共同前提：<strong>得有一个不漂移的参照物</strong>（DPO 的参考模型 / SplatLab 的已验证复现），否则越改越歪。<br><br>
+            <strong>③ 原理机制（A→B→C）</strong>：<strong>DPO 的消元法</strong>——带 KL 约束的奖励最大化有闭式最优 π* ∝ π_ref·exp(r/β) → 反解 r 代回 → 奖励项与策略项相消 → 剩下一个二元偏好分类损失。循环从「采样-打分-更新」的在线过程坍缩成「看对比-更新」的离线过程；<strong>RSI 的分层法</strong>——harness 层变异（文本级、失败成本≈0）→ 验证门筛选 → 好轨迹 SFT 回灌权重 → 下一轮在更强模型上继续。循环没有被消除，而是被搬到「改动成本最低」的层；<strong>SplatLab 的合流</strong>——「复现目标论文」被验证为可靠（数字绑定留痕 run）后成为循环中的<strong>常数项</strong>，变异只发生在复现底座之上的插件层。这实际上是 DPO 思想（先把不变的锚定住）在 agent 系统上的重演。<br><br>
+            <strong>④ 代价与证据</strong>：DPO 的代价是<strong>离线</strong>——只能学偏好数据集里见过的分布，TPO（NeurIPS 2026）证明部署时偏好分布沿三层漂移需要分布鲁棒修正；它的效率版（随机剪枝）再省 1.4×，但「见过什么学什么」的边界不变。RSI 的代价是<strong>证据</strong>——Into the Unknown 的 0/135（NO.008）说明没有验证门的加速只是加速产出垃圾；SplatLab 与 Cloudflare audit skill 给出的都是同一答案：<strong>fresh verifier、覆盖率账本、数字绑定留痕 run</strong>。两条路的失败模式也对称：DPO 失败于「分布变了锚还在」，RSI 失败于「锚是模型自己写的」。<br><br>
+            <strong>⑤ 怎么用到你自己的工作流</strong>：给任何「要变好」的流程选循环架构前，先问一个问题：<strong>反馈信号能不能闭式写出来？</strong>能（编译器测试、类型检查、schema 校验）→ 压扁：写成规则或断言，一次执行，无需循环；不能（开放式研究、品味判断）→ 加速：搭 harness 循环，但必须外置验证门（独立 verifier / 留痕 run / 覆盖率账本）。两个都做也行——SplatLab 就是「闭式的部分（复现）+ 开放的部分（扩展假设）」分层处理的样板。<br><br>
+            <strong>⑥ 延伸阅读</strong>：TPO（2610.28229）与 Raw-RAG（2610.30755）各是一条线的冷水——前者给 DPO 的分布假设，后者给记忆系统的复杂度冲动；SplatLab（2610.30468）读它的五个设计选择而非结果数字；明日通识 DeepSeek-R1 把视角推向第三条路——<strong>当规则奖励（RLVR）足够客观，循环既不用压扁也不用搬层，直接跑在环境给出的真值上</strong>。
+          </div>
+          <div class="card-note"><span class="note-label">核心判断</span>反馈可闭式 → 压扁；反馈开放 → 加速循环 + 外置验证门。两条路共用一条铁律：锚不能是模型自己写的。</div>
+        </div>
+      </div>
+
+      <div class="sec" id="s5">
+        <div class="sec-h">Section 05 — 初创研报</div>
+
+        <div class="card">
+          <div class="card-h">融资关注</div>
+          <div class="card-body">
+            <strong>doubleAI</strong> <span class="pill">A 轮</span><br>
+            Mobileye 创始人 Amnon Shashua 的「代码执行模型」公司——10 月 19 日一天三件事：Maxwell 开放早期访问、$200M A 轮官宣、Double Agent 打破极限国际象棋 57 年纪录。<br>
+            <span class="ent">融资额 $200M</span>（Lightspeed + Bessemer 联合领投，Nvidia / Dell 跟投）· 总融资 $220M · 团队约 40 人
+            <div class="bar"><i style="width:100%"></i></div>
+            <div class="bar-cap">本期最大融资事件</div>
+          </div>
+          <div class="card-body" style="margin-top:14px">
+            <strong>Eka Robotics</strong> <span class="pill">A 轮</span><br>
+            MIT 教授 + 前 DeepMind 研究员的「视觉-力觉-动作」（VFA）模型公司——力敏夹爪机械臂抓取 1,500 件/小时（公司口径，约人类 2.5 倍），纯仿真 RL 零人类演示数据。<br>
+            <span class="ent">融资额 $150M</span>（a16z + F-Prime 联合领投）· 估值 $1.45B · 夹爪单价 &lt;$1,000（额定 5M duty cycles）
+            <div class="bar"><i style="width:75%"></i></div>
+            <div class="bar-cap">本期最大融资的 75%</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><span class="pill">01 · VFA MODEL</span> Eka Robotics</div>
+          <div class="card-meta">× 力觉替代视觉，零人类数据</div>
+          <div class="card-body">创始人 Pulkit Agrawal（MIT 教授，机器人 RL）与 Tuomas Haarnoja（SAC 算法一作，<a href="https://arxiv.org/abs/1801.01290">arXiv:1801.01290</a>，ICML 2018）。技术分叉清晰：VFA 模型在语言、力觉输入与动作间建模（区别于主流 VLA），<strong>纯仿真 RL at scale、零人类演示数据</strong>——AlphaZero 式路线；Agrawal：「关闭最后一毫米问题，视觉不是主要方式。」10-20 公布 $150M A 轮、$1.45B post-money。<br><span class="ent">融资额 $150M</span>（a16z + F-Prime 领投）· 估值 $1.45B</div>
+          <div class="card-note"><span class="note-label">核心判断</span>a16z 领投说明资本认可「力觉 + 零人类数据」的分叉叙事；但公司至今零论文、无具名客户，全部性能数字为公司口径——与上期 Enact 相邻赛道（物理 AI 触觉 / 力觉），差异化在「仿真 RL 训练路线」，适合做融资信号观察而非技术结论。</div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><span class="pill">CODE EXECUTION MODEL</span> doubleAI</div>
+          <div class="card-meta">Mobileye 创始人 Amnon Shashua（宣布卸任后专注此项目）与 Shai Shalev-Shwartz（CTO）等六人联创（5 教授 2 博士）· 2024 年创立</div>
+          <div class="card-body">产品 Maxwell 自称首个 "code execution model"：<strong>重写运行中程序的机器码（不动源码）以适配硬件与实际数据</strong>，每次在线改写由系统「形式化证明行为不变」，前提失效由运行时 guard 回退原代码。</div>
+          <div class="boxes">
+            <div class="box"><b>$200M A 轮</b><span>总融资 $220M · 10-19</span></div>
+            <div class="box"><b>38× / 4.5×</b><span>数据管线 / 推理内核加速（公司口径）</span></div>
+            <div class="box"><b>&lt;1%</b><span>o3 在 FormulaOne 基准解题率（论文实测）</span></div>
+          </div>
+          <ul class="hl">
+            <li><strong>一天三件事（10-19）</strong>：Maxwell 开放早期访问 + $200M A 轮官宣（<a href="https://thenextweb.com/news/doubleai-maxwell-code-execution-model-compute-costs">TNW</a> 引 WSJ：约一半资金自购 1,000 块 Nvidia B300）+ Double Agent 打破极限国际象棋 57 年纪录</li>
+            <li><strong>象棋纪录的技术含金量</strong>：63 个合法着法全部将军（1968 年起纪录 60）；「64 不可能」证明编码为 7,224 个 SAT 案例、约 5TB LRAT 证书、126 core-hours，已在 Lean 形式化（GitHub: double-ai/double-check）——<strong>可验证研究产出，非自评分数</strong></li>
+            <li><strong>研究底座（三篇 arXiv）</strong>：FormulaOne 基准（<a href="https://arxiv.org/abs/2507.13337">2507.13337</a>：MSO 逻辑自动生成的图论-逻辑-算法交叉题，o3 解题率 &lt;1%，可无限生成适合 RL 环境）；Diligent Learner（<a href="https://arxiv.org/abs/2507.15865">2507.15865</a>：推理即带验证器与回溯的深度优先搜索，主张 CoT 会「漂移出分布」）；PAC-reasoning（<a href="https://arxiv.org/abs/2412.02441">2412.02441</a>：复杂问题可靠分解的鲁棒保证）</li>
+            <li><strong>商业化</strong>：按客户节省的算力分成（比例未披露）；Shashua：对大算力账单客户省 10% 就值数亿美元</li>
+            <li><strong>具名客户</strong>：Lightricks——Maxwell 使 LTX-2.5 的 4K 视频生成 250s → 134s（2×B200，<strong>1.87×</strong>，<a href="https://www.doubleai.com/research/maxwell-ltx-2-5-4k-in-half-the-time">官方研究页</a>）；另一早期客户算力成本降 67%（WSJ 转述）</li>
+            <li><strong>独立信誉佐证</strong>：<a href="https://theory.report">theory.report</a> 与 arXiv 2610.29624 已引用其高 girth 图构造（打破 Margulis/LPS 1988 年 4/3 界至 8/5，主定理 Lean+Mathlib 形式化）</li>
+            <li>风险：38× / 4.5× / 67% 全部为公司口径或媒体转述，无第三方复现；图论 8/5 界是技术报告而非同行评审，社区已有质疑；「算力节省分成」定价无任何公开数字；深度绑定 Nvidia 生态</li>
+          </ul>
+          <div class="card-note"><span class="note-label">核心判断</span>doubleAI 是本周全球唯一「可验证研究纪录（Lean 形式化的图论界 + 5TB 证书的象棋证明）—产品（Maxwell）—商业化（算力分成）」同日闭环的公司；它的定位恰好压在今日主线上——<strong>Maxwell 是把「改进循环」外包给一个每步都有形式化证明锚的 harness</strong>。但 38× 这类关键数字仍是公司口径，Lean 证书与 Lightricks 实测是当前最硬的两块证据。</div>
+          <div class="card-src"><a href="https://www.doubleai.com/about">官网 ↗</a></div>
+        </div>
+      </div>
+
+      <div class="sec" id="s6">
+        <div class="sec-h">Section 06 — 语料精选</div>
+        <div class="card">
+          <div class="card-body">今日无（corpus/ 目录无新语料）。</div>
+        </div>
+      </div>
+
+      <div class="sec quizsec" id="s7">
+        <div class="sec-h">Section 07 — 每日测验（难度 L2 · 机制理解级）</div>
+        <div class="sec-intro">今日 4 题：通识 DPO 两题 + 跨期连接两题（InstructGPT KL ↔ DPO 隐式 KL；NO.008 审计冷水 ↔ SplatLab 复现底座）。干扰项均为常见误解。累计六份未交——这周的欠账从今天这四题开始还。</div>
+
+        <div class="quiz-item" data-key="b">
+          <p class="qt">Q1 DPO 说「不需要单独训练奖励模型」，它的机制依据是什么？<span class="qhint">提示：01 通识「原理机制」——注意关键词「闭式」。</span></p>
+          <label><input type="radio" name="q1" value="a"> 它直接优化偏好分类准确率，彻底放弃了奖励的概念</label>
+          <label><input type="radio" name="q1" value="b"> RLHF 的带约束目标有闭式最优解，把奖励反解成策略与参考模型之比代回后，奖励项在目标中相消——语言模型本身就是隐式奖励模型</label>
+          <label><input type="radio" name="q1" value="c"> 它用人类标注的偏好分数直接当奖励，省去了建模环节</label>
+          <label><input type="radio" name="q1" value="d"> 它用更大的基座模型隐式充当奖励模型，所以不用单独训</label>
+          <div class="exp"><b>答案：B。</b>机制链条：闭式最优 π* ∝ π_ref·exp(r/β) → 反解 r 代回 → 奖励项与策略项相消。A 是常见误解——DPO 不是放弃奖励概念，而是把它藏进了策略本身（隐式奖励模型）；C 错在 DPO 用的是「成对比较」而非绝对分数，且仍然绕开了显式奖励建模；D 无中生有。</div>
+        </div>
+
+        <div class="quiz-item" data-key="d">
+          <p class="qt">Q2 DPO 比 PPO 更稳定更便宜，但它隐含的代价是什么（本周速递 TPO 正是在修这个洞）？<span class="qhint">提示：01 通识「与近期进展的联系」+ 03 速递 #12。</span></p>
+          <label><input type="radio" name="q2" value="a"> DPO 无法用于对话任务，只能做单轮情感控制</label>
+          <label><input type="radio" name="q2" value="b"> DPO 需要的人类标注量是 RLHF 的数十倍</label>
+          <label><input type="radio" name="q2" value="c"> DPO 的 KL 约束太强，模型永远学不到参考模型之外的行为</label>
+          <label><input type="radio" name="q2" value="d"> DPO 是离线方法，只能学偏好数据集里见过的分布——真实部署中偏好分布会漂移，模型对此没有防御</label>
+          <div class="exp"><b>答案：D。</b>DPO 的便宜来自「离线」：不采样、不打分，只学数据集内的偏好对比——代价是对分布漂移没有防御，TPO（NeurIPS 2026）用三层分布鲁棒目标补的正是这个洞。A 与事实相反（DPO 在单轮对话质量持平或更好）；B 无依据；C 错——KL 约束恰恰允许偏离参考模型，只是按距离惩罚。</div>
+        </div>
+
+        <div class="quiz-item" data-key="a">
+          <p class="qt">Q3（跨期连接）昨日 InstructGPT 的 KL 惩罚与今日 DPO 的隐式 KL 约束，共同的设计原则是什么？<span class="qhint">提示：两篇共享的关键词是「锚」。</span></p>
+          <label><input type="radio" name="q3" value="a"> 模型更新必须被约束在参考模型附近，否则奖励/偏好信号会被钻空子（reward hacking），高分不再来自好好回答</label>
+          <label><input type="radio" name="q3" value="b"> KL 散度只是一个正则化技巧，去掉也不影响训练稳定性</label>
+          <label><input type="radio" name="q3" value="c"> 参考模型应该越弱越好，这样约束才不会限制能力增长</label>
+          <label><input type="radio" name="q3" value="d"> 两者的约束对象是训练数据而不是模型参数</label>
+          <div class="exp"><b>答案：A。</b>InstructGPT 里 KL 惩罚防 PPO 钻奖励模型的空子；DPO 把同一个约束藏进闭式解（π 相对 π_ref 的比值）。共同原则：锚住参考模型，让改进只能以「可解释的偏离」发生。B 是致命误解——去掉 KL，RLHF 会 reward hacking、DPO 会退化成无锚的对比学习；C 反了（参考模型是 SFT 起点，太弱则锚无意义）；D 错，约束的是策略分布。</div>
+        </div>
+
+        <div class="quiz-item" data-key="c">
+          <p class="qt">Q4（跨期连接 · NO.008 ↔ 今日）SplatLab 全自动科研系统为什么把「verified-reproduction（已验证复现）」当整个系统的底座？<span class="qhint">提示：NO.008 深度「证据与边界」+ 今日 03 速递 #13。</span></p>
+          <label><input type="radio" name="q4" value="a"> 因为复现比提出新想法容易，先做容易的可以积累信心</label>
+          <label><input type="radio" name="q4" value="b"> 因为 NeurIPS 审稿要求所有实验必须先复现基线</label>
+          <label><input type="radio" name="q4" value="c"> 复现被验证为可靠后，就成为循环中的「常数项/锚」——变异只发生在底座之上，每个数字都能回溯到留痕的 run，这正是 NO.008 深度「证据链必须长在 harness 里」的工程化落地</label>
+          <label><input type="radio" name="q4" value="d"> 因为 3DGS 领域没有公开数据集，只能靠复现获取训练材料</label>
+          <div class="exp"><b>答案：C。</b>verified-reproduction 的作用是把「不变的部分」锚死：底座可信，其上的变异（扩展假设、消融）的每个数字才可回溯到留痕 run——对照 NO.008 的 0/135（无锚的 agent 科研 85% 过不了诚信检查）。A 只说对难度没说对功能；B 无关；D 与事实不符（Mip-NeRF 360 / LLFF 是公开基准）。</div>
+        </div>
+
+        <button class="qbtn" onclick="gradeQuiz()">提交批改</button>
+        <div id="qresult"></div>
+        <div class="howto">作答后把结果记到 <code>knowledge/quiz-answers/2026-10-26.md</code>（一行一题，写「不会」也算作答），明早自动批改并更新掌握度档案。</div>
+      </div>
+
+      <div class="bottom">
+        <div class="issue-nav">
+          <a href="daily-2026-10-24.html">← NO.008 · 10-24</a>
+          <a href="index.html">目录</a>
+          <a href="index.html">NO.010 · 明早 8:10 →</a>
+        </div>
+        <div class="footer">
+          <span class="footer-copy">Markdown 源文件在 daily/ · 论文本地存档在 site/papers/（线上链接直指 arXiv）· 由多智能体管线编译</span>
+          <a class="footer-top" href="#">回到顶部 ↑</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+function gradeQuiz() {
+  var items = document.querySelectorAll('.quiz-item');
+  var correct = 0, total = items.length, unanswered = 0;
+  items.forEach(function(it) {
+    var key = (it.getAttribute('data-key') || '').toLowerCase();
+    var picked = it.querySelector('input[type=radio]:checked');
+    var exp = it.querySelector('.exp');
+    if (exp) exp.style.display = 'block';
+    var mark = it.querySelector('.qmark');
+    if (!mark && exp) {
+      mark = document.createElement('b');
+      mark.className = 'qmark';
+      exp.insertBefore(mark, exp.firstChild);
+    }
+    if (!picked) {
+      unanswered++;
+      if (mark) mark.textContent = '✗ 未作答。 ';
+    } else if (picked.value.toLowerCase() === key) {
+      correct++;
+      if (mark) mark.textContent = '✓ 答对了。 ';
+    } else {
+      if (mark) mark.textContent = '✗ 不对。 ';
+    }
+  });
+  var r = document.getElementById('qresult');
+  var tip;
+  if (unanswered > 0) {
+    tip = '还有 ' + unanswered + ' 题未作答——写「不会」也算作答。';
+  } else if (correct === total) {
+    tip = '全对！按梯度规则等级可以 +1。把「' + correct + '/' + total + '」记进 quiz-answers/2026-10-26.md。';
+  } else if (correct / total >= 0.6) {
+    tip = '保持 L2，错题解析在每题下方。把「' + correct + '/' + total + ' + 错题号」记进 quiz-answers/2026-10-26.md。';
+  } else {
+    tip = '低于 60%——解析已把薄弱概念重讲一遍。把得分记进 quiz-answers/2026-10-26.md，下次出题会降档重讲。';
+  }
+  r.style.display = 'block';
+  r.textContent = '得分 ' + correct + ' / ' + total + '。' + tip;
+}
+</script>
+
+</body>
+</html>
