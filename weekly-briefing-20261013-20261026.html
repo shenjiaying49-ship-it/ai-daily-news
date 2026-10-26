@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Daily News · W2 周报 · 2026-10-13 – 10-26</title>
+<style>
+        html { scroll-behavior: smooth; }
+        :root {
+            --bg: #ffffff; --bg-page: #FAF9F6; --text: #1a1a1a; --text-2: #444444; --text-3: #888888;
+            --border: #D9D8D6; --note-bg: #f4eff5; --pill-bg: #EFEDEA;
+            --purple: #660874; --purple-80: #843990; --purple-60: #a36bac; --purple-40: #c29cc8; --purple-20: #e8dce9;
+            --sidebar-w: 220px; --max-w: 740px;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root { --bg:#0a0a0a; --bg-page:#0a0a0a; --text:#e5e5e5; --text-2:#aaaaaa; --text-3:#666666;
+                --border:#1e1e1e; --note-bg:#1a111b; --pill-bg:#161412;
+                --purple:#b87cc4; --purple-80:#a06aad; --purple-60:#8a5d96; --purple-40:#6e3f7a; --purple-20:#3d1e45; }
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Noto Sans SC", sans-serif; background: var(--bg-page); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+        .topbar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); padding: 0 24px; height: 48px; display: flex; align-items: center; justify-content: space-between; }
+        .topbar-left { display: flex; align-items: baseline; gap: 10px; }
+        .topbar-brand { font-size: 14px; font-weight: 700; color: var(--purple); letter-spacing: -0.3px; }
+        .topbar-brand a { color: var(--purple); text-decoration: none; }
+        .topbar-tagline { font-size: 11px; color: var(--text-3); letter-spacing: 0.2px; }
+        .topbar-right { display: flex; gap: 8px; }
+        .topbar-btn { font-size: 12px; padding: 4px 12px; border: 1px solid var(--border); border-radius: 3px; color: var(--text-3); text-decoration: none; transition: all 0.15s ease; }
+        .topbar-btn:hover { color: var(--text); border-color: var(--text-3); }
+        .page { max-width: calc(var(--max-w) + var(--sidebar-w) + 80px); margin: 0 auto; padding: 0 32px; }
+        .header { padding: 28px 0 24px; border-bottom: 1px solid var(--border); }
+        .header-date { font-size: 12px; color: var(--text-3); font-variant-numeric: tabular-nums; margin-bottom: 8px; }
+        .header h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.3px; line-height: 1.4; color: var(--text); }
+        .header-sub { margin-top: 8px; font-size: 13px; color: var(--text-3); }
+        .summary { padding: 20px 0 24px; border-bottom: 1px solid var(--border); }
+        .sum-label { font-size: 11px; font-weight: 600; color: var(--purple); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+        .sum-cat { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px; margin-bottom: 10px; }
+        .sum-cat:last-child { margin-bottom: 0; }
+        .sum-cat-name { display: inline-block; background: var(--purple-20); color: var(--purple); padding: 2px 8px; border-radius: 3px; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+        .sum-item { background: var(--pill-bg); padding: 3px 10px; border-radius: 3px; font-size: 13px; color: var(--text-2); line-height: 1.5; }
+        .layout { display: flex; }
+        .sidebar { width: var(--sidebar-w); flex-shrink: 0; padding: 20px 16px 20px 0; position: sticky; top: 48px; height: calc(100vh - 48px); overflow-y: auto; border-right: 1px solid var(--border); }
+        .sidebar::-webkit-scrollbar { width: 0; }
+        .nav-label { font-size: 10px; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 1px; padding-bottom: 16px; }
+        .nav-sec { display: block; padding: 6px 0; font-size: 11px; font-weight: 600; color: var(--text); text-decoration: none; }
+        .nav-sec:hover { color: var(--purple); }
+        .nav-sec .n { color: var(--text-3); font-variant-numeric: tabular-nums; margin-right: 6px; }
+        .main { flex: 1; max-width: var(--max-w); padding: 20px 0 0 24px; min-width: 0; }
+        .sec { margin-bottom: 32px; scroll-margin-top: 64px; }
+        .sec-h { font-size: 11px; font-weight: 600; color: var(--purple); text-transform: uppercase; letter-spacing: 1.5px; padding-bottom: 10px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+        .card { padding: 16px 0; border-bottom: 1px solid var(--border); scroll-margin-top: 64px; }
+        .card:last-child { border-bottom: none; }
+        .card-h { font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--text); letter-spacing: -0.2px; margin-bottom: 8px; }
+        .card-h a { color: var(--text); text-decoration: none; }
+        .card-h a:hover { color: var(--purple); }
+        .ent { font-weight: 500; }
+        .card-meta { font-size: 12px; color: var(--text-3); margin-bottom: 8px; font-variant-numeric: tabular-nums; }
+        .card-body { font-size: 14px; line-height: 1.75; color: var(--text-2); }
+        .card-body strong { color: var(--text); font-weight: 600; }
+        .card-body a { color: var(--purple-80); text-decoration: none; }
+        .card-body a:hover { text-decoration: underline; }
+        .card-note { margin-top: 10px; padding: 10px 14px; background: var(--note-bg); font-size: 13px; line-height: 1.75; color: var(--text-2); border-radius: 2px; }
+        .note-label { font-size: 10px; font-weight: 600; color: var(--purple-80); text-transform: uppercase; letter-spacing: 0.5px; margin-right: 6px; }
+        .card-src { margin-top: 10px; font-size: 12px; color: var(--text-3); display: flex; flex-wrap: wrap; gap: 4px 14px; }
+        .card-src a { color: var(--text-3); text-decoration: none; }
+        .card-src a:hover { color: var(--text); }
+        .pill { display: inline-block; background: var(--purple-20); color: var(--purple); padding: 1px 8px; border-radius: 3px; font-size: 11px; font-weight: 600; margin-right: 6px; vertical-align: 1px; }
+        .sec-intro { font-size: 13px; color: var(--text-3); margin-bottom: 12px; }
+        table.rank { width: 100%; border-collapse: collapse; font-size: 13px; color: var(--text-2); margin: 8px 0; }
+        table.rank th { text-align: left; font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.5px; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+        table.rank td { padding: 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+        table.rank td:first-child { color: var(--purple); font-weight: 700; font-variant-numeric: tabular-nums; }
+        table.rank a { color: var(--purple-80); text-decoration: none; }
+        ul.hl { margin: 8px 0 0; padding-left: 18px; font-size: 13.5px; color: var(--text-2); }
+        ul.hl li { margin: 4px 0; }
+        ul.hl strong { color: var(--text); }
+        .bottom { border-top: 1px solid var(--border); margin-top: 16px; padding: 20px 0 32px; }
+        .issue-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .issue-nav a { font-size: 13px; padding: 6px 16px; border: 1px solid var(--border); border-radius: 3px; color: var(--text-3); text-decoration: none; transition: all 0.15s ease; }
+        .issue-nav a:hover { color: var(--text); border-color: var(--text-3); }
+        .footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 16px; }
+        .footer-copy { font-size: 12px; color: var(--text-3); }
+        .footer-top { font-size: 12px; color: var(--text-3); text-decoration: none; padding: 4px 12px; border: 1px solid var(--border); border-radius: 3px; }
+        .footer-top:hover { color: var(--text); border-color: var(--text-3); }
+        /* ===== H5 移动端适配 ===== */
+        .mob-toc { display: none; }
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main { padding-left: 0; }
+            .page { padding: 0 16px; }
+            .topbar { padding: 0 14px; }
+            .topbar-tagline { display: none; }
+            .header { padding: 20px 0 16px; }
+            .header h1 { font-size: 20px; line-height: 1.45; }
+            .header-sub { font-size: 12px; }
+            .summary { padding: 16px 0 18px; }
+            .sum-item { font-size: 12.5px; }
+            .card-h { font-size: 15px; }
+            .card-body { font-size: 13.5px; }
+            table.rank { font-size: 12px; }
+            .mob-toc {
+                display: flex; gap: 8px; overflow-x: auto;
+                padding: 10px 14px; background: var(--bg);
+                border-bottom: 1px solid var(--border);
+                position: sticky; top: 48px; z-index: 90;
+                -webkit-overflow-scrolling: touch;
+            }
+            .mob-toc::-webkit-scrollbar { display: none; }
+            .mob-toc a {
+                flex-shrink: 0; font-size: 12px; font-weight: 600;
+                color: var(--text-2); text-decoration: none;
+                border: 1px solid var(--border); border-radius: 999px; padding: 5px 13px;
+            }
+            .mob-toc a:active { color: var(--purple); border-color: var(--purple); }
+            .issue-nav { flex-wrap: wrap; gap: 8px; }
+            .issue-nav a { padding: 8px 14px; }
+        }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-brand"><a href="index.html">AI Daily News · 研究版</a></span>
+    <span class="topbar-tagline">通识是主线，前沿全量保留 · 不含政策 / 伦理 / 安全</span>
+  </div>
+  <div class="topbar-right">
+    <a class="topbar-btn" href="index.html">目录</a>
+    <a class="topbar-btn" href="https://github.com/shenjiaying49-ship-it/ai-daily-news">GitHub ↗</a>
+  </div>
+</div>
+
+<nav class="mob-toc">
+  <a href="#s1">01 通识</a><a href="#s2">02 Top 10</a><a href="#s3">03 趋势</a><a href="#s4">04 初创</a><a href="#s5">05 深度</a><a href="#s6">06 下周</a>
+</nav>
+
+<div class="page">
+
+  <div class="header">
+    <div class="header-date">W2 周报 · 2026-10-13 至 2026-10-26 · Weekly Briefing · 双周窗口（cron 停更补齐）</div>
+    <h1>「换地方改进」的两周——改进对象从权重搬到 harness，记忆从上下文搬进权重，反馈源从人换成环境；所有路线同撞一堵墙：证据链</h1>
+    <div class="header-sub">覆盖 NO.006–009 共 4 期 · 通识 +4 篇（累计 7/20）· 论文收录 63 篇 · 热榜 32 项次 · 初创 8 家 · 测验 0/6 期提交</div>
+  </div>
+
+  <div class="summary">
+    <div class="sum-label">Weekly Briefing</div>
+    <div class="sum-cat"><span class="sum-cat-name">通识进度</span><span class="sum-item">LoRA → ResNet → InstructGPT → DPO：一条「反馈与增量」的完整叙事线（7/20）</span></div>
+    <div class="sum-cat"><span class="sum-cat-name">论文 Top 10</span><span class="sum-item">Into the Unknown 0/135 ｜ CoEvo-RSI ｜ Epi ｜ SplatLab ｜ MemT-1.0 ｜ Latent Compaction ｜ Cortex ｜ Scaling in Games ｜ PAR ｜ TPO</span></div>
+    <div class="sum-cat"><span class="sum-cat-name">趋势判断</span><span class="sum-item">T01 harness 先于权重 · T02 记忆进权重 vs 朴素基线反扑 · T03 证据链成为硬边界</span></div>
+    <div class="sum-cat"><span class="sum-cat-name">初创盘点</span><span class="sum-item">8 家：XGEN LABS / DexForce / Sakana / Liquid AI / TypeSafe / Enact / doubleAI / Eka——决策模型与物理 AI 力觉线各被连续下注</span></div>
+  </div>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="nav-label">Contents</div>
+      <a class="nav-sec" href="#s1"><span class="n">01</span>本周通识进度</a>
+      <a class="nav-sec" href="#s2"><span class="n">02</span>论文 Top 10 榜</a>
+      <a class="nav-sec" href="#s3"><span class="n">03</span>三条趋势判断</a>
+      <a class="nav-sec" href="#s4"><span class="n">04</span>初创研报盘点</a>
+      <a class="nav-sec" href="#s5"><span class="n">05</span>技术方向深度</a>
+      <a class="nav-sec" href="#s6"><span class="n">06</span>下周三件事</a>
+    </aside>
+
+    <div class="main">
+
+      <div class="sec" id="s1">
+        <div class="sec-h">Section 01 — 本周通识进度</div>
+        <div class="card">
+          <div class="card-h">+4 篇（累计 7/20），四篇构成一条完整叙事线</div>
+          <div class="card-body">
+            <span class="ent">#4 LoRA</span>（10-15，ICLR 2022）：微调为什么可以便宜 10000 倍——低秩适配让「改模型」从全量训练变成小矩阵叠加。<br>
+            <span class="ent">#5 ResNet</span>（10-16，CVPR 2016）：残差让百层网络真的能训——退化不是过拟合，恒等映射保底、F(x) 只补差值。与本周 RSI 的「只学增量」同构（NO.007 主线）。<br>
+            <span class="ent">#6 InstructGPT</span>（10-24，NeurIPS 2022）：1.3B 赢 175B——对齐收益超过 100 倍参数差距，RLHF 三阶段成为出厂模板。「反馈驱动改进」的祖先（NO.008 主线）。<br>
+            <span class="ent">#7 DPO</span>（10-26，NeurIPS 2023）：把三阶段压成一次闭式分类损失——「你的语言模型本身就是奖励模型」。与 RSI 构成改进的两条路（NO.009 主线）。
+          </div>
+          <div class="card-note"><span class="note-label">掌握度</span>测验等级 L2 保持，但 W2 窗口内六期测验零提交（累计七份未交）——梯度机制因无数据而失效中，等级暂按用户指定维持 L2。费曼课：feynman-notes/ 本周无作答，苏格拉底测验已出（RLHF / 残差 / harness 三概念 × 3 问），见 knowledge/feynman-sessions/2026-10-26-周度费曼课.md。</div>
+        </div>
+      </div>
+
+      <div class="sec" id="s2">
+        <div class="sec-h">Section 02 — 本周论文 Top 10 榜</div>
+        <div class="card">
+          <table class="rank">
+            <tr><th>#</th><th>论文</th><th>期号</th><th>一句话理由</th></tr>
+            <tr><td>1</td><td><a href="https://arxiv.org/abs/2610.19159">Into the Unknown</a></td><td>NO.008</td><td><strong>0/135</strong>：9 个前沿 agent 写 135 篇后续论文，0 篇满足全部录用条件、114 篇诚信检查不过——本窗口最重要的反向数据点</td></tr>
+            <tr><td>2</td><td><a href="https://arxiv.org/abs/2610.25078">CoEvo-RSI</a></td><td>NO.008</td><td>harness 协同进化开题之作：先改车、司机跟班——改进指挥权上移的风向标</td></tr>
+            <tr><td>3</td><td><a href="https://arxiv.org/abs/2610.24944">Epi</a></td><td>NO.008</td><td>120 项可查证数学/物理纪录 + Feigenbaum 维数区间收窄 360 万倍——自改进里罕见的可审计成果形态</td></tr>
+            <tr><td>4</td><td><a href="https://arxiv.org/abs/2610.30468">SplatLab</a></td><td>NO.009</td><td>NeurIPS 2026 已接收：全自动科研闭环 + 数字绑定留痕 run——0/135 的正面回应</td></tr>
+            <tr><td>5</td><td><a href="https://arxiv.org/abs/2610.26825">MemT-1.0</a></td><td>NO.008</td><td>记忆原生预训练：128K 历史 1.86× 加速、存储省 66 倍——「记忆即架构」成集体共识</td></tr>
+            <tr><td>6</td><td>Latent Compaction</td><td>NO.006</td><td>32× 压缩保 96.7%——把上下文增益搬进权重的开端</td></tr>
+            <tr><td>7</td><td>Cortex</td><td>NO.006</td><td>50 次编辑恢复 88.9%——记忆可编辑性的代表作</td></tr>
+            <tr><td>8</td><td><a href="https://arxiv.org/abs/2610.28698">Scaling in Games</a></td><td>NO.008</td><td>HF 周冠 301 赞：120 种配置拟出「数据 × 多样性 × 规模」经验 scaling law——具身版 Chinchilla</td></tr>
+            <tr><td>9</td><td><a href="https://arxiv.org/abs/2610.27628">PAR</a></td><td>NO.008</td><td>0.5B 模型外推 16 倍训练长度——残差思想在序列维度的胜利，与 ResNet 跨期呼应</td></tr>
+            <tr><td>10</td><td><a href="https://arxiv.org/abs/2610.28229">TPO</a></td><td>NO.009</td><td>NeurIPS 2026 已接收：DPO 的三层分布漂移与分布鲁棒修正——偏好优化效率线之外的第一块鲁棒性拼图</td></tr>
+          </table>
+          <div class="card-body">落选说明：Terminal-RSI / Athanor（NO.007）作为 RSI 周更实证并入趋势判断；Raw-RAG（NO.009）作为反方冷水在 05 深度引用。</div>
+        </div>
+      </div>
+
+      <div class="sec" id="s3">
+        <div class="sec-h">Section 03 — 三条趋势判断</div>
+        <div class="card">
+          <div class="card-h">T01 · harness 先于权重——改进的「指挥权」上移</div>
+          <div class="card-body">NO.007 四篇 RSI 还在改模型本身；NO.008 风向一变：CoEvo-RSI 直接问「当 harness 进化时哪些模型该跟进」，微软 HPO 把 harness 纳入训练闭环（resolve rate 57.8%→64.8%），Epi 把 harness 做成持久化基础设施；同一时间热榜上 ruflo 自称 meta-harness、orca 卖多 agent 编排、K-Dense 拆出 177 个科研技能、Karpathy 观察变成 22 万星 CLAUDE.md。<strong>论文与产品在同一时间窗指向同一个层——改进循环的最快路径不在梯度里，在文本级的 harness 变异里。</strong></div>
+        </div>
+        <div class="card">
+          <div class="card-h">T02 · 记忆进权重成为赛道共识，但朴素基线反扑</div>
+          <div class="card-body">NO.006 的 Latent Compaction 与 Cortex 开了「上下文增益搬进权重」的头；NO.008/009 的 MemT-1.0 与 Deep Fusion Memory 把「记忆即架构」推成集体方向；民间侧 ai-memory（★13.5k）反其道把记忆摊成 git-backed markdown wiki。<strong>但 Raw-RAG 在 7 个基准组合中 6 个第一的冷水提醒：复杂 agentic memory 还没过「证据覆盖率」这道朴素关——记忆赛道的下一个分水岭是「找齐证据」，不是「机制精巧」。</strong></div>
+        </div>
+        <div class="card">
+          <div class="card-h">T03 · 证据链成为自改进的硬边界——验证机制本身在产品化</div>
+          <div class="card-body">从 NO.007 的指标自生成（Terminal-RSI），到 NO.008 的 0/135 审计失败 vs Epi 的可审计纪录，到 NO.009 的 SplatLab（数字绑定留痕 run）与 Cloudflare audit skill（候选交全新 verifier 证伪、覆盖率账本、三态判定）——<strong>「验证」正在从论文的附录走向系统的第一等公民：谁把证据链长进 harness，谁的加速才不算生产垃圾。</strong></div>
+        </div>
+      </div>
+
+      <div class="sec" id="s4">
+        <div class="sec-h">Section 04 — 初创研报盘点（8 家）</div>
+        <div class="card">
+          <table class="rank">
+            <tr><th>公司</th><th>期号</th><th>定位</th><th>关键事件</th></tr>
+            <tr><td>XGEN LABS</td><td>NO.006</td><td>世界智能（本体论强相关）</td><td>与 DexForce 同期报道</td></tr>
+            <tr><td>DexForce</td><td>NO.006</td><td>具身智能</td><td>与 CUHK-Shenzhen 联发 UNITAS</td></tr>
+            <tr><td>Sakana AI</td><td>NO.007</td><td>自适应模型</td><td>B 轮 $200M 投后 $2.7B；Schmidhuber 任首席科学顾问</td></tr>
+            <tr><td>Liquid AI</td><td>NO.007</td><td>决策模型</td><td>d1-3B Decision Index 48.57；A 轮 $250M</td></tr>
+            <tr><td>TypeSafe AI</td><td>NO.008</td><td>决策模型（Jev）</td><td>A 轮 $870M @ $7.5B（发布 3 周）；零论文，全部数字公司口径</td></tr>
+            <tr><td>Enact Intelligence</td><td>NO.008</td><td>物理 AI（电机测力）</td><td>$30M 瑞士史上最大 pre-seed；LeCun / Mensch 天使</td></tr>
+            <tr><td>doubleAI</td><td>NO.009</td><td>代码执行模型</td><td>$200M A 轮；63-check 象棋纪录 Lean 形式化 + 图论 8/5 界</td></tr>
+            <tr><td>Eka Robotics</td><td>NO.009</td><td>VFA 力觉机械臂</td><td>$150M @ $1.45B；纯仿真 RL 零人类数据</td></tr>
+          </table>
+          <div class="card-note"><span class="note-label">信号</span>两周资本面一个清晰信号：决策模型（Liquid → TypeSafe）与物理 AI 力觉线（Enact → Eka）各出现两家连续报道——品类正在被资本重复下注。</div>
+        </div>
+      </div>
+
+      <div class="sec" id="s5">
+        <div class="sec-h">Section 05 — 技术方向深度（W2 主线合成）</div>
+        <div class="card">
+          <div class="card-h">harness 先于权重：有理论、有管线、有生态、有失败样本</div>
+          <div class="card-body">
+            <strong>核心判断：两周证据合起来看，「先改 harness、模型跟跑」已从单篇论文的观点变成有理论、有工业管线、有产品生态、有失败样本的完整叙事——它的成立条件恰恰是 T03 的证据链：harness 的变异必须被外部验证门约束，否则加速的只是垃圾产量。</strong><br><br>
+            <span class="ent">理论面</span>（NO.008）：CoEvo-RSI 分层框架——harness 变异（文本级、失败成本≈0）→ 验证筛选 → 好轨迹 SFT 回灌。Qwen3.5-9B 靠「跟跑」在 TraceElephant 超 DeepSeek-V4-Pro +14.16；HPO 做成训练管线 57.8%→64.8%。<br>
+            <span class="ent">成果面</span>：Epi 不刷基准直接刷世界纪录（120 项可查证纪录），证明 harness 层的记忆累积能让改进跨任务复利。<br>
+            <span class="ent">边界面</span>：Into the Unknown 的 0/135——<strong>自报产出 ≠ 可审计产出；评估便宜（NO.007 深度三件套）不该滑成造假便宜。</strong><br>
+            <span class="ent">工程面</span>（NO.009）：SplatLab（verified-reproduction 骨干 + 数字绑定留痕 run）与 Cloudflare audit skill（六阶段、fresh verifier 证伪、覆盖率账本）给出同一答案的两份实现——<strong>证据链不是约束，是 harness 的承重结构。</strong><br>
+            <span class="ent">消费面</span>：ruflo / orca / t3code / K-Dense 在热榜上的集体出现说明 harness 层产品生态已先行。<br>
+            <span class="ent">与通识线的闭合</span>：InstructGPT（反馈驱动更新）→ ResNet / DPO（增量与闭式）→ harness 分层（NO.009 深度「压缩循环 vs 加速循环」）——两周通识恰好构成这个主线的概念地基。
+          </div>
+        </div>
+      </div>
+
+      <div class="sec" id="s6">
+        <div class="sec-h">Section 06 — 下周值得追的 3 件事</div>
+        <div class="card">
+          <ul class="hl">
+            <li><strong>通识 #8 DeepSeek-R1</strong>（Nature 2025，RLVR）——DPO 与 R1 是偏好 / 推理优化的两极（一个去 RL、一个把 RL 推到极致），读完正好合龙。NO.009 已预告。</li>
+            <li><strong>基建自查两件</strong>：cron 自 10-17 起停更需排查；测验累计七份零提交，梯度机制失效中——从 NO.009 的四题开始补。</li>
+            <li><strong>技术面三个复现信号</strong>：TPO 的分布鲁棒 DPO 何时开源；Raw-RAG 的朴素基线结论能否激起 agentic memory 阵营回应（MemT / Deep Fusion Memory 是否按其协议重跑对比）；IQuest-Q1（320B/15B MoE 开源）的 CLI agent 实测口碑。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bottom">
+        <div class="issue-nav">
+          <a href="weekly-briefing-20261005-1012.html">← W1 周报</a>
+          <a href="index.html">目录</a>
+          <a href="daily-2026-10-26.html">NO.009 · 10-26 →</a>
+        </div>
+        <div class="footer">
+          <span class="footer-copy">Markdown 源文件在 weekly/ · 由多智能体管线编译 · 窗口说明：cron 自 10-17 停更七日，本期为双周合并窗口</span>
+          <a class="footer-top" href="#">回到顶部 ↑</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
