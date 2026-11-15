@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Daily News · 研究版 · 2026-11-15</title>
+<style>
+        html { scroll-behavior: smooth; }
+        :root {
+            --bg: #ffffff; --bg-page: #FAF9F6; --text: #1a1a1a; --text-2: #444444; --text-3: #888888;
+            --border: #D9D8D6; --note-bg: #f4eff5; --pill-bg: #EFEDEA;
+            --purple: #660874; --purple-80: #843990; --purple-60: #a36bac; --purple-40: #c29cc8; --purple-20: #e8dce9;
+            --sidebar-w: 220px; --max-w: 740px;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root { --bg:#0a0a0a; --bg-page:#0a0a0a; --text:#e5e5e5; --text-2:#aaaaaa; --text-3:#666666;
+                --border:#1e1e1e; --note-bg:#1a111b; --pill-bg:#161412;
+                --purple:#b87cc4; --purple-80:#a06aad; --purple-60:#8a5d96; --purple-40:#6e3f7a; --purple-20:#3d1e45; }
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Noto Sans SC", sans-serif; background: var(--bg-page); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+        .topbar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); padding: 0 24px; height: 48px; display: flex; align-items: center; justify-content: space-between; }
+        .topbar-left { display: flex; align-items: baseline; gap: 10px; }
+        .topbar-brand { font-size: 14px; font-weight: 700; color: var(--purple); letter-spacing: -0.3px; }
+        .topbar-brand a { color: var(--purple); text-decoration: none; }
+        .topbar-tagline { font-size: 11px; color: var(--text-3); letter-spacing: 0.2px; }
+        .topbar-right { display: flex; gap: 8px; }
+        .topbar-btn { font-size: 12px; padding: 4px 12px; border: 1px solid var(--border); border-radius: 3px; color: var(--text-3); text-decoration: none; transition: all 0.15s ease; }
+        .topbar-btn:hover { color: var(--text); border-color: var(--text-3); }
+        .page { max-width: calc(var(--max-w) + var(--sidebar-w) + 80px); margin: 0 auto; padding: 0 32px; }
+        .header { padding: 28px 0 24px; border-bottom: 1px solid var(--border); }
+        .header-date { font-size: 12px; color: var(--text-3); font-variant-numeric: tabular-nums; margin-bottom: 8px; }
+        .header h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.3px; line-height: 1.4; color: var(--text); }
+        .header-sub { margin-top: 8px; font-size: 13px; color: var(--text-3); }
+        .summary { padding: 20px 0 24px; border-bottom: 1px solid var(--border); }
+        .sum-label { font-size: 11px; font-weight: 600; color: var(--purple); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; }
+        .sum-cat { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px; margin-bottom: 10px; }
+        .sum-cat:last-child { margin-bottom: 0; }
+        .sum-cat-name { display: inline-block; background: var(--purple-20); color: var(--purple); padding: 2px 8px; border-radius: 3px; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+        .sum-item { background: var(--pill-bg); padding: 3px 10px; border-radius: 3px; font-size: 13px; color: var(--text-2); line-height: 1.5; }
+        .layout { display: flex; }
+        .sidebar { width: var(--sidebar-w); flex-shrink: 0; padding: 20px 16px 20px 0; position: sticky; top: 48px; height: calc(100vh - 48px); overflow-y: auto; border-right: 1px solid var(--border); }
+        .sidebar::-webkit-scrollbar { width: 0; }
+        .nav-label { font-size: 10px; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 1px; padding-bottom: 16px; }
+        .nav-sec { display: block; padding: 6px 0; font-size: 11px; font-weight: 600; color: var(--text); text-decoration: none; }
+        .nav-sec:hover { color: var(--purple); }
+        .nav-sec .n { color: var(--text-3); font-variant-numeric: tabular-nums; margin-right: 6px; }
+        .main { flex: 1; max-width: var(--max-w); padding: 20px 0 0 24px; min-width: 0; }
+        .sec { margin-bottom: 32px; scroll-margin-top: 64px; }
+        .sec-h { font-size: 11px; font-weight: 600; color: var(--purple); text-transform: uppercase; letter-spacing: 1.5px; padding-bottom: 10px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+        .card { padding: 16px 0; border-bottom: 1px solid var(--border); scroll-margin-top: 64px; }
+        .card:last-child { border-bottom: none; }
+        .card-h { font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--text); letter-spacing: -0.2px; margin-bottom: 8px; }
+        .card-h a { color: var(--text); text-decoration: none; }
+        .card-h a:hover { color: var(--purple); }
+        .ent { font-weight: 500; }
+        .card-meta { font-size: 12px; color: var(--text-3); margin-bottom: 8px; font-variant-numeric: tabular-nums; }
+        .card-body { font-size: 14px; line-height: 1.75; color: var(--text-2); }
+        .card-body strong { color: var(--text); font-weight: 600; }
+        .card-body a { color: var(--purple-80); text-decoration: none; }
+        .card-body a:hover { text-decoration: underline; }
+        .card-note { margin-top: 10px; padding: 10px 14px; background: var(--note-bg); font-size: 13px; line-height: 1.75; color: var(--text-2); border-radius: 2px; }
+        .note-label { font-size: 10px; font-weight: 600; color: var(--purple-80); text-transform: uppercase; letter-spacing: 0.5px; margin-right: 6px; }
+        .card-src { margin-top: 10px; font-size: 12px; color: var(--text-3); display: flex; flex-wrap: wrap; gap: 4px 14px; }
+        .card-src a { color: var(--text-3); text-decoration: none; }
+        .card-src a:hover { color: var(--text); }
+        .pill { display: inline-block; background: var(--purple-20); color: var(--purple); padding: 1px 8px; border-radius: 3px; font-size: 11px; font-weight: 600; margin-right: 6px; vertical-align: 1px; }
+        .sec-intro { font-size: 13px; color: var(--text-3); margin-bottom: 12px; }
+        .layer { font-size: 11px; font-weight: 600; color: var(--purple); letter-spacing: 1px; margin: 14px 0 4px; }
+        details.exp { margin-top: 10px; border: 1px solid var(--border); border-radius: 3px; padding: 0 14px; background: var(--bg); }
+        details.exp summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--purple-80); padding: 8px 0; list-style: none; }
+        details.exp summary::before { content: "▸ "; color: var(--text-3); }
+        details.exp[open] summary::before { content: "▾ "; }
+        details.exp p { font-size: 13.5px; line-height: 1.75; color: var(--text-2); margin: 6px 0 10px; }
+        details.exp p strong { color: var(--text); }
+        .boxes { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin: 10px 0; }
+        .box { border: 1px solid var(--border); border-radius: 3px; padding: 8px 10px; text-align: center; background: var(--bg); }
+        .box b { display: block; font-size: 14px; font-variant-numeric: tabular-nums; }
+        .box span { font-size: 11px; color: var(--text-3); }
+        ul.hl { margin: 8px 0 0; padding-left: 18px; font-size: 13.5px; color: var(--text-2); }
+        ul.hl li { margin: 4px 0; }
+        ul.hl strong { color: var(--text); }
+        .bar { margin-top: 10px; height: 6px; background: var(--pill-bg); border-radius: 3px; overflow: hidden; }
+        .bar i { display: block; height: 100%; background: var(--purple); }
+        .bar-cap { margin-top: 4px; font-size: 11px; color: var(--text-3); }
+        .quiz-item { padding: 14px 0; border-bottom: 1px solid var(--border); }
+        .quiz-item p.qt { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+        .qhint { font-size: 12px; color: var(--text-3); font-weight: 400; }
+        .quiz-item label { display: block; font-size: 13.5px; color: var(--text-2); margin: 3px 0; cursor: pointer; padding-left: 4px; }
+        .quiz-item label:hover { color: var(--text); }
+        .quiz-item .exp { display: none; margin-top: 8px; padding: 10px 14px; background: var(--note-bg); font-size: 13px; line-height: 1.7; color: var(--text-2); border-radius: 2px; }
+        .qbtn { margin-top: 14px; background: var(--purple); color: #fff; border: 0; border-radius: 3px; padding: 8px 20px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+        .qbtn:hover { background: var(--purple-80); }
+        #qresult { display: none; margin-top: 14px; padding: 12px 14px; background: var(--note-bg); border-radius: 2px; font-size: 14px; font-weight: 600; }
+        .howto { margin-top: 12px; font-size: 13px; color: var(--text-3); }
+        code { font-size: 12px; background: var(--pill-bg); border-radius: 3px; padding: 1px 5px; }
+        .bottom { border-top: 1px solid var(--border); margin-top: 16px; padding: 20px 0 32px; }
+        .issue-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .issue-nav a { font-size: 13px; padding: 6px 16px; border: 1px solid var(--border); border-radius: 3px; color: var(--text-3); text-decoration: none; transition: all 0.15s ease; }
+        .issue-nav a:hover { color: var(--text); border-color: var(--text-3); }
+        .footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 16px; }
+        .footer-copy { font-size: 12px; color: var(--text-3); }
+        .footer-top { font-size: 12px; color: var(--text-3); text-decoration: none; padding: 4px 12px; border: 1px solid var(--border); border-radius: 3px; }
+        .footer-top:hover { color: var(--text); border-color: var(--text-3); }
+        /* ===== H5 移动端适配 ===== */
+        .mob-toc { display: none; }
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main { padding-left: 0; }
+            .page { padding: 0 16px; }
+            .topbar { padding: 0 14px; }
+            .topbar-tagline { display: none; }
+            .header { padding: 20px 0 16px; }
+            .header h1 { font-size: 20px; line-height: 1.45; }
+            .header-sub { font-size: 12px; }
+            .summary { padding: 16px 0 18px; }
+            .sum-item { font-size: 12.5px; }
+            .card-h { font-size: 15px; }
+            .card-body { font-size: 13.5px; }
+            .card-note { font-size: 12.5px; }
+            .boxes { grid-template-columns: 1fr; }
+            .mob-toc {
+                display: flex; gap: 8px; overflow-x: auto;
+                padding: 10px 14px; background: var(--bg);
+                border-bottom: 1px solid var(--border);
+                position: sticky; top: 48px; z-index: 90;
+                -webkit-overflow-scrolling: touch;
+            }
+            .mob-toc::-webkit-scrollbar { display: none; }
+            .mob-toc a {
+                flex-shrink: 0; font-size: 12px; font-weight: 600;
+                color: var(--text-2); text-decoration: none;
+                border: 1px solid var(--border); border-radius: 999px; padding: 5px 13px;
+            }
+            .mob-toc a:active { color: var(--purple); border-color: var(--purple); }
+            .quiz-item label { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; margin: 4px 0; border: 1px solid var(--border); border-radius: 6px; font-size: 13.5px; }
+            .quiz-item label:active { background: var(--purple-20); }
+            .quiz-item input[type=radio] { flex-shrink: 0; margin-top: 4px; }
+            .qbtn { width: 100%; padding: 12px 0; font-size: 14px; }
+            .issue-nav { flex-wrap: wrap; gap: 8px; }
+            .issue-nav a { padding: 8px 14px; }
+        }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-brand"><a href="index.html">AI Daily News · 研究版</a></span>
+    <span class="topbar-tagline">通识是主线，前沿全量保留 · 不含政策 / 伦理 / 安全</span>
+  </div>
+  <div class="topbar-right">
+    <a class="topbar-btn" href="index.html">目录</a>
+    <a class="topbar-btn" href="https://github.com/shenjiaying49-ship-it/ai-daily-news">GitHub ↗</a>
+  </div>
+</div>
+
+<nav class="mob-toc">
+  <a href="#s1">01 通识</a><a href="#s2">02 热榜</a><a href="#s3">03 速递</a><a href="#s4">04 深度</a><a href="#s5">05 初创</a><a href="#s6">06 语料</a><a href="#s7">07 测验</a>
+</nav>
+
+<div class="page">
+
+  <div class="header">
+    <div class="header-date">2026-11-15 · 星期日 · 第 011 期 · 研究版 · 每天早上 8:10 自动更新 · NO.010 后停更 7 日，本期补齐窗口</div>
+    <h1>推理显式化的多米诺——CoT 把思维变成 token，过程监督把它变成奖励，Mirendil 用 1 个人 + $10M 算力跑通整个预训练；而 goldfish 审阅提醒：干活的可以是 agent，验收必须用没有上下文的头脑</h1>
+    <div class="header-sub">通识进度 第 9/20 篇（Chain-of-Thought）· 测验难度 L2 · 前沿速递 18 篇 · GitHub 热榜 11 项 · 本地 PDF 5 份 · 全部条目附来源 · 自动深色模式</div>
+  </div>
+
+  <div class="summary">
+    <div class="sum-label">Today's Briefing</div>
+    <div class="sum-cat"><span class="sum-cat-name">通识精读</span><span class="sum-item">Chain-of-Thought（NeurIPS 2022）：8 个示例把 GSM8K 从 17.9% 拉到 56.9%——推理显式化的起点，约 100B 才涌现</span></div>
+    <div class="sum-cat"><span class="sum-cat-name">GitHub 热榜</span><span class="sum-item">meta/astryx 周增全榜第一 +13.7k ｜ addyosmani/agent-skills 25 个工程 skill ｜ Google 大象金鱼模型（fresh-context 审阅）｜ daily_stock_analysis ★72k ｜ plannotator 人在环</span></div>
+    <div class="sum-cat"><span class="sum-cat-name">前沿速递</span><span class="sum-item">SO-Arena 榜首 135 赞 ｜ TOME-Math 教材过程监督 38 万条 ｜ Actor/Judge/Teacher 裁判位 ｜ InfraRSI 训练基建 MFU 17.4→30.0 ｜ Sage-Taiyi 元认知 ｜ FOAM（NeurIPS 2026）等 18 篇</span></div>
+    <div class="sum-cat"><span class="sum-cat-name">初创研报</span><span class="sum-item">Mirendil 深潜（$1B A 轮：1 人 + agent 写 99% 代码 + $10M 算力预训练对标前沿）+ Graphon Labs（$35M，graphon 记忆层）</span></div>
+    <div class="sum-cat"><span class="sum-cat-name">深度分析</span><span class="sum-item">显式化即接口——从 CoT 到过程监督到可审计 agent，验收用没有上下文的头脑</span></div>
+  </div>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="nav-label">Contents</div>
+      <a class="nav-sec" href="#s1"><span class="n">01</span>通识精读</a>
+      <a class="nav-sec" href="#s2"><span class="n">02</span>GitHub 热榜与开源</a>
+      <a class="nav-sec" href="#s3"><span class="n">03</span>前沿论文速递</a>
+      <a class="nav-sec" href="#s4"><span class="n">04</span>技术方向深度</a>
+      <a class="nav-sec" href="#s5"><span class="n">05</span>初创研报</a>
+      <a class="nav-sec" href="#s6"><span class="n">06</span>语料精选</a>
+      <a class="nav-sec" href="#s7"><span class="n">07</span>每日测验</a>
+    </aside>
+
+    <div class="main">
+
+      <div class="sec" id="s1">
+        <div class="sec-h">Section 01 — 通识精读（今日主线）</div>
+        <div class="card">
+          <div class="card-h"><span class="pill">FOUNDATIONS</span><a href="https://arxiv.org/abs/2201.11903">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</a></div>
+          <div class="card-meta">Jason Wei, Xuezhi Wang, Dale Schuurmans 等 9 人 · Google · 2022-01-28 提交 · 后发表于 NeurIPS 2022 · arXiv:2201.11903 · 通识计划第 9/20 篇</div>
+          <div class="card-body">
+            <strong>为什么是分水岭</strong>：在 R1 之前三年、在「用 RL 学出推理」之前，这篇论文发现了一个几乎零成本的方法：<strong>在提示里放 8 个带中间推理步骤的示例，大模型就能自己「想出」推理链</strong>。PaLM 540B 在 GSM8K 上从标准提示的 <strong>17.9% 跳到 CoT 的 56.9%（+39.0）</strong>，仅 8 个示例就达到当时 SOTA，<strong>超过带 verifier 的微调版 GPT-3</strong>。它证明了三件事：推理可以是「写出来的 token 序列」；这个能力随规模<strong>涌现</strong>（10B 以下反而常为负收益，约 100B 才出现增益）；以及此后一切的伏笔——<strong>把思维显式化，它才能被检查、被监督、被强化</strong>。今天 ChatGPT 里每一段「让我想一想」的输出，源头都是这 8 个示例。<br><br>
+            <strong>核心思想（讲给 12 岁）</strong>：问一个孩子数学题，他报出答案 42，你不知道他是算出来的还是蒙的。CoT 的做法是：<strong>给他看几道「写满步骤」的例题，他自然就会把步骤写出来</strong>。神奇的是，把步骤写出来本身就能提高正确率——就像你心算 17×23 容易错，但列个竖式就对了：不是你会了新知识，是<strong>纸和笔替你保住了中间结果，不让它们在脑子里蒸发</strong>。CoT 就是语言的草稿纸：模型把中间步骤写在上下文里，每一步的输出成为下一步的输入，多步计算不再挤在一次前向传播里。<br><br>
+            <strong>原理机制（A→B→C）</strong>：<strong>A · 提示即程序</strong>——标准提示是「Q → A」，CoT 提示是「Q → 推理步 → A」，8 个示例把「先分解、再逐条推、最后才给答案」这个<strong>输出格式</strong>教给模型；没有参数更新、没有训练循环，全部发生在推理时；<strong>B · 上下文当工作内存</strong>——自回归模型每生成一个 token 都要重新读一遍上下文，中间步骤一旦写进上下文，后续每一步都能「看着它」继续算，多步算术的准确率瓶颈被外存绕开；<strong>C · 规模门槛与涌现</strong>——CoT 不是教新知识，而是<strong>把模型已有但隐式的多步计算显式化</strong>：模型内部得先有那几步计算，写出来才有增益；10B 以下内部计算不足，写出中间步反而暴露并放大错误；约 100B 起，显式化的收益才盖过噪声。论文原话：「chain-of-thought reasoning is an emergent ability of increasing model scale.」<br><br>
+            <strong>与近期进展的联系</strong>：本周速递就是 CoT 的三条延长线——<strong>过程监督线</strong>：TOME-Math（2610.40394）从 2,118 本大学教材抽出 <strong>38 万条结构化推理步记录</strong>（命题-证明依赖链原样保留），全量微调较基座 +16.7 个百分点；Actor, Judge, or Teacher（2611.17167）发现推理步的正确监督位是「事后裁判」而非「事前演员」，把 GRPO 训练的 1.5B 模型在 ALFWorld 提到 82.9%；<strong>调度线</strong>：Value of Thinking（2611.16961）把「想多少」简化为「想不想」——推理按期望效用定价，延迟降 72.5% 分数不降；<strong>反面镜子</strong>：SO-Arena（2611.15777，HF 版面榜首 135 赞）发现能力第一的 System One 模型可靠性仅排第 7。产业侧的 Mirendil（见 05 深潜）把这一切推到终点形态：<strong>推理显式化 → 步骤可审计 → agent 接管整个预训练</strong>。<br><br>
+            <strong>今日怎么读（15 分钟路线）</strong>：全文仅 4 页，是通识计划目前最短的一篇——先读 Figure 1（三种提示方式的对比，一图看懂）→ §3.2 结果（GSM8K 上 17.9→56.9 与「约 100B 才涌现」的曲线）→ §4 消融（为何解法对、方程错——数学题也该写步骤）→ §6 讨论收尾。附录全跳。<br><br>
+            <strong>延伸阅读</strong>：ReAct（下期通识 #10，arXiv:2210.03629，ICLR 2023）——<strong>CoT 的直系续作</strong>：推理步从「想」扩展到「边想边做」（thought-action 交替），Agent 范式的奠基。至此通识线的推理三部曲闭合：CoT（写出思考）→ ReAct（写出行动）→ R1（学会更长思考）。
+          </div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>CoT 的本质不是「教会思考」，是给思维一张纸——显式化的东西才能被检查、被奖励、被接管。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2201.11903">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2201.11903">PDF ↓ arXiv</a><span>PDF 已入库</span></div>
+        </div>
+      </div>
+
+      <div class="sec" id="s2">
+        <div class="sec-h">Section 02 — GitHub 热榜与开源发布</div>
+        <div class="sec-intro">趋势数据实抓于 github.com/trending（本周榜，2026-11-15）；分析基于各项目 README 实抓。</div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://github.com/meta/astryx">meta/astryx</a></div>
+          <div class="card-meta">★ 28,141 · 本周 +13,660（全榜第一）· TypeScript · MIT · Beta</div>
+          <div class="card-body"><span class="ent">它是干嘛的</span>：Meta 开源的设计系统——在公司内部长了八年、驱动 <strong>13,000+ 应用</strong>后整体开放：150+ 可访问组件、品牌级主题、CLI 一体，「为人与 agent 共同构建」。</div>
+          <details class="exp"><summary>展开详细分析</summary>
+            <p><strong>解决什么问题</strong>：AI 生成 UI 的质量上限卡在设计系统——组件库要么 API 封闭、要么与 agent 工具链脱节，人与 AI 各用一套参考。</p>
+            <p><strong>核心机制</strong>：Open internals——组件在任意层级可组合，需要更深时 swizzle 直接把组件源码 eject 进你的项目；无样式锁定——StyleX 写的样式对消费者不可见，用 className 覆盖 Tailwind / CSS modules / 原生 CSS 均可；主题 = 一组 CSS 自定义属性覆盖，设计师不改组件源码即可品牌化。</p>
+            <p><strong>怎么上手</strong>：npm install @astryxdesign/core + theme-neutral + StyleX；npm i -g @astryxdesign/cli 全局装 CLI，「every coding agent knows Astryx」；文档 / Storybook / Sandbox 齐备。</p>
+            <p><strong>为什么现在火</strong>：周增 13,660 全榜第一——「agent-ready 设计系统」把 UI 生成的随机性钉进约束，是设计基建对 agent 时代的第一次整装回应。</p>
+            <p><strong>与你的方向的连接</strong>：设计系统就是 UI 层的本体——schema（组件契约）在上、实例（页面）在下，与 graphify / CLI-Anything 的「把世界翻译成结构」同一思想家族。</p>
+          </details>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>agent 时代的新基建分层清晰了——模型之上是 skills，skills 之上是设计系统：约束越硬，生成越可用。</div>
+          <div class="card-src"><a href="https://github.com/meta/astryx">仓库 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://github.com/addyosmani/agent-skills">addyosmani/agent-skills</a> <span class="pill">ASI</span></div>
+          <div class="card-meta">★ 117,565 · 本周 +3,670 · JavaScript</div>
+          <div class="card-body"><span class="ent">它是干嘛的</span>：Addy Osmani（Google Chrome 工程负责人）的 <strong>25 个生产级工程 skill</strong>——把资深工程师的工作流、质量门与最佳实践打包成 9 个斜杠命令，映射完整开发生命周期。</div>
+          <details class="exp"><summary>展开详细分析</summary>
+            <p><strong>解决什么问题</strong>：agent 写代码快但缺「工程纪律」——spec 先行、原子任务、测试证明、性能预算这些老师傅习惯没人强制。</p>
+            <p><strong>核心机制</strong>：/spec → /plan → /build → /test → /constraints → /review → /webperf → /code-simplify → /ship 九命令各带原则（「Spec before code」「Tests are proof」）；<strong>/build auto 一次批准后自主跑完整个计划</strong>——移除的是人在任务间的踩踏，不是验证：每任务仍测试驱动、逐个提交、失败暂停；skill 按场景自动激活。</p>
+            <p><strong>怎么上手</strong>：npx skills add addyosmani/agent-skills（经 vercel-labs/skills CLI 装 70+ agent）；可单装某一项。</p>
+            <p><strong>为什么现在火</strong>：star 人物的个人工程方法论 + 可单粒度安装——「名师打包」路线（mattpocock/skills ★318k 同款）持续兑现。</p>
+            <p><strong>与你的方向的连接</strong>：这就是 harness 层改进的最全工程样本——每个 skill 都是一条可审计的质量门。</p>
+          </details>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>资深工程师的隐性纪律被显式化成 25 个文件——「工程经验资产化」是 skills 生态的真正叙事。</div>
+          <div class="card-src"><a href="https://github.com/addyosmani/agent-skills">仓库 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://github.com/google/elephant-goldfish-model">google/elephant-goldfish-model</a> <span class="pill">本体论-工程</span></div>
+          <div class="card-meta">★ 19,187 · 本周 +5,539 · Python · Google 官方</div>
+          <div class="card-body"><span class="ent">它是干嘛的</span>：「<strong>用大象设计，用金鱼审阅</strong>」——Elephant agent 持有项目上下文起草 spec，Goldfish 审阅者<strong>不带此前对话</strong>读草稿与源材料，专门暴露未言明的假设与盲点；你做架构取舍并批准。</div>
+          <details class="exp"><summary>展开详细分析</summary>
+            <p><strong>解决什么问题</strong>：同一个人（或 agent）既写方案又审方案，会被自己的计划锚定——写下的话读回来总是顺的。</p>
+            <p><strong>核心机制</strong>：分工三部曲——Elephant（有上下文，起草）、Goldfish（无上下文，对照源材料审阅）、你（做取舍、批准后才实施）；内置 spec 起草与设计审阅流，其他文档用 /egm-review-loop 自选审阅者与标准；/egm-drift-report 逐文档对比设计与当前代码的漂移。</p>
+            <p><strong>怎么上手</strong>：Antigravity（agy plugin install）/ Claude Code（plugin marketplace add google/elephant-goldfish-model）/ Codex CLI 三条路全支持；对现有文档可 60 秒试审（/egm:egm-review docs/designs/xxx.md）。</p>
+            <p><strong>为什么现在火</strong>：Google 官方下场把「fresh-context 审阅」做成开源插件——与 Cloudflare audit skill（NO.009）、hallmark 的复审 subagent 同一思想，这次由大厂盖章。</p>
+            <p><strong>与你的方向的连接</strong>：与本周论文 Actor/Judge/Teacher 完全同构：审阅/监督要用没有执行上下文的头脑——这是「证据链长在 harness 里」的第三方官方实现。</p>
+          </details>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>金鱼只有七秒记忆——但正因为忘了你的计划，它才看得见你的计划没说出口的假设。</div>
+          <div class="card-src"><a href="https://github.com/google/elephant-goldfish-model">仓库 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://github.com/ZhuLinsen/daily_stock_analysis">ZhuLinsen/daily_stock_analysis</a></div>
+          <div class="card-meta">★ 72,256 · 本周 +4,526 · Python · MIT</div>
+          <div class="card-body"><span class="ent">它是干嘛的</span>：中文社区现象级项目——LLM 驱动 A股/港股/美股/日股/韩股/台股自选股每日分析，自动生成「决策仪表盘」推送到企业微信/飞书/Telegram/Discord/Slack/邮箱，支持零成本定时运行。</div>
+          <details class="exp"><summary>展开详细分析</summary>
+            <p><strong>解决什么问题</strong>：个人投资者每天手动看盘、读新闻、记笔记的成本太高——LLM 能读但没人与它连接成一个「每日流水线」。</p>
+            <p><strong>核心机制</strong>：多市场数据聚合（多源行情 + 实时新闻）→ LLM 生成结构化报告（核心结论 / 评分 / 趋势 / 买卖点位 / 风险警报 / 催化因素 / 操作清单）→ 多通道定时推送；README 附关联论文 arXiv:2608.26990；Docker 一键部署。</p>
+            <p><strong>怎么上手</strong>：Docker 或 Python 3.10+ 运行，配置自选股与推送通道即可；文档齐全（简中 / 英 / 繁中）。</p>
+            <p><strong>为什么现在火</strong>：中文 LLM 应用从「聊天」走向「每日自动交付」的样本——把 LLM 塞进 cron 而不是塞进对话框。</p>
+            <p><strong>与你的方向的连接</strong>：这是一套现成的「个人 agent 流水线」参考实现——多源采集 → 结构化生成 → 多通道分发，与本简报管线同构。</p>
+          </details>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>LLM 应用的成熟形态不是「你问它答」，是「它每天主动交付」——本项目的 72k 星就是「cron 化」需求的直接测量。（注：信息聚合工具，非投资建议。）</div>
+          <div class="card-src"><a href="https://github.com/ZhuLinsen/daily_stock_analysis">仓库 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://github.com/backnotprop/plannotator">backnotprop/plannotator</a></div>
+          <div class="card-meta">★ 11,110 · 本周 +818 · TypeScript</div>
+          <div class="card-body"><span class="ent">它是干嘛的</span>：本地浏览器审阅面——agent 提出决策/计划/HTML 或完成工作时，应用在浏览器打开，你标注、评论、把反馈直接送回 agent；新发布的 Plannotator Inbox 定位为「多 agent 工作缺失的 review 层」。</div>
+          <details class="exp"><summary>展开详细分析</summary>
+            <p><strong>解决什么问题</strong>：多 agent 并行时人在环的成本集中在「看不过来」——决策、原型、计划散落在终端里，没有统一的批注面。</p>
+            <p><strong>核心机制</strong>：经插件 / hooks / 命令直插 agent（Claude Code / Codex / Copilot CLI / Gemini CLI / OpenCode / Kiro / Droid / Amp / DeepSeek Harness / Pi 十家）；Inbox 汇集决策、原型、变体与计划；代码审阅支持 Git / GitButler / Jujutsu / Perforce / GitHub / GitLab，评论即反馈回 agent。</p>
+            <p><strong>怎么上手</strong>：本地运行浏览器版，装对应 agent 插件即接入；另有终端版 Herdr Annotate。</p>
+            <p><strong>为什么现在火</strong>：t3code / orca 管「跑」，plannotator 管「验」——agent 控制面之后，人的审阅面成为下一个基建位。</p>
+            <p><strong>与你的方向的连接</strong>：这是 NO.008 深度「证据链长在 harness 里」的人侧终端——fresh verifier 审机器，plannotator 审人与 agent 的交接。</p>
+          </details>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>agent 编排工具正在分化出「驾驶舱」与「副驾座」——plannotator 选了后者：人不退出循环，只是从终端搬到批注台。</div>
+          <div class="card-src"><a href="https://github.com/backnotprop/plannotator">仓库 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h">紧凑三连</div>
+          <div class="card-body">
+            <span class="ent"><a href="https://github.com/sherlock-project/sherlock">sherlock-project/sherlock</a></span> ★ 111,773（+12,401）· Python：按用户名跨社交网络搜索账号的开源 OSINT 老牌工具——非 AI 项目，回归热榜（值得一看的原因：作为 agent 的「外部身份核查」工具层，其 API 化程度很高）。<br>
+            <span class="ent"><a href="https://github.com/google-deepmind/mujoco">google-deepmind/mujoco</a></span> ★ 17,979（+1,859）· C++：DeepMind 多关节物理仿真器常青在榜——本周 BirdDreams / WARC 等世界模型与具身论文（03 速递）背后的仿真基建。<br>
+            <span class="ent"><a href="https://github.com/anthropics/claude-quickstarts">anthropics/claude-quickstarts</a></span> ★ 20,979（+1,794）· Python：Anthropic 官方入门项目集——官方文档之外的「可运行参考」位。
+          </div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>OSINT 工具与物理仿真器同时在榜——agent 的「外部感官」与「物理直觉」两侧基建都在被消费。</div>
+        </div>
+
+        <div class="card">
+          <div class="card-h">上期已析数据更新</div>
+          <div class="card-body">
+            anthropics/skills ★ 194,626（+6,220）｜ vercel-labs/agent-browser ★ 51,204（+4,601）｜ OpenMausBot ★ 22,764（+6,413）。
+          </div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>官方 skills 根仓库与 agent 浏览器继续爬坡——基建层的需求曲线没有拐头。</div>
+        </div>
+
+        <div class="card">
+          <div class="card-h">重要开源发布</div>
+          <div class="card-body">
+            <strong>meta/astryx 整体开源</strong>（02 热榜 #1）：八年内部设计系统 + 13,000 应用验证，150+ 组件 MIT 开放 · <a href="https://github.com/meta/astryx">GitHub ↗</a><br>
+            <strong>Google 开源 EGM 插件</strong>（02 热榜 #3）：「大象起草、金鱼审阅」的 spec 工作流，三大 agent CLI 全支持 · <a href="https://github.com/google/elephant-goldfish-model">GitHub ↗</a><br>
+            <strong>daily_stock_analysis v4 持续迭代</strong>（02 热榜 #4）：六市场 LLM 分析 + 六通道推送，附关联论文 arXiv:2608.26990 · <a href="https://github.com/ZhuLinsen/daily_stock_analysis">GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec" id="s3">
+        <div class="sec-h">Section 03 — 前沿论文速递（全量 18 篇 · 按 ★ 难度排序）</div>
+        <div class="sec-intro">素材窗口：HF daily papers 11-10 / 11-11 / 11-12 / 11-13 四个真实版面为主体（11-14 / 11-15 版面滞后未上线，如实记录）；全部 18 篇逐一核实 arXiv abs 页，与 NO.008-010 零重叠。顶会 / 赛道接收：FOAM（NeurIPS 2026 主会）、Tool State（NeurIPS 2026 AgenticLS Workshop）、WARC（ARC Prize 2026 Paper Track）；其余 15 篇为 preprint。</div>
+
+        <div class="layer">★ 今日最易读</div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.12184">Blind Variation, Selective Retention: Improving Creative Idea Generation in AI Scientists</a> <span class="pill">ASI</span></div>
+          <div class="card-meta">斯坦福（James Zou 组，Pan Lu、Haotian Ye 等）· HF 版面 5 赞 · preprint · arXiv:2611.12184</div>
+          <div class="card-body">把进化论 BVSR 原则搬进 AI 科学家：刻意<strong>限制任务信息生成提案</strong>以扩大盲目变异，再用历史验证结果做选择性保留。五个 proposer × 12 项科学任务上高创意高效用提案占比超 SOTA 提示基线；选择阶段砍掉一半候选仍留住绝大多数头部提案，并入现有 AI-scientist 工作流后基因表达、药物响应、scaling law 发现全部涨点。<strong>为什么值得读</strong>：给 IdeaTaste（NO.010 的 18% 品味匹配）开出的药方——创造力不是塞满上下文，是先捂住答案再让经验淘汰。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>进化不需要全知——盲目变异 + 选择性保留，恰好绕过了「研究品味」的不可验证性。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.12184">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.12184">PDF ↓ arXiv</a><a href="https://zou-group.github.io/BVSR/">项目页 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.10439">Who Remembers What? Multi-Granularity Memory Extraction for Multi-User, Multi-Agent Interaction</a> <span class="pill">本体论-工程</span></div>
+          <div class="card-meta">Meta 系作者 · HF 版面 7 赞 · preprint · arXiv:2611.10439</div>
+          <div class="card-body">MixUA 给多用户多 agent 系统做「记忆分账」：从轨迹提炼 lessons 并打上 <strong>user-pair / user / agent / global 四级作用域</strong>标签——谁受益、什么可公开决定记忆归属。5 用户 7 agent 下通过率较无记忆最高 <strong>+16 分</strong>、较单一全局记忆 +5 分，陌生任务也能吃到他人记忆红利，隐私探针泄漏率 ≤0.02%。<strong>为什么值得读</strong>：记忆的第一性问题不是「存什么」而是「记在谁名下」。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>作用域是 Agent 记忆缺失了太久的一层——个人经验、双人默契与团队知识，权限与价值都不同。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.10439">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.10439">PDF ↓ arXiv</a><span>未开源</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.14488">Is Your Robot's Memory Just a Clock? Temporal Shortcuts in Memory-Augmented VLA Policies</a> <span class="pill">本体论-工程</span> <span class="pill">世界模型</span></div>
+          <div class="card-meta">Monash（Chubin Zhang, Bo An）· HF 版面 8 赞 · preprint（38 页）· arXiv:2611.14488</div>
+          <div class="card-body">揭露记忆增强 VLA 的「幽灵进度」：均匀时间采样 + 时间戳让机器人把「时间流逝」当成「工作完成」——RoboMME 计数任务中插入发呆动作，成功率 <strong>47/50 → 16、44/50 → 10</strong>；按事件而非时钟为记忆建索引，无需重训即可恢复一半以上损失。<strong>为什么值得读</strong>：给所有记忆系统的反面教材——按钟点记账就会把发呆记成加班。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>「数事件、不数时钟」应写进记忆系统设计守则——时间的语义不在时间戳里，在事件因果里。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.14488">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.14488">PDF ↓ arXiv</a><span>未开源</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.15777">SO-Arena: Benchmarking the Capability Spectrum and Reliability of System One Models</a> <span class="pill">Agent 推理</span></div>
+          <div class="card-meta">新加坡国立大学（Xinchao Wang 组）· <strong>HF 版面榜首 135 赞（本期最高）</strong>· preprint（32 页）· arXiv:2611.15777</div>
+          <div class="card-body">给「免思考直答」的 System One 模型建竞技场：11 领域 × 五大能力族、证据接地标注、选项扰动测决策稳定性 + 缺答案识别测「知不知不知」。21 个模型评测：scaling 与加推理只在部分领域有效，且<strong>能力第一的 System One 模型可靠性仅排第 7</strong>——能力与可靠性须分开度量。<strong>为什么值得读</strong>：TypeSafe / Jev 决策模型品类（NO.007/008）出现后，终于有了系统性考场。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>「想都不想就答对」和「想了才答对」是两种能力——本期 Value of Thinking 正是它的镜像。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.15777">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.15777">PDF ↓ arXiv</a><span>项目页见 abs 页</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.17167">Actor, Judge, or Teacher? Understanding Decision Models in Long-Horizon Agents</a> <span class="pill">Agent 推理</span> <span class="pill">ASI</span></div>
+          <div class="card-meta">浙江大学（ZJU-REAL，Yongliang Shen 等）· HF 版面 33 赞 · preprint · arXiv:2611.17167</div>
+          <div class="card-body">同一决策模型的三重身份实验：<strong>演不好不等于教得好</strong>——六个模型做 actor 全被简单子目标带偏，但看完整轨迹做 judge 却能正确归因；把「动作是否帮了忙」而非「任务会不会成」作为教师信号，JEV 教师把 GRPO 训练的 Qwen2.5-1.5B 在 ALFWorld 从 <strong>72.8% 提到 82.9%</strong>、WebShop 从 56.8% 提到 71.4%。<strong>为什么值得读</strong>：过程监督的正确打开方式是「裁判位」——事后复盘能看见事前必须预测的后果。（PDF 已入库）</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>一个烂演员可以是好教练——过程监督缺的不是更强的执行者，是站对位置的老师。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.17167">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.17167">PDF ↓ arXiv</a><a href="https://github.com/ZJU-REAL/decision-agents">代码 ↗</a></div>
+        </div>
+
+        <div class="layer">★★ 需要一点基础</div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.11558">InfraRSI: Harnessing Recursive Self-Improvement for Training Infrastructure</a> <span class="pill">ASI</span></div>
+          <div class="card-meta">华为 / 清华 / 上交系联合团队 · HF 版面 33 赞 · preprint · arXiv:2611.11558</div>
+          <div class="card-body">把递归自改进对准训练基础设施本身：五阶段 agentic harness（init / doctor / run / report / apply）将人类一句指令转化为经核验的分布式训练优化，<strong>用锁定工作负载不变量防 reward hacking</strong>，配跨硬件经验库形成两级 RSI 回路。四个单/多节点 dense+MoE 负载最高 <strong>2.75 倍加速</strong>，平均 MFU 从 17.4% 提到 <strong>30.0%</strong>，经验可跨 GPU 迁移。<strong>为什么值得读</strong>：RSI 的第一落点不是模型改自己，是模型改自己脚下的训练系统——带保险丝的工程样板。（PDF 已入库）</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>harness 主线终于踩进最硬的地基——训练基建的 MFU 也能被 agent 刷，且不变量锁死作弊空间。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.11558">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.11558">PDF ↓ arXiv</a><a href="https://github.com/TokenRhythm/InfraRSI">代码 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.39671">Incentivizing Self-Learning in Large Language Models via Reinforcement Learning</a> <span class="pill">ASI</span></div>
+          <div class="card-meta">上海人工智能实验室系（Kai Chen, Wenwei Zhang 等，Intern-S2 模型群）· HF 版面 35 赞 · preprint · arXiv:2610.39671</div>
+          <div class="card-body">定义并奖励「自学习」行为：模型自主检索、研读长篇教材并应用于解题证明（BookNavigator 接口 + 细粒度 RL 奖励）。Intern-S2-Preview-35B 整体证明准确率 <strong>51.5% → 79.5%</strong>，且能力外溢到长上下文基准（BrowseComp-Plus +1.7、CL-bench +2.3）。<strong>为什么值得读</strong>：不再喂数据而是奖励「会查书会读书」这一行为本身——模型第一次因「学习动作」而非「答对题」被强化。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>奖励学习行为而非学习结果——这是 RLVR 从「考卷」走向「教学法」的关键一步。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.39671">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.39671">PDF ↓ arXiv</a><span>未开源</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.13560">Are Dense Rewards Worth Their Tokens in GRPO?</a> <span class="pill">ASI</span></div>
+          <div class="card-meta">多机构 19 人 · HF 版面 5 赞 · preprint（59 页，预注册式研究）· arXiv:2611.13560</div>
+          <div class="card-body">对 RLVR 中的稠密过程奖励做对照审判：Monte-Carlo 逐步奖励的续采本身吃掉 <strong>91% 生成 token</strong>；匹配算力后排名反转——Qwen2.5-1.5B 上稠密奖励虽单步领先，等 token 时反低 <strong>14.3 个百分点</strong>，四种稠密变体无一打赢标准 GRPO。1,668 次运行、预注册协议、结论可复现，并给出「挑成功率为 1/2 的 prompt」可操作涨点（+1.7pp）。<strong>为什么值得读</strong>：过程奖励赢了每一步、却输掉整场——RLVR 奖励设计的算力账第一课。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>先算清 token 账再谈 process reward——「更细的奖励」不等于「更好的学习」，粗奖励 + 更多采样可能更便宜。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.13560">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.13560">PDF ↓ arXiv</a><a href="https://github.com/vicky157/grpo-validation">代码 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.12872">HiVe-Mem: Interleaving Horizontal Memory Expansion and Vertical Evidence Composition for Multimodal Agents</a> <span class="pill">本体论-工程</span> <span class="pill">多模态</span></div>
+          <div class="card-meta">南洋理工系 · HF 版面 3 赞 · preprint · arXiv:2611.12872</div>
+          <div class="card-body">把多模态记忆拆成横纵两轴：横向把记忆 episode 组织成带图文锚点的关系图做邻域扩展；纵向让每条记忆保留摘要 / 图注 / 视觉视图 / 原图 / 交互史多种证据形态，由轻量选择器按 query 取证据子集。三个多模态记忆基准一致涨点，token 消耗较最高效基线再降约 <strong>90%</strong>。<strong>为什么值得读</strong>：记忆从一条流水变成「横向的图 + 纵向的证据栈」——检索从找一条记录变成组一沓证据。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>检索的产出单位应是「证据包」而非「记录」——引用、核查、溯源由此免费获得。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.12872">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.12872">PDF ↓ arXiv</a><a href="https://github.com/ViktorAxelsen/HiVe-Mem">代码 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.16961">The Value of Thinking: Learning When to Reason in Hybrid Decision Models</a> <span class="pill">Agent 推理</span></div>
+          <div class="card-meta">UCL（Jun Wang）等 · HF 版面 4 赞 · preprint（20 页）· arXiv:2611.16961</div>
+          <div class="card-body">把 CoT 的「想多少」简化为「想不想」：zero-or-T 范式下单一模型要么一次前向隐式作答、要么花 T 个 token 完整推理，自路由块估计「思考的期望效用」超过价格 λ 才启动慢思考，无逐决策标签时用 episode 回报训练。JevBench 上 HDM-4B <strong>0.857 vs 0.851 且延迟降 72.5%</strong>，MiniWoB 上 27B 省 <strong>80.1% token</strong>。<strong>为什么值得读</strong>：CoT prompting 教会模型「怎么想」，这篇教会模型「值不值得想」——与 SO-Arena（#4）正反相成。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>推理预算第一次被明码标价——「思不思」比「思多深」更容易学，也更容易部署。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.16961">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.16961">PDF ↓ arXiv</a><span>未开源</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.10486">Test-Time Scaling for Diffusion Language Models with Frequency-Aware Remasking</a> <span class="pill">Agent 推理</span></div>
+          <div class="card-meta">Bowen Zuo, Yinglun Zhu 等 · HF 版面 9 赞 · preprint · arXiv:2611.10486</div>
+          <div class="card-body">把 test-time scaling 带进扩散语言模型：不追瞬时置信度，而是追踪 token 预测在去噪步间的<strong>翻转频率</strong>，对高频翻转 token 优先重掩码以探索替代推理路径。MATH-500 绝对准确率最高 +3.73pp（LLaDA）/ +7.33pp（Dream），HumanEval 覆盖最高 +11.39pp，基线 100 采样仍错的题最多再救回 18.75%。<strong>为什么值得读</strong>：CoT 的「犹豫」在扩散模型里有直接信号——翻转频率就是可测的不确定。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>「想不清楚就先别定稿」在扩散模型上是字面可执行的——犹豫步重掩码替代多生成几步。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.10486">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.10486">PDF ↓ arXiv</a><span>未开源</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2610.40394">Scaling Mathematical Proof Supervision from Structured Textbooks</a> <span class="pill">训练 Scaling</span></div>
+          <div class="card-meta">上海人工智能实验室 / 中科大系 · HF 11-12 版面榜首 47 赞 · preprint（35 页，语料承诺开源）· arXiv:2610.40394</div>
+          <div class="card-body">TOME-Math：2,118 本大学数学教材抽出约 <strong>38 万条结构化过程监督记录</strong>，保留章节序、命题-证明链接与依赖溯源，并系统研究课程学习与数据规模律；全量微调使模型在留出与公开基准的未加权均分较基座 <strong>+16.7 个百分点</strong>，胜过三个公开指令数据基线。<strong>为什么值得读</strong>：今日通识 CoT 的直接续作——人类两千年写下的推理步结构，成了过程监督的新矿脉。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>教材的章节序就是天然的课程表，证明的依赖链就是天然的过程标签——最老的知识载体喂出最对的监督。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2610.40394">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2610.40394">PDF ↓ arXiv</a><span>语料将放出</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.14815">BirdDreams: Joint Perspective and BEV Video Generation for a Plausible, Reactive Driving World Model</a> <span class="pill">世界模型</span></div>
+          <div class="card-meta">NVIDIA（Laura Leal-Taixé、Xiuming Zhang 等）+ KU Leuven · HF 版面 50 赞 · preprint · arXiv:2611.14815</div>
+          <div class="card-body">驾驶世界模型同时生成第一视角视频与固定米制尺度的鸟瞰（BEV）视频，双流扩散 Transformer 联合注意力互喂；预测出的 BEV 成为几何接口——沿输入轨迹平移旋转即可控驾驶，推理只需单张相机图像，无需高精地图与车辆状态。PhysicalAI-AV 与 nuScenes 上轨迹跟随保真度与周围车辆合理性超纯透视为基线的先前模型。<strong>为什么值得读</strong>：让世界模型「心里画一张俯视图」，梦就有了坐标系。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>表征分离比单一 bigger 视频更接近可控制——第一视角管真实感，BEV 管几何因果。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.14815">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.14815">PDF ↓ arXiv</a><span>项目页见 NVIDIA Labs</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.12324">How Many Exposures Does a World Model Need? Learning Unseen Game Mechanics at Test Time</a> <span class="pill">世界模型</span></div>
+          <div class="card-meta">日本团队 · <strong>ARC Prize 2026 Paper Track</strong> · HF 版面 16 赞 · preprint · arXiv:2611.12324</div>
+          <div class="card-body">用 ARC-AGI-3 交互游戏量化世界模型的「见几次才会」：MechEval 标注 20 款游戏 69 种机制逐格评分，35M 参数的 WARC 每次转移后全参更新，留出游戏上<strong>五分之四机制达 80%+ 准确率</strong>，半数在单次游玩约 80 次曝光内达成；闭环中把固定探索器的官方效率分从 <strong>0.15 拉到 0.46</strong>。<strong>为什么值得读</strong>：世界模型的智能不在预训练储量，在「看八十眼就开窍」的在线学习率。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>把「测试时学习次数」变成可测指标——ARC-AGI-3 的灵魂拷问第一次有了刻度。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.12324">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.12324">PDF ↓ arXiv</a><a href="https://github.com/third-intelligence/WARC">代码与权重 ↗</a></div>
+        </div>
+
+        <div class="layer">★★★ 前沿专题（可只看 Insight）</div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.12762">Sage-Taiyi: A Metacognitive Architecture for Scientific Discovery</a> <span class="pill">ASI</span> <span class="pill">AI for Science</span></div>
+          <div class="card-meta">上海 AI Lab、清华、港中大等 90 人大联合（Dahua Lin、Bowen Zhou、Lei Bai 等）· HF 版面 58 赞 · preprint · arXiv:2611.12762</div>
+          <div class="card-body">元认知架构：显式监控证据、假设与开放问题来决定「下一步研究什么、怎么研究」。Taiyi-Bench（50 篇论文拆出 265 个构思任务）八项指标全第一，总分 <strong>54.0 vs 最强基线 AI Scientist-v2 的 47.9</strong>；真实化学实验中钴催化羰基化产率从痕量提到 <strong>84%</strong>、光催化烯丙胺化 <strong>13%→69%</strong>。<strong>为什么值得读</strong>：给 AI 科学家装上「知道自己不知道什么」的监控层——自动化研究从跑分走向湿实验闭环的分水岭。（PDF 已入库）</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>元认知是自动化研究的下一个瓶颈位——「下一步做什么」的决策质量决定整个闭环的上限。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.12762">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.12762">PDF ↓ arXiv</a><a href="https://alpha-innovator.github.io/Sage-Taiyi/">项目页 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.01527">From Tool State to Scientific Action: Auditing Decision Provenance in Biomedical Research Agents</a> <span class="pill">本体论-工程</span> <span class="pill">NeurIPS 2026 WS</span></div>
+          <div class="card-meta">四人团队 · <strong>NeurIPS 2026 AgenticLS Workshop 接收</strong> · HF 版面 10 赞 · arXiv:2611.01527</div>
+          <div class="card-body">给科研 agent 装「决策证据链审计」：在同一计算位点成对捕获参考/候选工具状态，移植重跑以验证判定可复现性。hERG 心脏安全性筛查场景中静默数值故障改变了 <strong>39 个测试决策</strong>，恢复早期执行状态 + 认证分数可全部找回，流式算术校验还把执行 + 验证耗时砍 <strong>42.4%</strong>。<strong>为什么值得读</strong>：agent 的结论可不可信，取决于它的每一步工具状态能否被「回放」——证据链是科研 agent 的黑匣子。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>可回放性是比可解释性更硬的要求——黑匣子的价值不在事后讲解，在事故后重放。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.01527">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.01527">PDF ↓ arXiv</a><span>未开源</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.05984">On the Design of Hyper-Connections: Simplification, Stability, and Scalability</a> <span class="pill">理论架构</span></div>
+          <div class="card-meta">上交系（Junchi Yan 等）· HF 版面 29 赞 · preprint · arXiv:2611.05984</div>
+          <div class="card-body">解剖前沿模型中的 Hyper-Connections：发现「学习式读写门控不混合」与「无约束混合 + 固定门控」两组交互各可独立复现 mHC 效果，锁定重复访问扩展残差态是训练开销主因，据此推出 SimpleHC；最大规模下仅比 vanilla 残差多 <strong>2.4% 端到端训练时间</strong>，效果在 15B→30B MoE 上与 mHC 持平，梯度动态更稳。<strong>为什么值得读</strong>：残差连接的下一代进化被砍到只剩必要件——通识 ResNet（NO.007）的直系续章。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>架构创新的价值标尺正在从「加什么」变成「还能删什么」——SimpleHC 的删法本身就是贡献。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.05984">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.05984">PDF ↓ arXiv</a><a href="https://github.com/aHapBean/SimpleHC">代码 ↗</a></div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><a href="https://arxiv.org/abs/2611.16905">Factored One-sided Adam-Moment for Practical and Scalable SOAP</a> <span class="pill">训练 Scaling</span> <span class="pill">NeurIPS 2026</span></div>
+          <div class="card-meta">Naver AI Lab（Jaemyung Yu, Byeongho Heo, Sangdoo Yun, Dongyoon Han）· <strong>NeurIPS 2026 接收</strong> · HF 版面 14 赞 · arXiv:2611.16905</div>
+          <div class="card-body">给二阶优化器 SOAP 减负：输入侧单边预条件 + 行×列因子化 Adam 矩替代稠密旋转二阶矩（K-FAC 假设下精确等价，实测违反仅 15-20%）。LLM 预训练验证损失追平 SOAP / Muon，优化器状态减半，墙钟达 Muon 级，3 倍学习率区间内稳健，124M→760M 全程成立。<strong>为什么值得读</strong>：二阶优化器普及的最后一公里不是更好的曲率估计，是更便宜的记忆。</div>
+          <div class="card-note"><span class="note-label">INSIGHT BY AI</span>FOAM 把账算平了——优化器创新的落地判据从「损失更低」变成「状态更省且不更差」。</div>
+          <div class="card-src"><a href="https://arxiv.org/abs/2611.16905">arXiv abs ↗</a><a href="https://arxiv.org/pdf/2611.16905">PDF ↓ arXiv</a><a href="https://github.com/naver-ai/foam">代码 ↗</a></div>
+        </div>
+      </div>
+
+      <div class="sec" id="s4">
+        <div class="sec-h">Section 04 — 技术方向深度</div>
+        <div class="card">
+          <div class="card-h">显式化即接口——从 CoT 到过程监督到可审计 agent</div>
+          <div class="card-body">
+            <strong>核心判断：「把内部状态显式化」是本周所有关键进展的公共接口——CoT 把思维写成 token（可检查），TOME-Math 把步骤变成监督（可学习），Tool State 把执行变成可回放记录（可审计），Mirendil 把整个实验室变成 agent 可操作的表面（可接管）；而热榜的 goldfish / plannotator 给出对称的一半：显式化让 AI 能干活，验收必须用没有上下文的头脑。显式化程度，正在成为 agent 系统成熟度的真实度量。</strong><br><br>
+            <strong>① 为什么是现在</strong>：R1 证明了规则奖励能激励推理（NO.010），但「奖励什么」悬而未决——奖励最终答案会奖励运气，奖励每个推理步又贵又难标。本周的三篇给出突破路径：TOME-Math 发现教材里现成的「命题-证明依赖链」就是免费的过程标签（38 万条，+16.7pp）；Actor/Judge/Teacher 发现「裁判位」比「演员位」更适合过程监督（72.8→82.9%）；Dense Rewards in GRPO 则泼了冷水——逐步稠密奖励的续采吃掉 91% token，等算力后反输标准 GRPO 14.3 个百分点。<strong>结论收敛于：过程监督要的是「对的位置」（裁判位）与「对的粒度」（教材式依赖链），不是「最细的奖励」。</strong><br><br>
+            <strong>② 大白话 + 类比</strong>：把「显式化」想象成把作业从「只写答案」升级成「写全过程」。老师批答案只能判对错（outcome reward），批过程才能看出「哪一步的思路值得表扬」（process supervision）——但逐字逐句批注太贵（Dense Rewards 的 token 账），聪明的做法是让学生写关键步骤（教材的依赖链），老师从「监考员」改当「裁判」（Actor/Judge）。Mirendil 则是这套逻辑的工业级版本：<strong>当 agent 的每一步操作（申请算力、跑实验、修 bug）都是显式的、可回放的，整个实验室就变成它的工作台——1 个人 + 99% agent 代码 + $10M 算力的预训练，就是把「显式化」推到组织层面。</strong><br><br>
+            <strong>③ 原理机制（A→B→C）</strong>：<strong>A · 显式化创造监督面</strong>——CoT 把推理写成 token → 中间步骤进入上下文/日志 → 每一步成为可标注、可奖励、可审计的对象；没有显式化，监督只能落在最终答案上；<strong>B · 监督面的正确用法是「裁判位」而非「逐帧打分」</strong>——Actor/Judge 证明看完整轨迹的事后归因比事前逐步预测更可靠；TOME-Math 证明「结构化的既有过程」（教材依赖链）比人工造过程标签便宜且有效；Dense Rewards 证明逐 token 打分的成本会吃掉全部收益；<strong>C · 显式化扩展到组织层即「可审计的自动研究」</strong>——Mirendil 的 Lor 让 agent 自主申请算力、并行拆分子 agent、故障自恢复，每一步留痕；Sage-Taiyi 给闭环装元认知监控（证据/假设/开放问题三本账）；Tool State 把每个计算位点的工具状态成对存档供回放。<strong>显式化从「写出来的推理」升级为「可回放的执行」。</strong><br><br>
+            <strong>④ 代价与证据</strong>：显式化有真实代价。Dense Rewards 的 token 账（91%）是显式化过头的直接后果；SO-Arena 的发现是反向警示——能力与可靠性错位（能力第一可靠性第 7），说明「会想」不等于「想得稳」，可靠性需要独立度量与门禁；Robot Memory Clock 揭露时间戳捷径（发呆被记成加班）——显式记录本身可能引入新的捷径学习。<strong>正解是 goldfish 原则：执行用有上下文的头脑，验收用没有上下文的头脑；记录要按事件因果组织，不按表面字段（时间/分数）组织。</strong><br><br>
+            <strong>⑤ 怎么用到你自己的工作流</strong>：给任何 agent 流程做「显式化体检」——① 推理是否可见（有 CoT / 计划输出，而不只是最终结果）？② 执行是否可回放（工具调用留痕，能从任意位点恢复重跑——Tool State 的做法）？③ 监督是否站对位置（事后裁判 + 关键步骤抽查，而非逐帧打分）？④ 验收是否换脑（fresh-context 审阅者，如 EGM 的 goldfish / Cloudflare 的 fresh verifier）？四问全过，这个流程就具备了「被自动改进」的资格——这正是 RLVR / harness 循环的准入条件。<br><br>
+            <strong>⑥ 延伸阅读</strong>：TOME-Math（2610.40394）读它的依赖链构造；Actor/Judge/Teacher（2611.17167）读三重身份实验设计；InfraRSI（2611.11558）读锁定不变量防 reward hacking 的具体机制；Mirendil 的<a href="https://mirendil.com/news/pretraining-at-scale-without-a-pretraining-team/">预训练博客</a>是「agent 干整个实验室」最详细的工程披露；回看通识线：CoT（显式化思维）→ ReAct（下期，显式化行动）——<strong>显式化的粒度一直在扩大，而每扩一步，监督与审计就多一层抓手。</strong>
+          </div>
+          <div class="card-note"><span class="note-label">核心判断</span>显式化程度是 agent 系统成熟度的真实度量——监督要站对位置（裁判位），验收要换脑（fresh eyes），记录要按因果组织（不按表面字段）。</div>
+        </div>
+      </div>
+
+      <div class="sec" id="s5">
+        <div class="sec-h">Section 05 — 初创研报</div>
+
+        <div class="card">
+          <div class="card-h">融资关注</div>
+          <div class="card-body">
+            <strong>Mirendil</strong> <span class="pill">A 轮</span><br>
+            1 名研究员 + agent 写 99% 代码，3.5 个月、不到 $1,000 万算力预训练出对标前沿的 base 模型——「让 AI agent 干整个 AI 实验室的活」；成立 5 个月总融资 $1.2B。<br>
+            <span class="ent">融资额 $1B</span>（Kleiner Perkins + Clearlake 联合领投，Google / Battery / S32 等参投）· 种子轮 $200M（a16z + Kleiner Perkins）· Fern 模型 10M token 上下文
+            <div class="bar"><i style="width:100%"></i></div>
+            <div class="bar-cap">本期最大融资事件</div>
+          </div>
+          <div class="card-body" style="margin-top:14px">
+            <strong>Graphon Labs</strong> <span class="pill">A 轮</span><br>
+            把图论的「graphon（图的连续极限函数）」做成 Agent 记忆层——ATM-Bench 公开榜 81.7% 领先第二名 5 个百分点，DolphinBench 以约 1/8 成本跑赢最强公开成绩。<br>
+            <span class="ent">融资额 $35M</span>（RRE Ventures 领投，HP / Energy Impact Partners / Hitachi Ventures 参投）· 总融资 $43.3M · LoCoMo 94.0% @ 7.9K tokens/问（公司口径）
+            <div class="bar"><i style="width:3.5%"></i></div>
+            <div class="bar-cap">本期最大融资的 3.5%</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><span class="pill">01 · GRAPHON MEMORY</span> Graphon Labs</div>
+          <div class="card-meta">× 把整张知识图谱压成一个连续函数</div>
+          <div class="card-body">宾大 GRASP Lab 博士研究出身（Arbaaz Khan / Clark Zhang / Deepak Mishra，前 Amazon / Meta 科学家，种子轮通稿口径）。技术路径：摄取多模态数据自动建知识图谱 → 拟合 graphon 把整张图拓扑压成单个连续函数 → 检索由 graphon 引导走向关联来源；<strong>schema 由数据自动学习、无需手工 ontology</strong>，全程保留来源链接；四条 API（Storage / Search / Answer / Research）+ On-Device 在研。11-10 公布 $35M A 轮。<br><span class="ent">融资额 $35M</span>（RRE Ventures 领投）· 客户 49ers / Hitachi Rail / GS（均试点或种子客户）</div>
+          <div class="card-note"><span class="note-label">核心判断</span>在 Agent 记忆赛道被 Mem0 等占据叙事的当下，Graphon 用一个真实的数学对象（graphon）+ 自动本体 + 公开榜第一给出差异化——「自动学出 schema」恰好击中手工 ontology 的最大痛点；但它仍处在「榜单很强、客户很浅」的验证前夜，且与媒体报道的基准数字存在细微出入，按公司口径打折阅读。</div>
+        </div>
+
+        <div class="card">
+          <div class="card-h"><span class="pill">SELF-ACCELERATING AI RESEARCH</span> Mirendil</div>
+          <div class="card-meta">前 Anthropic 研究员 Behnam Neyshabur（CEO）与 Harsh Mehta（CTO）创立（两人均为 Gemini 2.5 技术报告共同作者，经 arXiv API 核实）· 2026-06-24 官宣 · 11-12 Series A $1B</div>
+          <div class="card-body">2026-06-24 官宣 → 8/6 与 Google Cloud 达成多年算力合作（TPU + NVIDIA 全栈）→ 10/21 发布预训练成果 → 11/12 融 $1B，成立 5 个月总融资 <strong>$12 亿</strong>。</div>
+          <div class="boxes">
+            <div class="box"><b>$1B A 轮</b><span>总融资 $1.2B / 成立 5 个月</span></div>
+            <div class="box"><b>1 人 × 3.5 月</b><span>× &lt;$10M 算力完成前沿级预训练（公司口径）</span></div>
+            <div class="box"><b>0.222 BPB</b><span>优于 GLM-5.3 的 0.242（公司口径）</span></div>
+          </div>
+          <ul class="hl">
+            <li><strong>技术核心</strong>（<a href="https://mirendil.com/news/pretraining-at-scale-without-a-pretraining-team/">预训练博客</a>）：agent 写 <strong>&gt;99% 代码</strong>、自行跑实验和诊断失败；无蒸馏、无购买数据、无合成数据，只用 GitHub / 公开网页 / 公开数据集；全栈 PyTorch / JAX 从零实现；用 bits-per-byte 在 7 个训练后发布的 held-out 仓库评测（公司口径自选）：<strong>Mirendil-Base 0.222</strong>，优于 GLM-5.3（0.242）/ DeepSeek-V4-Pro-Base（0.243）/ Nemotron-550B-Base（0.247），落后 Kimi-K3 后训练版（0.193）</li>
+            <li><strong>产品线三层</strong>：Mirendil-Base（100B–500B；Large 0.5–2T 已训约 80%、XL 2–10T 约 19%，官网口径）→ Fern 0.1（后训练版，<strong>10M token 上下文</strong>，coming soon）→ Lor（agent 工作台，私有 beta）</li>
+            <li><strong>Lor（自改进闭环）</strong>：agent 自行申请 / 配置 / 释放算力节点、并行拆分子 agent、持久异步、故障自恢复，一次跑数百 agent 运行「数天甚至数周」；实测 102 个 agent 从 100 个 PyTorch PR 构建环境平均每个 8 分钟；一次过夜运行找到并修复 LiteLLM 安全漏洞；<strong>Mirendil 自己每天用 Lor 做研发</strong>——官网明言未来模型将部分由自家模型构建，但自述「尚未完全自主」</li>
+            <li><strong>商业化</strong>：尚无公开客户，定位药物发现 / 化学 / 生物 / 材料等科研场景（官网口径），waitlist 邀请制；Lor beta 免费，Fern 定价未公布</li>
+            <li><strong>独立信誉佐证</strong>：创始人 Gemini 2.5 报告署名可查；BPB 为非标准公开榜且对比模型为公司自选——<strong>这是目前最需要第三方复现的一组数字</strong></li>
+            <li><strong>估值</strong>：A 轮估值未披露（媒体传 $5B，<a href="https://www.wsj.com/pro/venture-capital/this-startup-raised-1-billion-to-build-ai-faster-and-with-fewer-humans-f7f07a59">WSJ 报道标题</a>层面，待确认）</li>
+            <li>风险：基准为公司口径自选对比；「1 人预训练」高度依赖第三方前沿 agent（对 Anthropic / OpenAI 的供应商依赖）；$1B 在产品 GA、定价、客户均未落地时投入；自改进循环公司自述「尚未完全自主」</li>
+          </ul>
+          <div class="card-note"><span class="note-label">核心判断</span>Mirendil 是本周把「自动化 AI 研究」从口号变成可审计数字（99% agent 代码 / &lt;$10M / 3.5 个月）的最激进实证，与今日通识 CoT 构成完整闭环——<strong>CoT 让推理显式化，Lor 让执行显式化，于是「实验室」第一次成为 agent 可操作的表面</strong>。若 BPB 结果经第三方复现，AI 研究的人力瓶颈假设将被重写；在复现之前，把它当「最值得关注的自证」而非「已验证的事实」。</div>
+          <div class="card-src"><a href="https://mirendil.com/news/series-a/">Series A 公告 ↗</a><a href="https://mirendil.com/news/meet-lor/">Meet Lor ↗</a></div>
+        </div>
+      </div>
+
+      <div class="sec" id="s6">
+        <div class="sec-h">Section 06 — 语料精选</div>
+        <div class="card">
+          <div class="card-body">今日无（corpus/ 目录无新语料）。</div>
+        </div>
+      </div>
+
+      <div class="sec quizsec" id="s7">
+        <div class="sec-h">Section 07 — 每日测验（难度 L2 · 机制理解级）</div>
+        <div class="sec-intro">今日 4 题：通识 CoT 两题 + 跨期连接两题（NO.010 R1 ↔ CoT；本期热榜 goldfish ↔ 论文裁判位）。干扰项均为常见误解。累计八份未交——今天开始还。</div>
+
+        <div class="quiz-item" data-key="c">
+          <p class="qt">Q1 CoT 提示只在「足够大」的模型上有效（10B 以下反而常为负收益），它的机制解释是什么？<span class="qhint">提示：01 通识「原理机制」C 步。注意 A 干扰项：问题不在放不放得下示例。</span></p>
+          <label><input type="radio" name="q1" value="a"> 因为小模型的上下文窗口放不下 8 个推理链示例</label>
+          <label><input type="radio" name="q1" value="b"> 因为 CoT 教的是新推理技能，小模型没学过所以学不会</label>
+          <label><input type="radio" name="q1" value="c"> CoT 不是教新能力，是把模型已有但隐式的多步计算显式化——模型内部要先有那几步计算，写出来才有增益；小模型内部计算不足，写出中间步反而暴露并放大错误</label>
+          <label><input type="radio" name="q1" value="d"> 因为大模型的训练数据里恰好见过思维链格式，小模型没见过</label>
+          <div class="exp"><b>答案：C。</b>论文原话「CoT is an emergent ability of increasing model scale」——10B 以下常为负收益、约 100B 才出现增益。A 错（8 个示例对任何模型都放得下，问题不在上下文长度）；B 是常见误解（CoT 不改参数、不教新技能，只是引导输出格式）；D 无依据——涌现现象在训练数据相同的不同规模间出现，规模才是变量。</div>
+        </div>
+
+        <div class="quiz-item" data-key="d">
+          <p class="qt">Q2 PaLM 540B 仅用 8 个 CoT 示例就在 GSM8K 上超过「微调 + verifier」的 GPT-3，这个对比最想说明什么？<span class="qhint">提示：01 通识「为什么是分水岭」。注意 C 干扰项：论文强调的是推理步质量而非示例数量。</span></p>
+          <label><input type="radio" name="q2" value="a"> 提示工程从此可以全面取代微调</label>
+          <label><input type="radio" name="q2" value="b"> verifier 这类结果校验机制是无用的</label>
+          <label><input type="radio" name="q2" value="c"> 8 个示例对任何任务都足够了，示例数量不重要</label>
+          <label><input type="radio" name="q2" value="d"> 足量参数下，仅在推理时展开中间步骤就能逼近甚至超过专门微调——推理算力可以部分替代训练算力</label>
+          <div class="exp"><b>答案：D。</b>17.9%→56.9%（+39.0）且超过带 verifier 的微调 GPT-3，说明「推理时算力」（多步显式展开）是一条与「训练时算力」并行的能力获取路径。A 过度推广（微调在无数场景仍是必需）；B 错——verifier 无用这个结论论文没有支持，且 verifier 思路正是后来 RLVR 的前身；C 偷换概念——对比的意义在推理步而非示例数。</div>
+        </div>
+
+        <div class="quiz-item" data-key="a">
+          <p class="qt">Q3（跨期连接 · NO.010 R1 ↔ 今日 CoT）从 CoT prompting 到 DeepSeek-R1，「推理」的来源发生了什么本质变化？<span class="qhint">提示：NO.010 通识「为什么是分水岭」+ 今日「与近期进展的联系」。R1 的纯 RL 恰恰不给人工推理轨迹。</span></p>
+          <label><input type="radio" name="q3" value="a"> CoT 证明推理可以显式化为 token 序列（但需要人类示范格式）；R1 用可验证奖励让模型自己长出更长更可靠的推理链——监督信号从「人类示范」换成「环境规则」</label>
+          <label><input type="radio" name="q3" value="b"> R1 证明了 CoT 能力本质上来自人类思维链示例的模仿</label>
+          <label><input type="radio" name="q3" value="c"> 两者无关：R1 的推理来自更大参数量，CoT 来自提示词</label>
+          <label><input type="radio" name="q3" value="d"> R1 抛弃了 CoT，改用并行采样替代序列推理</label>
+          <div class="exp"><b>答案：A。</b>CoT 是「写出来」（人类示范格式 + 推理时显式化），R1 是「长出来」（规则奖励驱动 RL，无人工推理轨迹）——监督信号的来源从人类示范换成环境规则，这是 NO.010 深度「奖励来源三部曲」的最后一环。B 与 R1 的核心声明相反（摘要明确「无需人工标注推理轨迹」）；C 忽略了两者的直接血缘（R1 优化目标就是长 CoT）；D 错——R1 产出正是序列推理链，甚至更长。</div>
+        </div>
+
+        <div class="quiz-item" data-key="b">
+          <p class="qt">Q4（跨期连接 · 本期热榜 ↔ 论文）Google EGM 的「goldfish 无上下文审阅」与 Actor/Judge/Teacher 的「裁判位监督」共享什么设计原则？<span class="qhint">提示：02 热榜 #3 + 03 速递 #5。注意 D 干扰项：两篇结论恰好都指向「少带上下文」的评审者。</span></p>
+          <label><input type="radio" name="q4" value="a"> 评审模型必须比执行模型参数更大才有效</label>
+          <label><input type="radio" name="q4" value="b"> 评审要用没有执行上下文的头脑——执行者会被自己的计划锚定，fresh eyes 才能暴露未言明假设；这与「裁判位优于演员位」的过程监督同构</label>
+          <label><input type="radio" name="q4" value="c"> 评审环节应该尽量由人类完成，模型不可信任</label>
+          <label><input type="radio" name="q4" value="d"> 上下文越多评审越准，所以要给评审者看全部历史</label>
+          <div class="exp"><b>答案：B。</b>两篇的公共原则：评审者不能继承执行者的锚定。EGM 的 goldfish 特意不带此前对话（暴露未言明假设）；Actor/Judge 的发现是「演不好但看完整轨迹当 judge 能正确归因」——裁判不需要会演，但必须站在裁判位而非演员位。A 无依据（judge 用的是同量级模型）；C 错——两篇恰好都是让模型做评审；D 与两篇结论相反，多带执行上下文正是「自我锚定」的来源。</div>
+        </div>
+
+        <button class="qbtn" onclick="gradeQuiz()">提交批改</button>
+        <div id="qresult"></div>
+        <div class="howto">作答后把结果记到 <code>knowledge/quiz-answers/2026-11-15.md</code>（一行一题，写「不会」也算作答），明早自动批改并更新掌握度档案。</div>
+      </div>
+
+      <div class="bottom">
+        <div class="issue-nav">
+          <a href="daily-2026-11-08.html">← NO.010 · 11-08</a>
+          <a href="index.html">目录</a>
+          <a href="index.html">NO.012 · 明早 8:10 →</a>
+        </div>
+        <div class="footer">
+          <span class="footer-copy">Markdown 源文件在 daily/ · 论文本地存档在 site/papers/（线上链接直指 arXiv）· 由多智能体管线编译</span>
+          <a class="footer-top" href="#">回到顶部 ↑</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+function gradeQuiz() {
+  var items = document.querySelectorAll('.quiz-item');
+  var correct = 0, total = items.length, unanswered = 0;
+  items.forEach(function(it) {
+    var key = (it.getAttribute('data-key') || '').toLowerCase();
+    var picked = it.querySelector('input[type=radio]:checked');
+    var exp = it.querySelector('.exp');
+    if (exp) exp.style.display = 'block';
+    var mark = it.querySelector('.qmark');
+    if (!mark && exp) {
+      mark = document.createElement('b');
+      mark.className = 'qmark';
+      exp.insertBefore(mark, exp.firstChild);
+    }
+    if (!picked) {
+      unanswered++;
+      if (mark) mark.textContent = '✗ 未作答。 ';
+    } else if (picked.value.toLowerCase() === key) {
+      correct++;
+      if (mark) mark.textContent = '✓ 答对了。 ';
+    } else {
+      if (mark) mark.textContent = '✗ 不对。 ';
+    }
+  });
+  var r = document.getElementById('qresult');
+  var tip;
+  if (unanswered > 0) {
+    tip = '还有 ' + unanswered + ' 题未作答——写「不会」也算作答。';
+  } else if (correct === total) {
+    tip = '全对！按梯度规则等级可以 +1。把「' + correct + '/' + total + '」记进 quiz-answers/2026-11-15.md。';
+  } else if (correct / total >= 0.6) {
+    tip = '保持 L2，错题解析在每题下方。把「' + correct + '/' + total + ' + 错题号」记进 quiz-answers/2026-11-15.md。';
+  } else {
+    tip = '低于 60%——解析已把薄弱概念重讲一遍。把得分记进 quiz-answers/2026-11-15.md，下次出题会降档重讲。';
+  }
+  r.style.display = 'block';
+  r.textContent = '得分 ' + correct + ' / ' + total + '。' + tip;
+}
+</script>
+
+</body>
+</html>
